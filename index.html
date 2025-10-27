@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Serious Playground | 3D Portfolio</title>
+
+<!-- ====== STYLES ====== -->
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #0f1115;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  #app {
+    position: fixed;
+    inset: 0;
+  }
+  .hint {
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    color: #cbd5e1;
+    font-size: 12px;
+    user-select: none;
+  }
+  /* Overlay (pop-up panel) */
+  #overlay {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: rgba(17,19,23,0.9);
+    border: 1px solid #2c2f36;
+    border-radius: 12px;
+    padding: 16px 20px 20px;
+    color: #e5e7eb;
+    max-width: 360px;
+    backdrop-filter: blur(8px);
+  }
+  #overlay[hidden] { display: none; }
+  #overlay h2 {
+    margin-top: 0;
+    color: #93c5fd;
+    font-size: 18px;
+  }
+  #overlay p, #overlay li {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  #close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div class="hint">Drag / touch to rotate • Scroll / pinch to zoom • Click each side</div>
+
+  <!-- Info Overlay -->
+  <div id="overlay" hidden>
+    <button id="close" title="Close">×</button>
+    <div id="content"></div>
+  </div>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/controls/OrbitControls.min.js"></script>
+
+  <script>
+    /* === Basic Scene Setup === */
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
+    camera.position.set(3, 2.1, 3);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    document.getElementById('app').appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enablePan = false;
+    controls.minDistance = 2;
+    controls.maxDistance = 7;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+    const dir = new THREE.DirectionalLight(0xffffff, 1);
+    dir.position.set(3, 4, 5);
+    scene.add(dir);
+
+    /* === 3D House (box placeholder) === */
+    const mats = [0xff7a7a,0x7ad3ff,0x8affc1,0xf7e76e,0xd4b3ff,0xffc4dd]
+      .map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.4, metalness: 0.2 }));
+    const house = new THREE.Mesh(new THREE.BoxGeometry(2, 1.5, 2), mats);
+    scene.add(house);
+
+    /* === Clickable hit areas (one per side) === */
+    const hitMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
+    const hits = {
+      bio:     new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
+      works:   new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
+      exp:     new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
+      contact: new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
+    };
+    hits.bio.position.set(0, 0, 1.01);
+    hits.works.rotation.y = Math.PI/2; hits.works.position.set( 1.01, 0, 0);
+    hits.exp.rotation.y = Math.PI;     hits.exp.position.set( 0, 0, -1.01);
+    hits.contact.rotation.y = -Math.PI/2; hits.contact.position.set( -1.01, 0, 0);
+    for (const k in hits) { hits[k].name = "hot_" + k; house.add(hits[k]); }
+
+    /* === Overlay Info === */
+    const overlay = document.getElementById('overlay');
+    const content = document.getElementById('content');
+    document.getElementById('close').onclick = () => overlay.hidden = true;
+
+    const sections = {
+      bio: `
+        <h2>About Me</h2>
+        <p>Hi, I’m <b>Phu</b> — a Marketing Communications Manager in Phuket,
+        blending design and digital strategy to tell stories that inspire connection.
+        I call this space <b>Serious Playground</b> — where creativity meets precision.</p>`,
+      works: `
+        <h2>My Works</h2>
+        <ul>
+          <li><b>Fluid Wonder</b> – Brand storytelling for Veranda Resort Phuket</li>
+          <li><b>The Wonder of Twilight</b> – Signature sunset ritual campaign</li>
+          <li><b>Bar Botan</b> – Launch visuals & cocktail storytelling</li>
+        </ul>`,
+      exp: `
+        <h2>Experience</h2>
+        <p>Marketing Communications Manager<br>
+        Veranda Resort Phuket, Autograph Collection (Marriott International)<br>
+        Formerly Le Méridien Phuket Beach Resort<br>
+        Skilled in digital ads, design, influencer marketing, and storytelling.</p>`,
+      contact: `
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:you@example.com">you@example.com</a><br>
+        Instagram: <a href="https://instagram.com/" target="_blank">@yourhandle</a><br>
+        LinkedIn: <a href="https://linkedin.com/" target="_blank">Connect</a></p>`
+    };
+
+    function showOverlay(key) {
+      content.innerHTML = sections[key] || "";
+      overlay.hidden = false;
+    }
+
+    /* === Camera Anchors per Side === */
+    const anchors = {
+      bio:     {pos: new THREE.Vector3(0, 1.2, 4), look: new THREE.Vector3(0, .6, 0)},
+      works:   {pos: new THREE.Vector3(4, 1.2, 0), look: new THREE.Vector3(0, .6, 0)},
+      exp:     {pos: new THREE.Vector3(0, 1.2, -4), look: new THREE.Vector3(0, .6, 0)},
+      contact: {pos: new THREE.Vector3(-4, 1.2, 0), look: new THREE.Vector3(0, .6, 0)},
+    };
+
+    /* === Raycast (detect clicks) === */
+    const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+    function pick(e) {
+      const r = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+      mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      ray.setFromCamera(mouse, camera);
+      const hit = ray.intersectObjects(Object.values(hits), true)[0];
+      if (!hit) return;
+      focusSide(hit.object.name.replace("hot_", ""));
+    }
+    renderer.domElement.addEventListener("click", pick);
+
+    /* === Smooth Camera Move === */
+    function tweenTo(vecPos, vecLook, ms = 700) {
+      const start = performance.now();
+      const p0 = camera.position.clone();
+      const t0 = controls.target.clone();
+      function step(now) {
+        let t = Math.min((now - start) / ms, 1);
+        t = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        camera.position.lerpVectors(p0, vecPos, t);
+        controls.target.lerpVectors(t0, vecLook, t);
+        controls.update();
+        renderer.render(scene, camera);
+        if (t < 1) requestAnimationFrame(step);
+        else showOverlay(activeKey);
+      }
+      requestAnimationFrame(step);
+    }
+
+    let activeKey = null;
+    function focusSide(key) {
+      activeKey = key;
+      const a = anchors[key];
+      tweenTo(a.pos, a.look);
+    }
+
+    /* === Animation Loop === */
+    let last = performance.now();
+    (function animate(now) {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      house.rotation.y += dt * 0.25;
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    })(last);
+
+    /* === Resize === */
+    addEventListener("resize", () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+  </script>
+</body>
+</html>
