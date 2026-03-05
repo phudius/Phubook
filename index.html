@@ -1,226 +1,843 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Serious Playground | 3D Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name • Portfolio (Facebook UI)</title>
+  <style>
+    :root{
+      --bg:#f0f2f5;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --blue:#1877f2;
+      --shadow: 0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
+      --radius: 14px;
+      --max: 1200px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    button{font:inherit}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:var(--card);
+      border-bottom:1px solid var(--line);
+      box-shadow: 0 1px 0 rgba(0,0,0,.02);
+    }
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:10px 14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width:180px;
+    }
+    .fb-dot{
+      width:38px; height:38px; border-radius:999px;
+      background:var(--blue);
+      display:grid; place-items:center;
+      color:white; font-weight:900;
+      letter-spacing:-1px;
+      box-shadow: var(--shadow);
+    }
+    .search{
+      flex:1;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background: #f0f2f5;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid #eef0f3;
+    }
+    .search input{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      font-size:14px;
+    }
+    .tabs{
+      display:flex; gap:8px; align-items:center;
+    }
+    .tab{
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:600;
+      cursor:pointer;
+      border:1px solid transparent;
+    }
+    .tab.active{
+      color:var(--blue);
+      background: rgba(24,119,242,.10);
+      border-color: rgba(24,119,242,.18);
+    }
+    .container{
+      max-width:var(--max);
+      margin:16px auto 40px;
+      padding:0 14px;
+      display:grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 1050px){
+      .container{ grid-template-columns: 280px 1fr; }
+      .right{ display:none; }
+    }
+    @media (max-width: 760px){
+      .brand{ min-width:auto; }
+      .tabs{ display:none; }
+      .container{ grid-template-columns: 1fr; }
+      .left{ display:none; }
+      .right{ display:none; }
+    }
 
-<!-- ====== STYLES ====== -->
-<style>
-  html, body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-    background: #0f1115;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
-  #app {
-    position: fixed;
-    inset: 0;
-  }
-  .hint {
-    position: fixed;
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
-    padding: 6px 10px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.08);
-    color: #cbd5e1;
-    font-size: 12px;
-    user-select: none;
-  }
-  /* Overlay (pop-up panel) */
-  #overlay {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background: rgba(17,19,23,0.9);
-    border: 1px solid #2c2f36;
-    border-radius: 12px;
-    padding: 16px 20px 20px;
-    color: #e5e7eb;
-    max-width: 360px;
-    backdrop-filter: blur(8px);
-  }
-  #overlay[hidden] { display: none; }
-  #overlay h2 {
-    margin-top: 0;
-    color: #93c5fd;
-    font-size: 18px;
-  }
-  #overlay p, #overlay li {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  #close {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    background: none;
-    border: none;
-    color: #9ca3af;
-    font-size: 18px;
-    cursor: pointer;
-  }
-</style>
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .left .card, .right .card{ position:sticky; top:76px; }
+    .profile{
+      padding:14px;
+    }
+    .cover{
+      height:90px;
+      border-radius:12px;
+      background: linear-gradient(135deg, rgba(24,119,242,.25), rgba(17,24,39,.08));
+      border:1px solid rgba(0,0,0,.04);
+    }
+    .avatar{
+      width:72px; height:72px;
+      border-radius:999px;
+      border:4px solid var(--card);
+      background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
+      margin:-36px 0 10px 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      display:grid; place-items:center;
+      font-weight:800;
+      color:#1f2937;
+    }
+    .name{ font-size:18px; font-weight:800; margin:0 0 2px 10px; }
+    .headline{ margin:0 0 12px 10px; color:var(--muted); font-size:13px; }
+    .mini{
+      display:flex; gap:8px; padding:0 10px 12px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      font-size:12px;
+      color:#0f172a;
+      background:#f3f4f6;
+      border:1px solid #e5e7eb;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:600;
+    }
+    .menu{
+      border-top:1px solid var(--line);
+      padding:10px;
+      display:grid;
+      gap:6px;
+    }
+    .menu .item{
+      padding:10px 10px;
+      border-radius:12px;
+      display:flex; align-items:center; gap:10px;
+      color:#0f172a;
+      font-weight:650;
+      cursor:pointer;
+    }
+    .menu .item:hover{ background:#f6f7f9; }
+    .menu .item.active{
+      background: rgba(24,119,242,.10);
+      color: var(--blue);
+    }
+    .icon{
+      width:26px; height:26px;
+      border-radius:8px;
+      background:#eef2ff;
+      border:1px solid #e5e7eb;
+      display:grid; place-items:center;
+      font-size:14px;
+    }
+
+    .composer{
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .composer-top{
+      display:flex; gap:10px; align-items:center;
+    }
+    .composer .avatar-sm{
+      width:40px; height:40px; border-radius:999px;
+      background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
+      display:grid; place-items:center;
+      font-weight:800;
+    }
+    .composer input{
+      flex:1;
+      border:1px solid var(--line);
+      background:#f6f7f9;
+      padding:10px 12px;
+      border-radius:999px;
+      outline:0;
+    }
+    .composer-actions{
+      margin-top:10px;
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:8px 10px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:650;
+      color:#111827;
+    }
+    .btn.primary{
+      background: rgba(24,119,242,.12);
+      border-color: rgba(24,119,242,.2);
+      color: var(--blue);
+    }
+
+    .feed{ display:flex; flex-direction:column; gap:12px; }
+    .post{
+      padding:12px;
+    }
+    .post-head{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+    }
+    .post-left{
+      display:flex; align-items:center; gap:10px;
+    }
+    .post .avatar-sm{
+      width:42px; height:42px; border-radius:999px;
+      background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
+      display:grid; place-items:center;
+      font-weight:800;
+    }
+    .post-title{
+      margin:0;
+      font-weight:800;
+      font-size:14px;
+    }
+    .post-meta{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+    .kebab{
+      border:0; background:transparent; cursor:pointer;
+      width:38px; height:38px; border-radius:999px;
+    }
+    .kebab:hover{ background:#f6f7f9; }
+    .post-body{
+      color:#111827;
+      font-size:14px;
+      line-height:1.45;
+      margin:8px 0 10px;
+      white-space:pre-line;
+    }
+    .thumb{
+      height:220px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: linear-gradient(135deg, rgba(24,119,242,.16), rgba(17,24,39,.06));
+      overflow:hidden;
+      display:flex;
+      align-items:flex-end;
+      padding:14px;
+      position:relative;
+    }
+    .thumb::after{
+      content:"";
+      position:absolute; inset:-40px;
+      background: radial-gradient(circle at 20% 20%, rgba(24,119,242,.35), transparent 45%),
+                  radial-gradient(circle at 80% 30%, rgba(17,24,39,.18), transparent 45%),
+                  radial-gradient(circle at 50% 90%, rgba(99,102,241,.18), transparent 55%);
+      filter: blur(0px);
+      opacity:.9;
+    }
+    .thumb .chiprow{
+      position:relative;
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .chip{
+      font-size:12px;
+      color:#0f172a;
+      background: rgba(255,255,255,.8);
+      border:1px solid rgba(255,255,255,.9);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+      backdrop-filter: blur(8px);
+    }
+    .post-actions{
+      margin-top:10px;
+      border-top:1px solid var(--line);
+      padding-top:10px;
+      display:flex;
+      justify-content:space-around;
+      gap:8px;
+    }
+    .action{
+      flex:1;
+      text-align:center;
+      padding:10px 8px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:750;
+      color:#374151;
+      border:1px solid transparent;
+    }
+    .action:hover{
+      background:#f6f7f9;
+      border-color:#f1f2f4;
+    }
+
+    .right .box{ padding:14px; }
+    .h2{
+      margin:0 0 8px;
+      font-size:14px;
+      font-weight:900;
+    }
+    .muted{ color:var(--muted); font-size:13px; line-height:1.45; }
+    .list{
+      display:grid; gap:8px;
+      margin-top:10px;
+    }
+    .row{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:10px 10px;
+      background:#f6f7f9;
+      border:1px solid #eef0f3;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:650;
+    }
+    .badge{
+      color: var(--blue);
+      background: rgba(24,119,242,.12);
+      border:1px solid rgba(24,119,242,.18);
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:100;
+    }
+    .modal{
+      width:min(860px, 100%);
+      background:var(--card);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 20px 80px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .modal-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+    }
+    .modal-head strong{ font-size:14px; }
+    .close{
+      width:40px; height:40px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .modal-body{
+      padding:14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width: 820px){
+      .modal-body{ grid-template-columns: 1fr; }
+    }
+    .modal-hero{
+      height:280px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: linear-gradient(135deg, rgba(24,119,242,.16), rgba(17,24,39,.06));
+      position:relative;
+      overflow:hidden;
+    }
+    .modal-hero::after{
+      content:"";
+      position:absolute; inset:-50px;
+      background: radial-gradient(circle at 30% 30%, rgba(24,119,242,.35), transparent 45%),
+                  radial-gradient(circle at 70% 40%, rgba(17,24,39,.18), transparent 45%),
+                  radial-gradient(circle at 55% 90%, rgba(99,102,241,.18), transparent 55%);
+    }
+    .modal-copy h3{
+      margin:0 0 6px;
+      font-size:16px;
+      font-weight:950;
+    }
+    .kv{
+      display:grid; gap:8px;
+      margin-top:10px;
+    }
+    .kv div{
+      display:flex; justify-content:space-between; gap:12px;
+      font-size:13px;
+      padding:10px 10px;
+      border-radius:12px;
+      background:#f6f7f9;
+      border:1px solid #eef0f3;
+    }
+    .kv b{ color:#111827; }
+    .kv span{ color:#374151; font-weight:700; }
+
+    .mobile-tabs{
+      display:none;
+      padding:10px 14px;
+      gap:8px;
+      border-top:1px solid var(--line);
+    }
+    @media (max-width: 760px){
+      .mobile-tabs{ display:flex; background:var(--card); position:sticky; top:60px; z-index:40; }
+    }
+  </style>
 </head>
-
 <body>
-  <div id="app"></div>
-  <div class="hint">Drag / touch to rotate • Scroll / pinch to zoom • Click each side</div>
 
-  <!-- Info Overlay -->
-  <div id="overlay" hidden>
-    <button id="close" title="Close">×</button>
-    <div id="content"></div>
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="fb-dot">f</div>
+        <strong style="font-size:14px;">Portfolio</strong>
+      </div>
+
+      <div class="search" title="Search your projects">
+        🔎
+        <input id="searchInput" placeholder="Search projects, skills, tags…" />
+      </div>
+
+      <nav class="tabs" aria-label="Sections">
+        <div class="tab active" data-section="front">Front Door</div>
+        <div class="tab" data-section="lab">Lab</div>
+        <div class="tab" data-section="gallery">Gallery</div>
+      </nav>
+    </div>
+
+    <!-- Mobile tabs -->
+    <div class="mobile-tabs">
+      <div class="tab active" data-section="front">Front Door</div>
+      <div class="tab" data-section="lab">Lab</div>
+      <div class="tab" data-section="gallery">Gallery</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Left Sidebar -->
+    <aside class="left">
+      <div class="card profile">
+        <div class="cover"></div>
+        <div class="avatar" id="avatar">YN</div>
+        <h1 class="name" id="name">Your Name</h1>
+        <p class="headline" id="headline">Digital Marketing • Graphic Design • Hospitality</p>
+
+        <div class="mini" id="pills">
+          <span class="pill">Strategy</span>
+          <span class="pill">Ads</span>
+          <span class="pill">Design</span>
+          <span class="pill">Brand</span>
+        </div>
+
+        <div class="menu" role="navigation" aria-label="Menu">
+          <div class="item active" data-section="front"><span class="icon">🏠</span>Front Door</div>
+          <div class="item" data-section="lab"><span class="icon">🧪</span>Lab (Marketing)</div>
+          <div class="item" data-section="gallery"><span class="icon">🖼️</span>Gallery (Design)</div>
+          <div class="item" id="downloadCV"><span class="icon">⬇️</span>Download CV</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Feed -->
+    <section>
+      <div class="card composer">
+        <div class="composer-top">
+          <div class="avatar-sm" id="avatarSm">YN</div>
+          <input id="statusBox" placeholder="Pin a highlight… (e.g., “Open to freelance work”)">
+        </div>
+        <div class="composer-actions">
+          <button class="btn primary" id="btnAdd">Add a project post</button>
+          <button class="btn" id="btnTheme">Toggle compact mode</button>
+          <button class="btn" id="btnContact">Contact</button>
+        </div>
+      </div>
+
+      <div class="feed" id="feed"></div>
+    </section>
+
+    <!-- Right Sidebar -->
+    <aside class="right">
+      <div class="card box">
+        <h2 class="h2">About</h2>
+        <p class="muted" id="about">
+          Write 2–3 lines about your focus, strengths, and what kind of work you want.
+        </p>
+
+        <div class="list">
+          <div class="row"><span>Primary Focus</span><span class="badge" id="focusBadge">Marketing + Design</span></div>
+          <div class="row"><span>Location</span><span class="badge" id="locationBadge">Phuket / Bangkok</span></div>
+          <div class="row"><span>Email</span><span class="badge" id="emailBadge">you@email.com</span></div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <h2 class="h2">Skills</h2>
+          <div class="mini" id="skillPills" style="padding:0;">
+            <span class="pill">Meta Ads</span>
+            <span class="pill">Google Ads</span>
+            <span class="pill">Branding</span>
+            <span class="pill">UI/Design</span>
+            <span class="pill">Content</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-head">
+        <strong id="modalTitle">Project</strong>
+        <button class="close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-hero"></div>
+        <div class="modal-copy">
+          <h3 id="modalH3">Project title</h3>
+          <p class="muted" id="modalDesc">Description</p>
+          <div class="kv" id="modalKV"></div>
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <a class="btn primary" id="modalLink" href="#" target="_blank" rel="noopener">Open link</a>
+            <button class="btn" id="modalCopy">Copy summary</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- ====== SCRIPTS ====== -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/controls/OrbitControls.min.js"></script>
-
   <script>
-    /* === Basic Scene Setup === */
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
-    camera.position.set(3, 2.1, 3);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(innerWidth, innerHeight);
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    document.getElementById('app').appendChild(renderer.domElement);
-
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.enablePan = false;
-    controls.minDistance = 2;
-    controls.maxDistance = 7;
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-    const dir = new THREE.DirectionalLight(0xffffff, 1);
-    dir.position.set(3, 4, 5);
-    scene.add(dir);
-
-    /* === 3D House (box placeholder) === */
-    const mats = [0xff7a7a,0x7ad3ff,0x8affc1,0xf7e76e,0xd4b3ff,0xffc4dd]
-      .map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.4, metalness: 0.2 }));
-    const house = new THREE.Mesh(new THREE.BoxGeometry(2, 1.5, 2), mats);
-    scene.add(house);
-
-    /* === Clickable hit areas (one per side) === */
-    const hitMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
-    const hits = {
-      bio:     new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
-      works:   new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
-      exp:     new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
-      contact: new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), hitMat),
-    };
-    hits.bio.position.set(0, 0, 1.01);
-    hits.works.rotation.y = Math.PI/2; hits.works.position.set( 1.01, 0, 0);
-    hits.exp.rotation.y = Math.PI;     hits.exp.position.set( 0, 0, -1.01);
-    hits.contact.rotation.y = -Math.PI/2; hits.contact.position.set( -1.01, 0, 0);
-    for (const k in hits) { hits[k].name = "hot_" + k; house.add(hits[k]); }
-
-    /* === Overlay Info === */
-    const overlay = document.getElementById('overlay');
-    const content = document.getElementById('content');
-    document.getElementById('close').onclick = () => overlay.hidden = true;
-
-    const sections = {
-      bio: `
-        <h2>About Me</h2>
-        <p>Hi, I’m <b>Phu</b> — a Marketing Communications Manager in Phuket,
-        blending design and digital strategy to tell stories that inspire connection.
-        I call this space <b>Serious Playground</b> — where creativity meets precision.</p>`,
-      works: `
-        <h2>My Works</h2>
-        <ul>
-          <li><b>Fluid Wonder</b> – Brand storytelling for Veranda Resort Phuket</li>
-          <li><b>The Wonder of Twilight</b> – Signature sunset ritual campaign</li>
-          <li><b>Bar Botan</b> – Launch visuals & cocktail storytelling</li>
-        </ul>`,
-      exp: `
-        <h2>Experience</h2>
-        <p>Marketing Communications Manager<br>
-        Veranda Resort Phuket, Autograph Collection (Marriott International)<br>
-        Formerly Le Méridien Phuket Beach Resort<br>
-        Skilled in digital ads, design, influencer marketing, and storytelling.</p>`,
-      contact: `
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:you@example.com">you@example.com</a><br>
-        Instagram: <a href="https://instagram.com/" target="_blank">@yourhandle</a><br>
-        LinkedIn: <a href="https://linkedin.com/" target="_blank">Connect</a></p>`
+    // ====== EDIT YOUR PROFILE HERE ======
+    const PROFILE = {
+      initials: "YN",
+      name: "Your Name",
+      headline: "Digital Marketing • Graphic Design • Hospitality",
+      about: "I build performance-driven campaigns and clean visuals that feel premium. I love brand systems, content, and ads that actually convert.",
+      focus: "Marketing + Design",
+      location: "Your City",
+      email: "you@email.com",
+      cvUrl: "#", // put your CV pdf link here
+      skills: ["Meta Ads", "Google Ads", "SEO", "Branding", "Graphic Design", "Content Strategy"]
     };
 
-    function showOverlay(key) {
-      content.innerHTML = sections[key] || "";
-      overlay.hidden = false;
-    }
-
-    /* === Camera Anchors per Side === */
-    const anchors = {
-      bio:     {pos: new THREE.Vector3(0, 1.2, 4), look: new THREE.Vector3(0, .6, 0)},
-      works:   {pos: new THREE.Vector3(4, 1.2, 0), look: new THREE.Vector3(0, .6, 0)},
-      exp:     {pos: new THREE.Vector3(0, 1.2, -4), look: new THREE.Vector3(0, .6, 0)},
-      contact: {pos: new THREE.Vector3(-4, 1.2, 0), look: new THREE.Vector3(0, .6, 0)},
-    };
-
-    /* === Raycast (detect clicks) === */
-    const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
-    function pick(e) {
-      const r = renderer.domElement.getBoundingClientRect();
-      mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
-      mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
-      ray.setFromCamera(mouse, camera);
-      const hit = ray.intersectObjects(Object.values(hits), true)[0];
-      if (!hit) return;
-      focusSide(hit.object.name.replace("hot_", ""));
-    }
-    renderer.domElement.addEventListener("click", pick);
-
-    /* === Smooth Camera Move === */
-    function tweenTo(vecPos, vecLook, ms = 700) {
-      const start = performance.now();
-      const p0 = camera.position.clone();
-      const t0 = controls.target.clone();
-      function step(now) {
-        let t = Math.min((now - start) / ms, 1);
-        t = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        camera.position.lerpVectors(p0, vecPos, t);
-        controls.target.lerpVectors(t0, vecLook, t);
-        controls.update();
-        renderer.render(scene, camera);
-        if (t < 1) requestAnimationFrame(step);
-        else showOverlay(activeKey);
+    // ====== PROJECT POSTS (replace with your real work) ======
+    const POSTS = [
+      {
+        section: "front",
+        type: "Pinned",
+        title: "Welcome to my Portfolio Feed",
+        when: "Pinned • Always visible",
+        text: "This site is designed like a social feed. Click any post to open details.\n\nUse the tabs to switch between Lab (Marketing) and Gallery (Design).",
+        tags: ["Overview","About"],
+        link: "#",
+        details: {
+          Role: "Marketing & Design",
+          Outcome: "Quick browsing like Facebook",
+          Tools: "HTML/CSS/JS"
+        }
+      },
+      {
+        section: "lab",
+        type: "Case Study",
+        title: "Paid Social Campaign • Always-on Acquisition",
+        when: "Lab • Marketing",
+        text: "Objective: increase qualified leads with strong creative testing.\nResult: improved CTR and more stable CPL (add your real numbers here).",
+        tags: ["Meta Ads","Creative Testing","Performance"],
+        link: "#",
+        details: {
+          Objective: "Leads / Bookings",
+          Audience: "International + Local",
+          Channel: "Meta",
+          KPI: "CTR / CPL / ROAS"
+        }
+      },
+      {
+        section: "lab",
+        type: "Strategy",
+        title: "Content Pillars Framework",
+        when: "Lab • Marketing",
+        text: "Built a content structure with 4 pillars: Educational, Entertainment/Lifestyle, Promotional, Engagement.\nUsed it to plan monthly calendars and improve consistency.",
+        tags: ["Content","Brand","Planning"],
+        link: "#",
+        details: {
+          Deliverable: "Content Calendar",
+          Pillars: "Edu / Entertain / Promo / Engage",
+          Output: "More consistent publishing"
+        }
+      },
+      {
+        section: "gallery",
+        type: "Design",
+        title: "Brand Visual System • Clean & Premium",
+        when: "Gallery • Design",
+        text: "A minimal visual system built for hospitality: typography, layout rules, and social templates.\n(Replace with your real project and screenshots later.)",
+        tags: ["Branding","Layout","Templates"],
+        link: "#",
+        details: {
+          Deliverables: "Templates, Guidelines",
+          Style: "Modern, clean",
+          Format: "AI / PDF / PNG"
+        }
+      },
+      {
+        section: "gallery",
+        type: "Design",
+        title: "Event Key Visual • Sponsor Board + Signage",
+        when: "Gallery • Design",
+        text: "Designed event visuals with clear hierarchy, partner logos, and print-ready layout.\n(Replace with your actual event work.)",
+        tags: ["Event","Print","Signage"],
+        link: "#",
+        details: {
+          Output: "Backdrop, boards, signage",
+          Prep: "Print-ready (CMYK)",
+          Notes: "Logo safe-space respected"
+        }
       }
-      requestAnimationFrame(step);
+    ];
+
+    // ====== UI RENDER ======
+    const feed = document.getElementById("feed");
+    const searchInput = document.getElementById("searchInput");
+
+    function applyProfile(){
+      document.getElementById("avatar").textContent = PROFILE.initials;
+      document.getElementById("avatarSm").textContent = PROFILE.initials;
+      document.getElementById("name").textContent = PROFILE.name;
+      document.getElementById("headline").textContent = PROFILE.headline;
+      document.getElementById("about").textContent = PROFILE.about;
+      document.getElementById("focusBadge").textContent = PROFILE.focus;
+      document.getElementById("locationBadge").textContent = PROFILE.location;
+      document.getElementById("emailBadge").textContent = PROFILE.email;
+
+      const pills = document.getElementById("skillPills");
+      pills.innerHTML = PROFILE.skills.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join("");
     }
 
-    let activeKey = null;
-    function focusSide(key) {
-      activeKey = key;
-      const a = anchors[key];
-      tweenTo(a.pos, a.look);
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
     }
 
-    /* === Animation Loop === */
-    let last = performance.now();
-    (function animate(now) {
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      house.rotation.y += dt * 0.25;
-      controls.update();
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    })(last);
+    let currentSection = "front";
+    let compactMode = false;
 
-    /* === Resize === */
-    addEventListener("resize", () => {
-      camera.aspect = innerWidth / innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(innerWidth, innerHeight);
+    function setActiveSection(section){
+      currentSection = section;
+
+      // top tabs
+      document.querySelectorAll(".tab").forEach(t=>{
+        const is = t.dataset.section === section;
+        t.classList.toggle("active", is);
+      });
+
+      // left menu
+      document.querySelectorAll(".menu .item").forEach(i=>{
+        const is = i.dataset.section === section;
+        i.classList.toggle("active", is);
+      });
+
+      render();
+    }
+
+    function render(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+
+      const visible = POSTS.filter(p => {
+        const inSection = (currentSection === "front")
+          ? (p.section === "front" || p.type === "Pinned")
+          : (p.section === currentSection);
+
+        const hay = (p.title + " " + p.text + " " + (p.tags||[]).join(" ")).toLowerCase();
+        const match = !q || hay.includes(q);
+
+        return inSection && match;
+      });
+
+      feed.innerHTML = visible.map((p, idx) => postCard(p, idx)).join("");
+
+      // attach click handlers
+      document.querySelectorAll("[data-open]").forEach(el=>{
+        el.addEventListener("click", () => {
+          const key = Number(el.getAttribute("data-open"));
+          const post = visible[key];
+          openModal(post);
+        });
+      });
+    }
+
+    function postCard(p, idx){
+      const tags = (p.tags||[]).slice(0,6).map(t => `<span class="chip">${escapeHtml(t)}</span>`).join("");
+      const body = compactMode ? truncate(p.text, 140) : p.text;
+
+      return `
+        <article class="card post" data-open="${idx}">
+          <div class="post-head">
+            <div class="post-left">
+              <div class="avatar-sm">${escapeHtml(PROFILE.initials)}</div>
+              <div>
+                <p class="post-title">${escapeHtml(p.title)}</p>
+                <div class="post-meta">${escapeHtml(p.when)} • <span style="color:var(--muted); font-weight:700;">${escapeHtml(p.type)}</span></div>
+              </div>
+            </div>
+            <button class="kebab" aria-label="More">⋯</button>
+          </div>
+
+          <div class="post-body">${escapeHtml(body)}</div>
+
+          <div class="thumb" aria-hidden="true">
+            <div class="chiprow">${tags}</div>
+          </div>
+
+          <div class="post-actions" aria-label="Actions">
+            <div class="action">👍 Like</div>
+            <div class="action">💬 Comment</div>
+            <div class="action">↗ Share</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function truncate(text, max){
+      const s = String(text);
+      if (s.length <= max) return s;
+      return s.slice(0, max - 1) + "…";
+    }
+
+    // ====== MODAL ======
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalClose = document.getElementById("modalClose");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalH3 = document.getElementById("modalH3");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalKV = document.getElementById("modalKV");
+    const modalLink = document.getElementById("modalLink");
+    const modalCopy = document.getElementById("modalCopy");
+
+    function openModal(post){
+      modalTitle.textContent = post.type + " • " + post.section.toUpperCase();
+      modalH3.textContent = post.title;
+      modalDesc.textContent = post.text;
+
+      const details = post.details || {};
+      modalKV.innerHTML = Object.keys(details).map(k =>
+        `<div><b>${escapeHtml(k)}</b><span>${escapeHtml(details[k])}</span></div>`
+      ).join("");
+
+      modalLink.href = post.link || "#";
+      modalLink.style.display = (post.link && post.link !== "#") ? "inline-flex" : "none";
+
+      modalBackdrop.style.display = "flex";
+      modalBackdrop.setAttribute("aria-hidden","false");
+    }
+
+    function closeModal(){
+      modalBackdrop.style.display = "none";
+      modalBackdrop.setAttribute("aria-hidden","true");
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", (e)=>{
+      if (e.target === modalBackdrop) closeModal();
     });
+    document.addEventListener("keydown", (e)=>{
+      if (e.key === "Escape") closeModal();
+    });
+
+    modalCopy.addEventListener("click", async ()=>{
+      const txt =
+`${modalH3.textContent}
+${modalDesc.textContent}
+
+${Array.from(modalKV.querySelectorAll("div")).map(d => d.innerText.replace(/\s+/g,' ').trim()).join("\n")}`;
+      try{
+        await navigator.clipboard.writeText(txt);
+        modalCopy.textContent = "Copied!";
+        setTimeout(()=> modalCopy.textContent = "Copy summary", 900);
+      }catch{
+        alert("Copy not available in this browser.");
+      }
+    });
+
+    // ====== INTERACTIONS ======
+    document.querySelectorAll(".tab").forEach(t=>{
+      t.addEventListener("click", ()=> setActiveSection(t.dataset.section));
+    });
+    document.querySelectorAll(".menu .item[data-section]").forEach(i=>{
+      i.addEventListener("click", ()=> setActiveSection(i.dataset.section));
+    });
+
+    searchInput.addEventListener("input", render);
+
+    document.getElementById("btnTheme").addEventListener("click", ()=>{
+      compactMode = !compactMode;
+      render();
+    });
+
+    document.getElementById("btnContact").addEventListener("click", ()=>{
+      alert("Add your contact links in PROFILE (email, LinkedIn, Behance, etc.).");
+    });
+
+    document.getElementById("downloadCV").addEventListener("click", ()=>{
+      if (!PROFILE.cvUrl || PROFILE.cvUrl === "#"){
+        alert("Set PROFILE.cvUrl to your CV PDF link.");
+        return;
+      }
+      window.open(PROFILE.cvUrl, "_blank", "noopener");
+    });
+
+    document.getElementById("btnAdd").addEventListener("click", ()=>{
+      alert("Quick way: edit the POSTS array in the code to add your real projects.");
+    });
+
+    // init
+    applyProfile();
+    setActiveSection("front");
   </script>
 </body>
 </html>
