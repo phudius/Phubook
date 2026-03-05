@@ -8,4 +8,4 @@ This is my personal portfolio website built with HTML, CSS and JavaScript.
 - Design portfolio
 
 ## Website
-https://yourusername.github.io
+https://phudius.github.io/Serious-Playground/
