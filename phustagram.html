@@ -16,7 +16,9 @@
   --shadow:0 12px 40px rgba(0,0,0,.14);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -45,6 +47,7 @@ a{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:16px;
 }
 
 .brand{
@@ -70,11 +73,15 @@ a{
   align-items:center;
   gap:16px;
   margin-bottom:26px;
+  min-width:0;
 }
 
 .profile-pic{
   width:64px;
   height:64px;
+  min-width:64px;
+  min-height:64px;
+  flex-shrink:0;
   border-radius:50%;
   background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
   padding:2px;
@@ -92,6 +99,10 @@ a{
   font-size:20px;
 }
 
+.profile-copy{
+  min-width:0;
+}
+
 .profile-copy h1{
   margin:0;
   font-size:22px;
@@ -102,6 +113,7 @@ a{
   margin:6px 0 0;
   color:var(--muted);
   font-size:14px;
+  line-height:1.45;
 }
 
 .grid{
@@ -184,7 +196,7 @@ a{
   border-radius:10px;
   overflow:hidden;
   display:grid;
-  grid-template-columns: minmax(0, 1.35fr) 420px;
+  grid-template-columns:minmax(0, 1.35fr) 420px;
   box-shadow:var(--shadow);
 }
 
@@ -264,11 +276,15 @@ a{
   display:flex;
   align-items:center;
   gap:12px;
+  min-width:0;
 }
 
 .author-pic{
   width:34px;
   height:34px;
+  min-width:34px;
+  min-height:34px;
+  flex-shrink:0;
   border-radius:50%;
   background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
   padding:2px;
@@ -289,6 +305,10 @@ a{
 .author-name{
   font-size:14px;
   font-weight:700;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .post-body{
@@ -306,11 +326,15 @@ a{
   display:flex;
   gap:12px;
   align-items:flex-start;
+  min-width:0;
 }
 
 .caption-copy{
   font-size:14px;
   line-height:1.55;
+  min-width:0;
+  overflow-wrap:break-word;
+  word-break:break-word;
 }
 
 .caption-copy strong{
@@ -397,6 +421,7 @@ a{
   outline:none;
   font-size:14px;
   background:transparent;
+  min-width:0;
 }
 
 .post-link{
@@ -411,6 +436,7 @@ a{
   cursor:pointer;
   font-size:24px;
   line-height:1;
+  flex-shrink:0;
 }
 
 @media (max-width: 980px){
@@ -469,6 +495,15 @@ a{
   .modal-left{
     height:42vh;
   }
+
+  .detail-row{
+    flex-direction:column;
+    gap:6px;
+  }
+
+  .detail-row span{
+    text-align:left;
+  }
 }
 </style>
 </head>
@@ -520,7 +555,7 @@ a{
       <div class="post-body">
         <div class="caption">
           <div class="caption-top">
-            <div class="author-pic" style="width:32px;height:32px;">
+            <div class="author-pic" style="width:32px;height:32px;min-width:32px;min-height:32px;">
               <div class="author-pic-inner">P</div>
             </div>
             <div class="caption-copy" id="captionText"></div>
