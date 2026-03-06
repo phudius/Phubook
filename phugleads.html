@@ -7,7 +7,7 @@
 
 <style>
 
-/* Google‑inspired color system */
+/* Google-inspired color system */
 
 :root{
   --blue:#4285F4;
@@ -24,13 +24,20 @@
   --shadow:0 1px 2px rgba(60,64,67,.15);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
 /* TOP BAR */
@@ -48,29 +55,27 @@ body{
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   font-weight:700;
   font-size:20px;
 }
 
 .logo{
   display:flex;
-  gap:2px;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
 }
 
-.logo span{
-  width:10px;
-  height:10px;
-  border-radius:50%;
+.logo img{
+  height:28px;
+  width:auto;
+  display:block;
 }
-
-.logo .b{background:var(--blue)}
-.logo .r{background:var(--red)}
-.logo .y{background:var(--yellow)}
-.logo .g{background:var(--green)}
 
 .search input{
   width:380px;
+  max-width:100%;
   padding:10px 14px;
   border-radius:999px;
   border:1px solid var(--line);
@@ -88,6 +93,7 @@ body{
   align-items:center;
   justify-content:center;
   font-weight:800;
+  flex-shrink:0;
 }
 
 /* LAYOUT */
@@ -156,13 +162,21 @@ body{
   margin:0;
   font-size:13px;
   color:var(--muted);
+  font-weight:600;
 }
 
 .kpi strong{
+  display:block;
+  margin-top:8px;
   font-size:30px;
+  line-height:1.1;
 }
 
 /* TABLE */
+
+.table-wrap{
+  overflow:auto;
+}
 
 .table{
   width:100%;
@@ -170,6 +184,7 @@ body{
   background:var(--panel);
   border-radius:14px;
   overflow:hidden;
+  min-width:900px;
 }
 
 .table th,
@@ -183,20 +198,40 @@ body{
   font-size:12px;
   color:var(--muted);
   text-transform:uppercase;
+  font-weight:700;
 }
 
 .status{
   padding:4px 10px;
   border-radius:999px;
   font-size:12px;
+  display:inline-block;
 }
 
-.active{background:#e6f4ea;color:var(--green)}
-.paused{background:#fef7e0;color:#b06000}
-.ended{background:#fce8e6;color:var(--red)}
+.active{
+  background:#e6f4ea;
+  color:var(--green);
+}
 
-.metric-up{color:var(--green);font-weight:700}
-.metric-down{color:var(--red);font-weight:700}
+.paused{
+  background:#fef7e0;
+  color:#b06000;
+}
+
+.ended{
+  background:#fce8e6;
+  color:var(--red);
+}
+
+.metric-up{
+  color:var(--green);
+  font-weight:700;
+}
+
+.metric-down{
+  color:var(--red);
+  font-weight:700;
+}
 
 /* CHART */
 
@@ -206,6 +241,10 @@ body{
   gap:16px;
   height:220px;
   margin-top:24px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
 }
 
 .bar{
@@ -224,18 +263,48 @@ body{
   font-size:12px;
   margin-top:6px;
   color:var(--muted);
+  text-align:center;
 }
 
 /* RESPONSIVE */
 
 @media (max-width:1000px){
-  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 @media (max-width:700px){
-  .layout{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .kpi-grid{grid-template-columns:1fr}
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .kpi-grid{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+    flex-wrap:wrap;
+    height:auto;
+    padding:12px;
+    gap:12px;
+  }
+
+  .search{
+    width:100%;
+  }
+
+  .search input{
+    width:100%;
+  }
+
+  .content{
+    padding:16px;
+  }
 }
 
 </style>
@@ -245,181 +314,175 @@ body{
 
 <header class="topbar">
 
-<div class="brand">
+  <div class="brand">
+    <div class="logo">
+      <img src="images/phu-logo.svg" alt="Phu Logo">
+    </div>
+    <span>Phugle Ads</span>
+  </div>
 
-<div class="logo">
-<span class="b"></span>
-<span class="r"></span>
-<span class="y"></span>
-<span class="g"></span>
-</div>
+  <div class="search">
+    <input placeholder="Search campaigns..." />
+  </div>
 
-Phugle Ads
-
-</div>
-
-<div class="search">
-<input placeholder="Search campaigns..." />
-</div>
-
-<div class="avatar">P</div>
+  <div class="avatar">P</div>
 
 </header>
 
 <div class="layout">
 
-<!-- SIDEBAR -->
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-<aside class="sidebar">
+    <h4>Workspace</h4>
 
-<h4>Workspace</h4>
+    <div class="nav-item active">Overview</div>
+    <div class="nav-item">Campaigns</div>
+    <div class="nav-item">Audiences</div>
 
-<div class="nav-item active">Overview</div>
-<div class="nav-item">Campaigns</div>
-<div class="nav-item">Audiences</div>
+    <h4 style="margin-top:20px;">Portfolio</h4>
 
-<h4 style="margin-top:20px;">Portfolio</h4>
+    <a href="index.html"><div class="nav-item">Phubook</div></a>
+    <a href="phustagram.html"><div class="nav-item">Phustagram</div></a>
+    <a href="phutube.html"><div class="nav-item">PhuTube</div></a>
 
-<a href="index.html"><div class="nav-item">Phubook</div></a>
-<a href="phustagram.html"><div class="nav-item">Phustagram</div></a>
-<a href="phutube.html"><div class="nav-item">PhuTube</div></a>
+  </aside>
 
-</aside>
+  <!-- CONTENT -->
+  <main class="content">
 
-<!-- CONTENT -->
+    <div class="kpi-grid">
 
-<main class="content">
+      <div class="kpi">
+        <h3>Total Spend</h3>
+        <strong>$5,788</strong>
+      </div>
 
-<div class="kpi-grid">
+      <div class="kpi">
+        <h3>Revenue</h3>
+        <strong>$57,303</strong>
+      </div>
 
-<div class="kpi">
-<h3>Total Spend</h3>
-<strong>$5,788</strong>
-</div>
+      <div class="kpi">
+        <h3>GRE / ROAS</h3>
+        <strong>9.9x</strong>
+      </div>
 
-<div class="kpi">
-<h3>Revenue</h3>
-<strong>$57,303</strong>
-</div>
+      <div class="kpi">
+        <h3>Average CTR</h3>
+        <strong>3.4%</strong>
+      </div>
 
-<div class="kpi">
-<h3>GRE / ROAS</h3>
-<strong>9.9x</strong>
-</div>
+    </div>
 
-<div class="kpi">
-<h3>Average CTR</h3>
-<strong>3.4%</strong>
-</div>
+    <div class="table-wrap">
+      <table class="table">
 
-</div>
+        <thead>
+          <tr>
+            <th>Campaign</th>
+            <th>Status</th>
+            <th>Platform</th>
+            <th>Target Market</th>
+            <th>Spend</th>
+            <th>Revenue</th>
+            <th>CTR</th>
+            <th>GRE</th>
+          </tr>
+        </thead>
 
-<table class="table">
+        <tbody>
 
-<thead>
-<tr>
-<th>Campaign</th>
-<th>Status</th>
-<th>Platform</th>
-<th>Target Market</th>
-<th>Spend</th>
-<th>Revenue</th>
-<th>CTR</th>
-<th>GRE</th>
-</tr>
-</thead>
+          <tr>
+            <td>Phuket Luxury Escape</td>
+            <td><span class="status active">Active</span></td>
+            <td>Meta Ads</td>
+            <td>UK / DE / AU</td>
+            <td>$5,788</td>
+            <td>$57,303</td>
+            <td class="metric-up">3.4%</td>
+            <td class="metric-up">9.9x</td>
+          </tr>
 
-<tbody>
+          <tr>
+            <td>Middle East Winter Escape</td>
+            <td><span class="status active">Active</span></td>
+            <td>Meta Ads</td>
+            <td>AE / SA / QA</td>
+            <td>$3,200</td>
+            <td>$24,100</td>
+            <td>3.1%</td>
+            <td class="metric-up">7.5x</td>
+          </tr>
 
-<tr>
-<td>Phuket Luxury Escape</td>
-<td><span class="status active">Active</span></td>
-<td>Meta Ads</td>
-<td>UK / DE / AU</td>
-<td>$5,788</td>
-<td>$57,303</td>
-<td class="metric-up">3.4%</td>
-<td class="metric-up">9.9x</td>
-</tr>
+          <tr>
+            <td>Brand Search Protection</td>
+            <td><span class="status active">Active</span></td>
+            <td>Google Ads</td>
+            <td>Branded traffic</td>
+            <td>$1,450</td>
+            <td>$16,800</td>
+            <td class="metric-up">7.9%</td>
+            <td class="metric-up">11.6x</td>
+          </tr>
 
-<tr>
-<td>Middle East Winter Escape</td>
-<td><span class="status active">Active</span></td>
-<td>Meta Ads</td>
-<td>AE / SA / QA</td>
-<td>$3,200</td>
-<td>$24,100</td>
-<td>3.1%</td>
-<td class="metric-up">7.5x</td>
-</tr>
+          <tr>
+            <td>Thai Tiew Thai Fair Push</td>
+            <td><span class="status paused">Paused</span></td>
+            <td>Meta Ads</td>
+            <td>Thailand</td>
+            <td>$2,200</td>
+            <td>$12,900</td>
+            <td>2.8%</td>
+            <td>5.9x</td>
+          </tr>
 
-<tr>
-<td>Brand Search Protection</td>
-<td><span class="status active">Active</span></td>
-<td>Google Ads</td>
-<td>Branded traffic</td>
-<td>$1,450</td>
-<td>$16,800</td>
-<td class="metric-up">7.9%</td>
-<td class="metric-up">11.6x</td>
-</tr>
+          <tr>
+            <td>Expedia TravelAds</td>
+            <td><span class="status active">Active</span></td>
+            <td>OTA</td>
+            <td>OTA traffic</td>
+            <td>$4,100</td>
+            <td>$27,800</td>
+            <td class="metric-up">4.6%</td>
+            <td>6.8x</td>
+          </tr>
 
-<tr>
-<td>Thai Tiew Thai Fair Push</td>
-<td><span class="status paused">Paused</span></td>
-<td>Meta Ads</td>
-<td>Thailand</td>
-<td>$2,200</td>
-<td>$12,900</td>
-<td>2.8%</td>
-<td>5.9x</td>
-</tr>
+        </tbody>
 
-<tr>
-<td>Expedia TravelAds</td>
-<td><span class="status active">Active</span></td>
-<td>OTA</td>
-<td>OTA traffic</td>
-<td>$4,100</td>
-<td>$27,800</td>
-<td class="metric-up">4.6%</td>
-<td>6.8x</td>
-</tr>
+      </table>
+    </div>
 
-</tbody>
+    <div class="chart">
 
-</table>
+      <div class="bar-wrap">
+        <div class="bar" style="height:180px"></div>
+        <div class="bar-label">Luxury</div>
+      </div>
 
-<div class="chart">
+      <div class="bar-wrap">
+        <div class="bar" style="height:140px"></div>
+        <div class="bar-label">ME</div>
+      </div>
 
-<div class="bar-wrap">
-<div class="bar" style="height:180px"></div>
-<div class="bar-label">Luxury</div>
-</div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:200px"></div>
+        <div class="bar-label">Brand</div>
+      </div>
 
-<div class="bar-wrap">
-<div class="bar" style="height:140px"></div>
-<div class="bar-label">ME</div>
-</div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:110px"></div>
+        <div class="bar-label">Thai</div>
+      </div>
 
-<div class="bar-wrap">
-<div class="bar" style="height:200px"></div>
-<div class="bar-label">Brand</div>
-</div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:160px"></div>
+        <div class="bar-label">OTA</div>
+      </div>
 
-<div class="bar-wrap">
-<div class="bar" style="height:110px"></div>
-<div class="bar-label">Thai</div>
-</div>
+    </div>
 
-<div class="bar-wrap">
-<div class="bar" style="height:160px"></div>
-<div class="bar-label">OTA</div>
-</div>
-
-</div>
-
-</main>
+  </main>
 
 </div>
 
