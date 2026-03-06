@@ -14,7 +14,7 @@
       --blue:#1877f2;
       --shadow: 0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
       --radius: 14px;
-      --max: 1200px;
+      --max: 1240px;
     }
     *{box-sizing:border-box}
     body{
@@ -29,11 +29,11 @@
     }
     a{color:inherit; text-decoration:none}
     button{font:inherit}
+
     .topbar{
       position:sticky; top:0; z-index:50;
       background:var(--card);
       border-bottom:1px solid var(--line);
-      box-shadow: 0 1px 0 rgba(0,0,0,.02);
     }
     .topbar-inner{
       max-width:var(--max);
@@ -42,25 +42,25 @@
       display:flex;
       gap:12px;
       align-items:center;
+      flex-wrap:wrap;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
       min-width:180px;
     }
-    .fb-dot{
-      width:38px; height:38px; border-radius:999px;
-      background:var(--blue);
-      display:grid; place-items:center;
-      color:white; font-weight:900;
-      letter-spacing:-1px;
-      box-shadow: var(--shadow);
+    .brand img{
+      width:38px; height:38px; border-radius:999px; object-fit:cover;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow:var(--shadow);
     }
     .search{
       flex:1;
+      min-width:220px;
       display:flex;
       align-items:center;
       gap:10px;
-      background: #f0f2f5;
+      background:#f0f2f5;
       padding:10px 12px;
       border-radius:999px;
       border:1px solid #eef0f3;
@@ -73,7 +73,7 @@
       font-size:14px;
     }
     .tabs{
-      display:flex; gap:8px; align-items:center;
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
     }
     .tab{
       padding:10px 12px;
@@ -82,12 +82,19 @@
       font-weight:600;
       cursor:pointer;
       border:1px solid transparent;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .tab img{
+      width:16px;height:16px;object-fit:cover;border-radius:4px;
     }
     .tab.active{
       color:var(--blue);
       background: rgba(24,119,242,.10);
       border-color: rgba(24,119,242,.18);
     }
+
     .container{
       max-width:var(--max);
       margin:16px auto 40px;
@@ -97,16 +104,14 @@
       gap:16px;
       align-items:start;
     }
-    @media (max-width: 1050px){
+    @media (max-width: 1100px){
       .container{ grid-template-columns: 280px 1fr; }
       .right{ display:none; }
     }
     @media (max-width: 760px){
-      .brand{ min-width:auto; }
       .tabs{ display:none; }
       .container{ grid-template-columns: 1fr; }
-      .left{ display:none; }
-      .right{ display:none; }
+      .left, .right{ display:none; }
     }
 
     .card{
@@ -116,9 +121,8 @@
       box-shadow: var(--shadow);
     }
     .left .card, .right .card{ position:sticky; top:76px; }
-    .profile{
-      padding:14px;
-    }
+
+    .profile{ padding:14px; }
     .cover{
       height:90px;
       border-radius:12px;
@@ -138,10 +142,7 @@
     }
     .name{ font-size:18px; font-weight:800; margin:0 0 2px 10px; }
     .headline{ margin:0 0 12px 10px; color:var(--muted); font-size:13px; }
-    .mini{
-      display:flex; gap:8px; padding:0 10px 12px;
-      flex-wrap:wrap;
-    }
+    .mini{ display:flex; gap:8px; padding:0 10px 12px; flex-wrap:wrap; }
     .pill{
       font-size:12px;
       color:#0f172a;
@@ -170,6 +171,9 @@
       background: rgba(24,119,242,.10);
       color: var(--blue);
     }
+    .menu .item img{
+      width:20px;height:20px;border-radius:6px;object-fit:cover;flex-shrink:0;
+    }
     .icon{
       width:26px; height:26px;
       border-radius:8px;
@@ -177,20 +181,17 @@
       border:1px solid #e5e7eb;
       display:grid; place-items:center;
       font-size:14px;
+      flex-shrink:0;
     }
 
-    .composer{
-      padding:12px;
-      margin-bottom:12px;
-    }
-    .composer-top{
-      display:flex; gap:10px; align-items:center;
-    }
+    .composer{ padding:12px; margin-bottom:12px; }
+    .composer-top{ display:flex; gap:10px; align-items:center; }
     .composer .avatar-sm{
       width:40px; height:40px; border-radius:999px;
       background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
       display:grid; place-items:center;
       font-weight:800;
+      flex-shrink:0;
     }
     .composer input{
       flex:1;
@@ -199,6 +200,7 @@
       padding:10px 12px;
       border-radius:999px;
       outline:0;
+      min-width:0;
     }
     .composer-actions{
       margin-top:10px;
@@ -220,21 +222,21 @@
     }
 
     .feed{ display:flex; flex-direction:column; gap:12px; }
-    .post{
-      padding:12px;
-    }
+    .post{ padding:12px; }
     .post-head{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       margin-bottom:10px;
     }
     .post-left{
       display:flex; align-items:center; gap:10px;
+      min-width:0;
     }
     .post .avatar-sm{
       width:42px; height:42px; border-radius:999px;
       background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
       display:grid; place-items:center;
       font-weight:800;
+      flex-shrink:0;
     }
     .post-title{
       margin:0;
@@ -249,6 +251,7 @@
     .kebab{
       border:0; background:transparent; cursor:pointer;
       width:38px; height:38px; border-radius:999px;
+      flex-shrink:0;
     }
     .kebab:hover{ background:#f6f7f9; }
     .post-body{
@@ -275,7 +278,6 @@
       background: radial-gradient(circle at 20% 20%, rgba(24,119,242,.35), transparent 45%),
                   radial-gradient(circle at 80% 30%, rgba(17,24,39,.18), transparent 45%),
                   radial-gradient(circle at 50% 90%, rgba(99,102,241,.18), transparent 55%);
-      filter: blur(0px);
       opacity:.9;
     }
     .thumb .chiprow{
@@ -322,10 +324,7 @@
       font-weight:900;
     }
     .muted{ color:var(--muted); font-size:13px; line-height:1.45; }
-    .list{
-      display:grid; gap:8px;
-      margin-top:10px;
-    }
+    .list{ display:grid; gap:8px; margin-top:10px; }
     .row{
       display:flex; justify-content:space-between; gap:10px;
       padding:10px 10px;
@@ -346,89 +345,15 @@
       white-space:nowrap;
     }
 
-    .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.45);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:100;
-    }
-    .modal{
-      width:min(860px, 100%);
-      background:var(--card);
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: 0 20px 80px rgba(0,0,0,.35);
-      overflow:hidden;
-    }
-    .modal-head{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 14px;
-      border-bottom:1px solid var(--line);
-    }
-    .modal-head strong{ font-size:14px; }
-    .close{
-      width:40px; height:40px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      cursor:pointer;
-      font-weight:900;
-    }
-    .modal-body{
-      padding:14px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-    }
-    @media (max-width: 820px){
-      .modal-body{ grid-template-columns: 1fr; }
-    }
-    .modal-hero{
-      height:280px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background: linear-gradient(135deg, rgba(24,119,242,.16), rgba(17,24,39,.06));
-      position:relative;
-      overflow:hidden;
-    }
-    .modal-hero::after{
-      content:"";
-      position:absolute; inset:-50px;
-      background: radial-gradient(circle at 30% 30%, rgba(24,119,242,.35), transparent 45%),
-                  radial-gradient(circle at 70% 40%, rgba(17,24,39,.18), transparent 45%),
-                  radial-gradient(circle at 55% 90%, rgba(99,102,241,.18), transparent 55%);
-    }
-    .modal-copy h3{
-      margin:0 0 6px;
-      font-size:16px;
-      font-weight:950;
-    }
-    .kv{
-      display:grid; gap:8px;
-      margin-top:10px;
-    }
-    .kv div{
-      display:flex; justify-content:space-between; gap:12px;
-      font-size:13px;
-      padding:10px 10px;
-      border-radius:12px;
-      background:#f6f7f9;
-      border:1px solid #eef0f3;
-    }
-    .kv b{ color:#111827; }
-    .kv span{ color:#374151; font-weight:700; }
-
     .mobile-tabs{
       display:none;
       padding:10px 14px;
       gap:8px;
       border-top:1px solid var(--line);
+      flex-wrap:wrap;
     }
     @media (max-width: 760px){
-      .mobile-tabs{ display:flex; background:var(--card); position:sticky; top:60px; z-index:40; }
+      .mobile-tabs{ display:flex; background:var(--card); position:sticky; top:58px; z-index:40; }
     }
   </style>
 </head>
@@ -437,8 +362,8 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="fb-dot">f</div>
-        <strong style="font-size:14px;">Phufolio</strong>
+        <img src="images/icon-phubook.png" alt="Phubook icon">
+        <strong style="font-size:14px;">Phubook</strong>
       </div>
 
       <div class="search" title="Search your projects">
@@ -450,6 +375,9 @@
         <div class="tab active" data-section="front">Front Door</div>
         <div class="tab" data-section="lab">Lab</div>
         <div class="tab" data-section="gallery">Gallery</div>
+        <a class="tab" href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
+        <a class="tab" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
+        <a class="tab" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
       </nav>
     </div>
 
@@ -457,6 +385,9 @@
       <div class="tab active" data-section="front">Front Door</div>
       <div class="tab" data-section="lab">Lab</div>
       <div class="tab" data-section="gallery">Gallery</div>
+      <a class="tab" href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
+      <a class="tab" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
+      <a class="tab" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
     </div>
   </header>
 
@@ -464,8 +395,8 @@
     <aside class="left">
       <div class="card profile">
         <div class="cover"></div>
-        <div class="avatar" id="avatar">YN</div>
-        <h1 class="name" id="name">Your Name</h1>
+        <div class="avatar" id="avatar">P</div>
+        <h1 class="name" id="name">Phu</h1>
         <p class="headline" id="headline">Digital Marketing • Graphic Design • Hospitality</p>
 
         <div class="mini" id="pills">
@@ -479,6 +410,11 @@
           <div class="item active" data-section="front"><span class="icon">🏠</span>Front Door</div>
           <div class="item" data-section="lab"><span class="icon">🧪</span>Lab (Marketing)</div>
           <div class="item" data-section="gallery"><span class="icon">🖼️</span>Gallery (Design)</div>
+
+          <a class="item" href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
+          <a class="item" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
+          <a class="item" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
+
           <div class="item" id="downloadCV"><span class="icon">⬇️</span>Download CV</div>
         </div>
       </div>
@@ -487,13 +423,15 @@
     <section>
       <div class="card composer">
         <div class="composer-top">
-          <div class="avatar-sm" id="avatarSm">YN</div>
+          <div class="avatar-sm" id="avatarSm">P</div>
           <input id="statusBox" placeholder="Pin a highlight… (e.g., “Open to freelance work”)">
         </div>
         <div class="composer-actions">
           <button class="btn primary" id="btnAdd">Add a project post</button>
           <button class="btn" id="btnTheme">Toggle compact mode</button>
-          <button class="btn" id="btnContact">Contact</button>
+          <button class="btn" onclick="location.href='phustagram.html'">Open Phustagram</button>
+          <button class="btn" onclick="location.href='phutube.html'">Open PhuTube</button>
+          <button class="btn" onclick="location.href='phugleads.html'">Open Phugle Ads</button>
         </div>
       </div>
 
@@ -504,7 +442,7 @@
       <div class="card box">
         <h2 class="h2">About</h2>
         <p class="muted" id="about">
-          Write 2–3 lines about your focus, strengths, and what kind of work you want.
+          A social-style landing page that connects all of my portfolio worlds: design, video, and digital marketing.
         </p>
 
         <div class="list">
@@ -514,129 +452,66 @@
         </div>
 
         <div style="margin-top:14px;">
-          <h2 class="h2">Skills</h2>
-          <div class="mini" id="skillPills" style="padding:0;">
-            <span class="pill">Meta Ads</span>
-            <span class="pill">Google Ads</span>
-            <span class="pill">Branding</span>
-            <span class="pill">UI/Design</span>
-            <span class="pill">Content</span>
+          <h2 class="h2">Portfolio Platforms</h2>
+          <div class="mini" style="padding:0;">
+            <span class="pill">Phubook</span>
+            <span class="pill">Phustagram</span>
+            <span class="pill">PhuTube</span>
+            <span class="pill">Phugle Ads</span>
           </div>
         </div>
       </div>
     </aside>
   </main>
 
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal">
-      <div class="modal-head">
-        <strong id="modalTitle">Project</strong>
-        <button class="close" id="modalClose" aria-label="Close">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-hero"></div>
-        <div class="modal-copy">
-          <h3 id="modalH3">Project title</h3>
-          <p class="muted" id="modalDesc">Description</p>
-          <div class="kv" id="modalKV"></div>
-          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="btn primary" id="modalLink" href="#" target="_blank" rel="noopener">Open link</a>
-            <button class="btn" id="modalCopy">Copy summary</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     const PROFILE = {
-      initials: "YN",
-      name: "Your Name",
+      initials: "P",
+      name: "Phu",
       headline: "Digital Marketing • Graphic Design • Hospitality",
-      about: "I build performance-driven campaigns and clean visuals that feel premium. I love brand systems, content, and ads that actually convert.",
+      about: "I build campaigns, visuals, and content experiences across social, video, and paid media.",
       focus: "Marketing + Design",
-      location: "Your City",
+      location: "Phuket / Bangkok",
       email: "you@email.com",
       cvUrl: "#",
-      skills: ["Meta Ads", "Google Ads", "SEO", "Branding", "Graphic Design", "Content Strategy"]
+      skills: ["Meta Ads", "Google Ads", "Branding", "Graphic Design", "Content Strategy", "Hospitality Marketing"]
     };
 
     const POSTS = [
       {
         section: "front",
         type: "Pinned",
-        title: "Welcome to my serious playground!",
+        title: "Welcome to Phubook",
         when: "Pinned • Always visible",
-        text: "This site is designed like a social feed. Click any post to open details.\n\nUse the tabs to switch between Lab (Marketing) and Gallery (Design).",
-        tags: ["Overview","About"],
-        link: "#",
-        details: {
-          Role: "Marketing & Design",
-          Outcome: "Quick browsing like Facebook",
-          Tools: "HTML/CSS/JS"
-        }
+        text: "Phubook is my main landing page.\n\nFrom here you can explore:\n• Phustagram for design works\n• PhuTube for video showcase\n• Phugle Ads for digital marketing",
+        tags: ["Overview","Landing Page","Portfolio"],
       },
       {
         section: "lab",
         type: "Case Study",
-        title: "Paid Social Campaign • Always-on Acquisition",
+        title: "Digital Marketing Campaign Strategy",
         when: "Lab • Marketing",
-        text: "Objective: increase qualified leads with strong creative testing.\nResult: improved CTR and more stable CPL (add your real numbers here).",
-        tags: ["Meta Ads","Creative Testing","Performance"],
-        link: "#",
-        details: {
-          Objective: "Leads / Bookings",
-          Audience: "International + Local",
-          Channel: "Meta",
-          KPI: "CTR / CPL / ROAS"
-        }
-      },
-      {
-        section: "lab",
-        type: "Strategy",
-        title: "Content Pillars Framework",
-        when: "Lab • Marketing",
-        text: "Built a content structure with 4 pillars: Educational, Entertainment/Lifestyle, Promotional, Engagement.\nUsed it to plan monthly calendars and improve consistency.",
-        tags: ["Content","Brand","Planning"],
-        link: "#",
-        details: {
-          Deliverable: "Content Calendar",
-          Pillars: "Edu / Entertain / Promo / Engage",
-          Output: "More consistent publishing"
-        }
+        text: "This section is for campaign planning, market targeting, paid media, and performance storytelling.",
+        tags: ["Marketing","Paid Media","Strategy"],
       },
       {
         section: "gallery",
         type: "Design",
-        title: "Brand Visual System • Clean & Premium",
+        title: "Creative Visual Showcase",
         when: "Gallery • Design",
-        text: "A minimal visual system built for hospitality: typography, layout rules, and social templates.\n(Replace with your real project and screenshots later.)",
-        tags: ["Branding","Layout","Templates"],
-        link: "#",
-        details: {
-          Deliverables: "Templates, Guidelines",
-          Style: "Modern, clean",
-          Format: "AI / PDF / PNG"
-        }
-      },
-      {
-        section: "gallery",
-        type: "Design",
-        title: "Event Key Visual • Sponsor Board + Signage",
-        when: "Gallery • Design",
-        text: "Designed event visuals with clear hierarchy, partner logos, and print-ready layout.\n(Replace with your actual event work.)",
-        tags: ["Event","Print","Signage"],
-        link: "#",
-        details: {
-          Output: "Backdrop, boards, signage",
-          Prep: "Print-ready (CMYK)",
-          Notes: "Logo safe-space respected"
-        }
+        text: "This section introduces the visual side of my work. For full project viewing, open Phustagram.",
+        tags: ["Design","Branding","Visual"],
       }
     ];
 
     const feed = document.getElementById("feed");
     const searchInput = document.getElementById("searchInput");
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
+    }
 
     function applyProfile(){
       document.getElementById("avatar").textContent = PROFILE.initials;
@@ -647,15 +522,6 @@
       document.getElementById("focusBadge").textContent = PROFILE.focus;
       document.getElementById("locationBadge").textContent = PROFILE.location;
       document.getElementById("emailBadge").textContent = PROFILE.email;
-
-      const pills = document.getElementById("skillPills");
-      pills.innerHTML = PROFILE.skills.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join("");
-    }
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[m]));
     }
 
     let currentSection = "front";
@@ -663,60 +529,34 @@
 
     function setActiveSection(section){
       currentSection = section;
-
-      document.querySelectorAll(".tab").forEach(t=>{
-        const is = t.dataset.section === section;
-        t.classList.toggle("active", is);
+      document.querySelectorAll(".tab[data-section]").forEach(t=>{
+        t.classList.toggle("active", t.dataset.section === section);
       });
-
-      document.querySelectorAll(".menu .item").forEach(i=>{
-        const is = i.dataset.section === section;
-        i.classList.toggle("active", is);
+      document.querySelectorAll(".menu .item[data-section]").forEach(i=>{
+        i.classList.toggle("active", i.dataset.section === section);
       });
-
       render();
     }
 
-    function render(){
-      const q = (searchInput.value || "").trim().toLowerCase();
-
-      const visible = POSTS.filter(p => {
-        const inSection = (currentSection === "front")
-          ? (p.section === "front" || p.type === "Pinned")
-          : (p.section === currentSection);
-
-        const hay = (p.title + " " + p.text + " " + (p.tags||[]).join(" ")).toLowerCase();
-        const match = !q || hay.includes(q);
-
-        return inSection && match;
-      });
-
-      feed.innerHTML = visible.map((p, idx) => postCard(p, idx)).join("");
-
-      document.querySelectorAll("[data-open]").forEach(el=>{
-        el.addEventListener("click", () => {
-          const key = Number(el.getAttribute("data-open"));
-          const post = visible[key];
-          openModal(post);
-        });
-      });
+    function truncate(text, max){
+      return text.length <= max ? text : text.slice(0, max - 1) + "…";
     }
 
-    function postCard(p, idx){
-      const tags = (p.tags||[]).slice(0,6).map(t => `<span class="chip">${escapeHtml(t)}</span>`).join("");
+    function postCard(p){
+      const tags = (p.tags||[]).map(t => `<span class="chip">${escapeHtml(t)}</span>`).join("");
       const body = compactMode ? truncate(p.text, 140) : p.text;
 
       return `
-        <article class="card post" data-open="${idx}">
+        <article class="card post">
           <div class="post-head">
             <div class="post-left">
               <div class="avatar-sm">${escapeHtml(PROFILE.initials)}</div>
               <div>
                 <p class="post-title">${escapeHtml(p.title)}</p>
-                <div class="post-meta">${escapeHtml(p.when)} • <span style="color:var(--muted); font-weight:700;">${escapeHtml(p.type)}</span></div>
+                <div class="post-meta">${escapeHtml(p.when)} • ${escapeHtml(p.type)}</div>
               </div>
             </div>
-            <button class="kebab" aria-label="More">⋯</button>
+            <button class="kebab">⋯</button>
           </div>
 
           <div class="post-body">${escapeHtml(body)}</div>
@@ -725,7 +565,7 @@
             <div class="chiprow">${tags}</div>
           </div>
 
-          <div class="post-actions" aria-label="Actions">
+          <div class="post-actions">
             <div class="action">👍 Like</div>
             <div class="action">💬 Comment</div>
             <div class="action">↗ Share</div>
@@ -734,69 +574,24 @@
       `;
     }
 
-    function truncate(text, max){
-      const s = String(text);
-      if (s.length <= max) return s;
-      return s.slice(0, max - 1) + "…";
+    function render(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+
+      const visible = POSTS.filter(p => {
+        const inSection = currentSection === "front"
+          ? (p.section === "front" || p.type === "Pinned")
+          : p.section === currentSection;
+        const hay = (p.title + " " + p.text + " " + (p.tags||[]).join(" ")).toLowerCase();
+        return inSection && (!q || hay.includes(q));
+      });
+
+      feed.innerHTML = visible.map(postCard).join("");
     }
 
-    const modalBackdrop = document.getElementById("modalBackdrop");
-    const modalClose = document.getElementById("modalClose");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalH3 = document.getElementById("modalH3");
-    const modalDesc = document.getElementById("modalDesc");
-    const modalKV = document.getElementById("modalKV");
-    const modalLink = document.getElementById("modalLink");
-    const modalCopy = document.getElementById("modalCopy");
-
-    function openModal(post){
-      modalTitle.textContent = post.type + " • " + post.section.toUpperCase();
-      modalH3.textContent = post.title;
-      modalDesc.textContent = post.text;
-
-      const details = post.details || {};
-      modalKV.innerHTML = Object.keys(details).map(k =>
-        `<div><b>${escapeHtml(k)}</b><span>${escapeHtml(details[k])}</span></div>`
-      ).join("");
-
-      modalLink.href = post.link || "#";
-      modalLink.style.display = (post.link && post.link !== "#") ? "inline-flex" : "none";
-
-      modalBackdrop.style.display = "flex";
-      modalBackdrop.setAttribute("aria-hidden","false");
-    }
-
-    function closeModal(){
-      modalBackdrop.style.display = "none";
-      modalBackdrop.setAttribute("aria-hidden","true");
-    }
-
-    modalClose.addEventListener("click", closeModal);
-    modalBackdrop.addEventListener("click", (e)=>{
-      if (e.target === modalBackdrop) closeModal();
-    });
-    document.addEventListener("keydown", (e)=>{
-      if (e.key === "Escape") closeModal();
-    });
-
-    modalCopy.addEventListener("click", async ()=>{
-      const txt =
-`${modalH3.textContent}
-${modalDesc.textContent}
-
-${Array.from(modalKV.querySelectorAll("div")).map(d => d.innerText.replace(/\s+/g,' ').trim()).join("\n")}`;
-      try{
-        await navigator.clipboard.writeText(txt);
-        modalCopy.textContent = "Copied!";
-        setTimeout(()=> modalCopy.textContent = "Copy summary", 900);
-      }catch{
-        alert("Copy not available in this browser.");
-      }
-    });
-
-    document.querySelectorAll(".tab").forEach(t=>{
+    document.querySelectorAll(".tab[data-section]").forEach(t=>{
       t.addEventListener("click", ()=> setActiveSection(t.dataset.section));
     });
+
     document.querySelectorAll(".menu .item[data-section]").forEach(i=>{
       i.addEventListener("click", ()=> setActiveSection(i.dataset.section));
     });
@@ -808,20 +603,12 @@ ${Array.from(modalKV.querySelectorAll("div")).map(d => d.innerText.replace(/\s+/
       render();
     });
 
-    document.getElementById("btnContact").addEventListener("click", ()=>{
-      alert("Add your contact links in PROFILE (email, LinkedIn, Behance, etc.).");
-    });
-
     document.getElementById("downloadCV").addEventListener("click", ()=>{
       if (!PROFILE.cvUrl || PROFILE.cvUrl === "#"){
-        alert("Set PROFILE.cvUrl to your CV PDF link.");
+        alert("Set PROFILE.cvUrl to your CV link.");
         return;
       }
       window.open(PROFILE.cvUrl, "_blank", "noopener");
-    });
-
-    document.getElementById("btnAdd").addEventListener("click", ()=>{
-      alert("Quick way: edit the POSTS array in the code to add your real projects.");
     });
 
     applyProfile();
