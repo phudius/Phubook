@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Phubook</title>
+  <link rel="icon" type="image/png" href="images/icon-phubook.png" />
 
   <style>
     :root{
@@ -15,7 +16,6 @@
       --blue:#1877f2;
       --blue-soft:#e7f3ff;
       --shadow:0 1px 2px rgba(0,0,0,.08), 0 4px 14px rgba(0,0,0,.05);
-      --radius:16px;
       --max:1180px;
     }
 
@@ -30,19 +30,9 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    img{
-      display:block;
-      max-width:100%;
-    }
-
-    button{
-      font:inherit;
-    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    button{font:inherit}
 
     .topbar{
       position:sticky;
@@ -199,9 +189,7 @@
       box-shadow:0 1px 2px rgba(0,0,0,.12);
     }
 
-    .friend-avatars span:first-child{
-      margin-left:0;
-    }
+    .friend-avatars span:first-child{ margin-left:0; }
 
     .subnav{
       display:flex;
@@ -214,9 +202,7 @@
       scrollbar-width:none;
     }
 
-    .subnav::-webkit-scrollbar{
-      display:none;
-    }
+    .subnav::-webkit-scrollbar{ display:none; }
 
     .subnav a{
       padding:10px 14px;
@@ -250,9 +236,7 @@
       box-shadow:var(--shadow);
     }
 
-    .section{
-      padding:18px;
-    }
+    .section{ padding:18px; }
 
     .section h2{
       margin:0 0 14px;
@@ -314,9 +298,7 @@
       background:#fff;
     }
 
-    .platform-copy{
-      min-width:0;
-    }
+    .platform-copy{ min-width:0; }
 
     .platform-copy strong{
       display:block;
@@ -331,9 +313,7 @@
       line-height:1.45;
     }
 
-    .post{
-      overflow:hidden;
-    }
+    .post{ overflow:hidden; }
 
     .post-head{
       padding:16px 18px 12px;
@@ -365,9 +345,7 @@
       object-fit:cover;
     }
 
-    .post-author-copy{
-      min-width:0;
-    }
+    .post-author-copy{ min-width:0; }
 
     .post-author-copy strong{
       display:block;
@@ -429,9 +407,7 @@
       background:#f2f3f5;
     }
 
-    .intro-card{
-      margin-bottom:16px;
-    }
+    .intro-card{ margin-bottom:16px; }
 
     .intro-card p{
       margin:0;
@@ -441,23 +417,13 @@
     }
 
     @media (max-width: 1024px){
-      .layout{
-        grid-template-columns:1fr;
-      }
-
-      .profile-copy h1{
-        font-size:30px;
-      }
+      .layout{ grid-template-columns:1fr; }
+      .profile-copy h1{ font-size:30px; }
     }
 
     @media (max-width: 760px){
-      .topbar-inner{
-        padding:10px 12px;
-      }
-
-      .page{
-        padding:0 0 28px;
-      }
+      .topbar-inner{ padding:10px 12px; }
+      .page{ padding:0 0 28px; }
 
       .hero{
         border-radius:0;
@@ -465,13 +431,8 @@
         border-right:none;
       }
 
-      .cover{
-        height:220px;
-      }
-
-      .hero-bottom{
-        padding:0 14px 16px;
-      }
+      .cover{ height:220px; }
+      .hero-bottom{ padding:0 14px 16px; }
 
       .profile-row{
         margin-top:-28px;
@@ -494,33 +455,14 @@
         padding-bottom:4px;
       }
 
-      .profile-copy h1{
-        font-size:24px;
-      }
+      .profile-copy h1{ font-size:24px; }
+      .profile-meta{ font-size:13px; }
 
-      .profile-meta{
-        font-size:13px;
-      }
-
-      .layout{
-        padding:0 14px;
-      }
-
-      .section{
-        padding:16px;
-      }
-
-      .section h2{
-        font-size:18px;
-      }
-
-      .post-body{
-        font-size:14px;
-      }
-
-      .post-placeholder{
-        min-height:180px;
-      }
+      .layout{ padding:0 14px; }
+      .section{ padding:16px; }
+      .section h2{ font-size:18px; }
+      .post-body{ font-size:14px; }
+      .post-placeholder{ min-height:180px; }
     }
   </style>
 </head>
@@ -536,7 +478,6 @@
 </header>
 
 <main class="page">
-
   <section class="hero">
     <div class="cover"></div>
 
@@ -573,7 +514,6 @@
   </section>
 
   <div class="layout">
-
     <aside>
       <section class="card section">
         <h2>Personal details</h2>
@@ -705,7 +645,6 @@ Use the My platforms section below to explore each category in its own UI style.
         </div>
       </article>
     </section>
-
   </div>
 </main>
 
