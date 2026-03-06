@@ -15,23 +15,14 @@
   --blue:#0095f6;
   --shadow:0 12px 40px rgba(0,0,0,.14);
 }
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 }
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
+a{color:inherit;text-decoration:none}
 .topbar{
   position:sticky;
   top:0;
@@ -39,7 +30,6 @@ a{
   background:#fff;
   border-bottom:1px solid var(--line);
 }
-
 .topbar-inner{
   max-width:1100px;
   margin:0 auto;
@@ -48,26 +38,38 @@ a{
   justify-content:space-between;
   align-items:center;
   gap:16px;
+  flex-wrap:wrap;
 }
-
 .brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
   font-size:22px;
   font-weight:800;
   letter-spacing:-.02em;
 }
-
+.brand img{
+  width:28px;height:28px;border-radius:8px;object-fit:cover;border:1px solid var(--line);
+}
+.nav-links{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
 .back-link{
   font-size:14px;
   color:var(--blue);
   font-weight:600;
 }
-
+.back-link img{
+  width:16px;height:16px;object-fit:cover;border-radius:4px;vertical-align:middle;margin-right:6px;
+}
 .page{
   max-width:1100px;
   margin:0 auto;
   padding:24px 18px 40px;
 }
-
 .profile-bar{
   display:flex;
   align-items:center;
@@ -75,7 +77,6 @@ a{
   margin-bottom:26px;
   min-width:0;
 }
-
 .profile-pic{
   width:64px;
   height:64px;
@@ -86,7 +87,6 @@ a{
   background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
   padding:2px;
 }
-
 .profile-pic-inner{
   width:100%;
   height:100%;
@@ -98,30 +98,23 @@ a{
   font-weight:800;
   font-size:20px;
 }
-
-.profile-copy{
-  min-width:0;
-}
-
+.profile-copy{min-width:0}
 .profile-copy h1{
   margin:0;
   font-size:22px;
   font-weight:700;
 }
-
 .profile-copy p{
   margin:6px 0 0;
   color:var(--muted);
   font-size:14px;
   line-height:1.45;
 }
-
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
 }
-
 .grid-item{
   position:relative;
   aspect-ratio:1/1;
@@ -129,7 +122,6 @@ a{
   cursor:pointer;
   background:#eee;
 }
-
 .grid-item img{
   width:100%;
   height:100%;
@@ -137,11 +129,7 @@ a{
   display:block;
   transition:transform .25s ease;
 }
-
-.grid-item:hover img{
-  transform:scale(1.04);
-}
-
+.grid-item:hover img{ transform:scale(1.04); }
 .grid-overlay{
   position:absolute;
   inset:0;
@@ -155,17 +143,7 @@ a{
   text-align:center;
   padding:16px;
 }
-
-.grid-item:hover .grid-overlay{
-  opacity:1;
-}
-
-.grid-overlay div{
-  font-size:14px;
-  font-weight:700;
-  line-height:1.4;
-}
-
+.grid-item:hover .grid-overlay{ opacity:1; }
 .multi-badge{
   position:absolute;
   top:10px;
@@ -177,7 +155,6 @@ a{
   border-radius:999px;
   font-weight:700;
 }
-
 .modal-backdrop{
   position:fixed;
   inset:0;
@@ -188,7 +165,6 @@ a{
   padding:24px;
   z-index:200;
 }
-
 .modal{
   width:min(1280px, 100%);
   height:min(90vh, 900px);
@@ -199,13 +175,11 @@ a{
   grid-template-columns:minmax(0, 1.35fr) 420px;
   box-shadow:var(--shadow);
 }
-
 .modal-left{
   position:relative;
   background:#000;
   min-width:0;
 }
-
 .slide{
   width:100%;
   height:100%;
@@ -214,14 +188,12 @@ a{
   justify-content:center;
   background:#000;
 }
-
 .slide img{
   width:100%;
   height:100%;
   object-fit:contain;
   display:block;
 }
-
 .nav-btn{
   position:absolute;
   top:50%;
@@ -239,10 +211,8 @@ a{
   align-items:center;
   justify-content:center;
 }
-
 .nav-btn.prev{ left:14px; }
 .nav-btn.next{ right:14px; }
-
 .slide-count{
   position:absolute;
   bottom:14px;
@@ -255,14 +225,12 @@ a{
   font-size:12px;
   font-weight:700;
 }
-
 .modal-right{
   display:flex;
   flex-direction:column;
   min-height:0;
   background:#fff;
 }
-
 .post-head{
   padding:14px 16px;
   border-bottom:1px solid var(--line);
@@ -271,14 +239,12 @@ a{
   align-items:center;
   gap:12px;
 }
-
 .author{
   display:flex;
   align-items:center;
   gap:12px;
   min-width:0;
 }
-
 .author-pic{
   width:34px;
   height:34px;
@@ -289,7 +255,6 @@ a{
   background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
   padding:2px;
 }
-
 .author-pic-inner{
   width:100%;
   height:100%;
@@ -301,34 +266,25 @@ a{
   font-size:11px;
   font-weight:800;
 }
-
 .author-name{
   font-size:14px;
   font-weight:700;
-  min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
 }
-
 .post-body{
   flex:1;
   min-height:0;
   overflow:auto;
 }
-
 .caption{
   padding:16px;
   border-bottom:1px solid var(--line);
 }
-
 .caption-top{
   display:flex;
   gap:12px;
   align-items:flex-start;
   min-width:0;
 }
-
 .caption-copy{
   font-size:14px;
   line-height:1.55;
@@ -336,18 +292,12 @@ a{
   overflow-wrap:break-word;
   word-break:break-word;
 }
-
-.caption-copy strong{
-  font-weight:700;
-}
-
 .details{
   padding:16px;
   display:grid;
   gap:10px;
   border-bottom:1px solid var(--line);
 }
-
 .detail-row{
   display:flex;
   justify-content:space-between;
@@ -358,16 +308,6 @@ a{
   border-radius:10px;
   padding:10px 12px;
 }
-
-.detail-row b{
-  color:#222;
-}
-
-.detail-row span{
-  color:#444;
-  text-align:right;
-}
-
 .tags{
   padding:16px;
   display:flex;
@@ -375,7 +315,6 @@ a{
   flex-wrap:wrap;
   border-bottom:1px solid var(--line);
 }
-
 .tag{
   padding:7px 10px;
   border-radius:999px;
@@ -383,38 +322,32 @@ a{
   font-size:12px;
   font-weight:700;
 }
-
 .actions{
   padding:14px 16px 10px;
   border-bottom:1px solid var(--line);
 }
-
 .icons{
   display:flex;
   gap:16px;
   font-size:25px;
   line-height:1;
 }
-
 .likes{
   margin-top:12px;
   font-size:14px;
   font-weight:700;
 }
-
 .meta{
   margin-top:6px;
   font-size:12px;
   color:var(--muted);
 }
-
 .comment-box{
   padding:14px 16px;
   display:flex;
   align-items:center;
   gap:12px;
 }
-
 .comment-input{
   flex:1;
   border:none;
@@ -423,13 +356,11 @@ a{
   background:transparent;
   min-width:0;
 }
-
 .post-link{
   color:var(--blue);
   font-weight:700;
   font-size:14px;
 }
-
 .close-btn{
   border:none;
   background:transparent;
@@ -438,7 +369,6 @@ a{
   line-height:1;
   flex-shrink:0;
 }
-
 @media (max-width: 980px){
   .modal{
     grid-template-columns:1fr;
@@ -446,64 +376,24 @@ a{
     max-height:92vh;
     overflow:auto;
   }
-
-  .modal-left{
-    height:55vh;
-  }
-
-  .modal-right{
-    min-height:auto;
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .modal-left{ height:55vh; }
+  .grid{ grid-template-columns:repeat(2,1fr); }
 }
-
 @media (max-width: 640px){
-  .page{
-    padding:18px 12px 28px;
-  }
-
-  .grid{
-    gap:4px;
-  }
-
-  .profile-copy h1{
-    font-size:20px;
-  }
-
-  .topbar-inner{
-    padding:12px;
-  }
-
-  .brand{
-    font-size:20px;
-  }
-
-  .modal-backdrop{
-    padding:0;
-  }
-
+  .page{ padding:18px 12px 28px; }
+  .grid{ gap:4px; }
+  .profile-copy h1{ font-size:20px; }
+  .topbar-inner{ padding:12px; }
+  .brand{ font-size:20px; }
+  .modal-backdrop{ padding:0; }
   .modal{
     width:100%;
     height:100%;
     max-height:none;
     border-radius:0;
   }
-
-  .modal-left{
-    height:42vh;
-  }
-
-  .detail-row{
-    flex-direction:column;
-    gap:6px;
-  }
-
-  .detail-row span{
-    text-align:left;
-  }
+  .modal-left{ height:42vh; }
+  .detail-row{ flex-direction:column; gap:6px; }
 }
 </style>
 </head>
@@ -511,8 +401,15 @@ a{
 
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="brand">Phustagram</div>
-    <a class="back-link" href="index.html">← Back to Phubook</a>
+    <div class="brand">
+      <img src="images/icon-phustagram.png" alt="Phustagram icon">
+      <span>Phustagram</span>
+    </div>
+    <div class="nav-links">
+      <a class="back-link" href="index.html"><img src="images/icon-phubook.png" alt="">Phubook</a>
+      <a class="back-link" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
+      <a class="back-link" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
+    </div>
   </div>
 </header>
 
@@ -544,9 +441,7 @@ a{
     <div class="modal-right">
       <div class="post-head">
         <div class="author">
-          <div class="author-pic">
-            <div class="author-pic-inner">P</div>
-          </div>
+          <div class="author-pic"><div class="author-pic-inner">P</div></div>
           <div class="author-name">phudius</div>
         </div>
         <button class="close-btn" id="closeBtn">×</button>
@@ -563,7 +458,6 @@ a{
         </div>
 
         <div class="details" id="detailsBox"></div>
-
         <div class="tags" id="tagsBox"></div>
       </div>
 
@@ -585,39 +479,31 @@ a{
 <script>
 const PROJECTS = [
   {
-    title: "Thaiเที่ยวไทย Key Visual",
+    title: "Project One",
     cover: "images/work1.jpg",
-    images: [
-      "images/work1.jpg",
-      "images/work2.jpg",
-      "images/work3.jpg"
-    ],
-    caption: "Designed a promotional key visual for a travel fair campaign, combining a resort atmosphere, offer communication, and event information in one social-friendly layout.",
+    images: ["images/work1.jpg","images/work2.jpg","images/work3.jpg"],
+    caption: "Replace this with your real design project description.",
     likes: "24 likes",
     date: "3 days ago",
-    tags: ["Key Visual", "Social Media", "Hospitality", "Campaign Design"],
+    tags: ["Design", "Branding", "Creative"],
     details: {
-      Client: "Veranda Resort Phuket",
-      Category: "Campaign Artwork",
-      Role: "Concept, Layout, Visual Design",
+      Client: "Your Client",
+      Category: "Design Project",
+      Role: "Concept + Design",
       Tools: "Illustrator, Photoshop",
-      Format: "Social Post / Carousel"
+      Format: "Carousel"
     }
   },
   {
-    title: "Brand Visual System",
+    title: "Project Two",
     cover: "images/work4.jpg",
-    images: [
-      "images/work4.jpg",
-      "images/work5.jpg",
-      "images/work6.jpg"
-    ],
-    caption: "A clean visual system developed for hospitality communication, with typography hierarchy, color direction, and modular layouts for campaign adaptation.",
+    images: ["images/work4.jpg","images/work5.jpg","images/work6.jpg"],
+    caption: "Replace this with another real project description.",
     likes: "18 likes",
     date: "1 week ago",
-    tags: ["Branding", "Layout", "Visual System"],
+    tags: ["Visual System", "Layout"],
     details: {
-      Client: "Hospitality Project",
+      Client: "Your Client",
       Category: "Brand Design",
       Role: "Art Direction",
       Tools: "Illustrator, InDesign",
@@ -642,21 +528,23 @@ const closeBtn = document.getElementById("closeBtn");
 let currentProject = 0;
 let currentImage = 0;
 
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
 function renderGrid(){
   grid.innerHTML = PROJECTS.map((project, index) => `
     <article class="grid-item" data-index="${index}">
       <img src="${project.cover}" alt="${escapeHtml(project.title)}">
       <div class="multi-badge">${project.images.length} photos</div>
-      <div class="grid-overlay">
-        <div>${escapeHtml(project.title)}</div>
-      </div>
+      <div class="grid-overlay"><div>${escapeHtml(project.title)}</div></div>
     </article>
   `).join("");
 
   document.querySelectorAll(".grid-item").forEach(item => {
-    item.addEventListener("click", () => {
-      openProject(Number(item.dataset.index));
-    });
+    item.addEventListener("click", () => openProject(Number(item.dataset.index)));
   });
 }
 
@@ -678,10 +566,7 @@ function updateModal(){
   likesText.textContent = project.likes;
   metaText.textContent = project.date;
 
-  tagsBox.innerHTML = project.tags.map(tag => `
-    <span class="tag">${escapeHtml(tag)}</span>
-  `).join("");
-
+  tagsBox.innerHTML = project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
   detailsBox.innerHTML = Object.entries(project.details).map(([key, value]) => `
     <div class="detail-row">
       <b>${escapeHtml(key)}</b>
@@ -709,27 +594,15 @@ function showNext(){
   updateModal();
 }
 
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
-}
-
 prevBtn.addEventListener("click", showPrev);
 nextBtn.addEventListener("click", showNext);
 closeBtn.addEventListener("click", closeModal);
 
-modalBackdrop.addEventListener("click", (e) => {
-  if(e.target === modalBackdrop){
-    closeModal();
-  }
+modalBackdrop.addEventListener("click", e => {
+  if(e.target === modalBackdrop) closeModal();
 });
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", e => {
   if(modalBackdrop.style.display === "flex"){
     if(e.key === "Escape") closeModal();
     if(e.key === "ArrowLeft") showPrev();
