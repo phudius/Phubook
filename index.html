@@ -101,7 +101,7 @@
 
     .cover{
       height:320px;
-      background:linear-gradient(135deg,#bcdcff 0%, #7db8ff 35%, #5f93d5 65%, #3c5578 100%);
+      background:url("images/cover-phubook.jpg") center/cover no-repeat;
       position:relative;
       overflow:hidden;
     }
@@ -110,10 +110,7 @@
       content:"";
       position:absolute;
       inset:0;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(255,255,255,.45), transparent 18%),
-        radial-gradient(circle at 78% 25%, rgba(255,255,255,.24), transparent 18%),
-        radial-gradient(circle at 50% 90%, rgba(255,255,255,.18), transparent 24%);
+      background:linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.10));
       pointer-events:none;
     }
 
@@ -153,18 +150,6 @@
       width:100%;
       height:100%;
       object-fit:cover;
-    }
-
-    .avatar-fallback{
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(135deg,#1f2937,#5b8def);
-      color:#fff;
-      font-size:54px;
-      font-weight:900;
     }
 
     .profile-copy{
@@ -371,12 +356,13 @@
       border-radius:999px;
       overflow:hidden;
       flex-shrink:0;
-      background:linear-gradient(135deg,#1f2937,#5b8def);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-weight:800;
+      background:#ddd;
+    }
+
+    .post-author-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
     .post-author-copy{
@@ -558,8 +544,7 @@
       <div class="profile-row">
         <div class="profile-main">
           <div class="avatar">
-            <!-- <img src="images/profile-phu.jpg" alt="Phu"> -->
-            <div class="avatar-fallback">P</div>
+            <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
           </div>
 
           <div class="profile-copy">
@@ -658,7 +643,9 @@
       <article class="card post">
         <div class="post-head">
           <div class="post-author">
-            <div class="post-author-avatar">P</div>
+            <div class="post-author-avatar">
+              <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
+            </div>
             <div class="post-author-copy">
               <strong>Real Phuwadech Klinklay</strong>
               <span>Pinned post • Main landing page</span>
@@ -678,7 +665,7 @@ Each page is designed in a different familiar platform style, so the experience 
 
         <div class="post-media">
           <div class="post-placeholder">
-            You can replace this area with your own cover image, intro artwork, or screenshot later.
+            You can replace this area with your own intro artwork, featured post image, or portfolio highlight screenshot later.
           </div>
         </div>
 
@@ -692,7 +679,9 @@ Each page is designed in a different familiar platform style, so the experience 
       <article class="card post" style="margin-top:16px;">
         <div class="post-head">
           <div class="post-author">
-            <div class="post-author-avatar">P</div>
+            <div class="post-author-avatar">
+              <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
+            </div>
             <div class="post-author-copy">
               <strong>Real Phuwadech Klinklay</strong>
               <span>Portfolio update</span>
