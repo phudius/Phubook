@@ -7,8 +7,6 @@
 
 <style>
 
-/* Google-inspired color system */
-
 :root{
   --blue:#4285F4;
   --red:#EA4335;
@@ -43,13 +41,18 @@ a{
 /* TOP BAR */
 
 .topbar{
-  height:64px;
   background:var(--panel);
   border-bottom:1px solid var(--line);
+  padding:12px 20px;
+}
+
+.topbar-inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px;
+  gap:16px;
+  max-width:1400px;
+  margin:0 auto;
 }
 
 .brand{
@@ -58,6 +61,7 @@ a{
   gap:12px;
   font-weight:700;
   font-size:20px;
+  min-width:0;
 }
 
 .logo{
@@ -73,9 +77,16 @@ a{
   display:block;
 }
 
+.search{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  min-width:0;
+}
+
 .search input{
-  width:380px;
-  max-width:100%;
+  width:100%;
+  max-width:420px;
   padding:10px 14px;
   border-radius:999px;
   border:1px solid var(--line);
@@ -101,7 +112,7 @@ a{
 .layout{
   display:grid;
   grid-template-columns:240px 1fr;
-  min-height:calc(100vh - 64px);
+  min-height:calc(100vh - 73px);
 }
 
 /* SIDEBAR */
@@ -140,6 +151,7 @@ a{
 
 .content{
   padding:24px;
+  min-width:0;
 }
 
 /* KPI CARDS */
@@ -175,16 +187,18 @@ a{
 /* TABLE */
 
 .table-wrap{
-  overflow:auto;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
 }
 
 .table{
   width:100%;
+  min-width:900px;
   border-collapse:collapse;
   background:var(--panel);
-  border-radius:14px;
-  overflow:hidden;
-  min-width:900px;
 }
 
 .table th,
@@ -192,6 +206,7 @@ a{
   padding:14px;
   border-bottom:1px solid var(--line);
   text-align:left;
+  white-space:nowrap;
 }
 
 .table th{
@@ -199,6 +214,7 @@ a{
   color:var(--muted);
   text-transform:uppercase;
   font-weight:700;
+  background:#fafbfc;
 }
 
 .status{
@@ -245,18 +261,22 @@ a{
   border:1px solid var(--line);
   border-radius:14px;
   padding:20px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
 
 .bar{
   width:52px;
   background:linear-gradient(180deg,var(--blue),#7baaf7);
   border-radius:10px 10px 0 0;
+  flex-shrink:0;
 }
 
 .bar-wrap{
   display:flex;
   flex-direction:column;
   align-items:center;
+  min-width:52px;
 }
 
 .bar-label{
@@ -266,15 +286,33 @@ a{
   text-align:center;
 }
 
+/* MOBILE NAV SHORTCUT */
+
+.mobile-portfolio-nav{
+  display:none;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.mobile-portfolio-nav a{
+  padding:8px 12px;
+  border-radius:999px;
+  background:white;
+  border:1px solid var(--line);
+  font-size:13px;
+  font-weight:600;
+}
+
 /* RESPONSIVE */
 
-@media (max-width:1000px){
+@media (max-width:1100px){
   .kpi-grid{
     grid-template-columns:repeat(2,1fr);
   }
 }
 
-@media (max-width:700px){
+@media (max-width:820px){
   .layout{
     grid-template-columns:1fr;
   }
@@ -283,27 +321,89 @@ a{
     display:none;
   }
 
-  .kpi-grid{
-    grid-template-columns:1fr;
-  }
-
-  .topbar{
-    flex-wrap:wrap;
-    height:auto;
-    padding:12px;
-    gap:12px;
-  }
-
-  .search{
-    width:100%;
-  }
-
-  .search input{
-    width:100%;
+  .mobile-portfolio-nav{
+    display:flex;
   }
 
   .content{
-    padding:16px;
+    padding:18px;
+  }
+}
+
+@media (max-width:640px){
+  .topbar{
+    padding:12px;
+  }
+
+  .topbar-inner{
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+
+  .brand{
+    font-size:18px;
+  }
+
+  .logo img{
+    height:24px;
+  }
+
+  .search{
+    order:3;
+    width:100%;
+    flex:0 0 100%;
+  }
+
+  .search input{
+    max-width:none;
+    width:100%;
+  }
+
+  .avatar{
+    width:34px;
+    height:34px;
+    font-size:14px;
+  }
+
+  .content{
+    padding:14px;
+  }
+
+  .kpi-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .kpi{
+    padding:14px;
+  }
+
+  .kpi strong{
+    font-size:26px;
+  }
+
+  .table th,
+  .table td{
+    padding:12px;
+    font-size:13px;
+  }
+
+  .chart{
+    gap:12px;
+    height:200px;
+    padding:16px 12px;
+  }
+
+  .bar{
+    width:42px;
+  }
+
+  .bar-wrap{
+    min-width:42px;
+  }
+
+  .bar-label{
+    font-size:11px;
   }
 }
 
@@ -313,20 +413,22 @@ a{
 <body>
 
 <header class="topbar">
+  <div class="topbar-inner">
 
-  <div class="brand">
-    <div class="logo">
-      <img src="images/phu-logo.svg" alt="Phu Logo">
+    <div class="brand">
+      <div class="logo">
+        <img src="images/phu-logo.svg" alt="Phu Logo">
+      </div>
+      <span>Phugle Ads</span>
     </div>
-    <span>Phugle Ads</span>
+
+    <div class="search">
+      <input placeholder="Search campaigns..." />
+    </div>
+
+    <div class="avatar">P</div>
+
   </div>
-
-  <div class="search">
-    <input placeholder="Search campaigns..." />
-  </div>
-
-  <div class="avatar">P</div>
-
 </header>
 
 <div class="layout">
@@ -350,6 +452,12 @@ a{
 
   <!-- CONTENT -->
   <main class="content">
+
+    <div class="mobile-portfolio-nav">
+      <a href="index.html">Phubook</a>
+      <a href="phustagram.html">Phustagram</a>
+      <a href="phutube.html">PhuTube</a>
+    </div>
 
     <div class="kpi-grid">
 
