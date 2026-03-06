@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Phustagram</title>
+
+<style>
+
+body{
+margin:0;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+background:#fafafa;
+color:#111;
+}
+
+.header{
+
+position:sticky;
+top:0;
+
+background:white;
+border-bottom:1px solid #ddd;
+
+padding:16px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+max-width:1000px;
+margin:auto;
+
+}
+
+.brand{
+
+font-weight:700;
+font-size:18px;
+
+}
+
+.back{
+
+font-size:14px;
+text-decoration:none;
+color:#1877f2;
+
+}
+
+.container{
+
+max-width:1000px;
+margin:auto;
+padding:20px;
+
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+
+}
+
+.grid img{
+
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+
+cursor:pointer;
+
+transition:transform .2s;
+
+}
+
+.grid img:hover{
+
+transform:scale(1.03);
+
+}
+
+@media(max-width:900px){
+
+.grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="brand">
+Phustagram
+</div>
+
+<a class="back" href="index.html">
+← Back to Phubook
+</a>
+
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<img src="images/work1.jpg">
+<img src="images/work2.jpg">
+<img src="images/work3.jpg">
+<img src="images/work4.jpg">
+<img src="images/work5.jpg">
+<img src="images/work6.jpg">
+
+</div>
+
+</div>
+
+</body>
+</html>
