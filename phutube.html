@@ -38,9 +38,8 @@ img{display:block;max-width:100%}
 .burger{width:36px;height:36px;border-radius:999px;border:none;background:transparent;color:#fff;cursor:pointer}
 .burger:hover{background:#272727}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
-.brand-mark{
-  width:34px;height:24px;border-radius:8px;background:var(--red);
-  display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;
+.brand img{
+  width:28px;height:28px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,.15);
 }
 .searchbar{display:flex;align-items:center;justify-content:center;min-width:0}
 .search-shell{
@@ -75,11 +74,10 @@ img{display:block;max-width:100%}
 }
 .nav-item:hover{background:#272727}
 .nav-item.active{background:#272727;font-weight:700}
-.nav-icon{width:22px;text-align:center;opacity:.95}
-.content{padding:18px 24px 40px;min-width:0}
-.channel-hero{
-  display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:20px;
+.nav-icon{
+  width:22px;height:22px;border-radius:6px;object-fit:cover;flex-shrink:0;
 }
+.content{padding:18px 24px 40px;min-width:0}
 .channel-banner{
   height:180px;border-radius:18px;background:linear-gradient(135deg,#1f2937,#0ea5e9 55%,#111827);
   position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.05);
@@ -90,12 +88,11 @@ img{display:block;max-width:100%}
              radial-gradient(circle at 72% 35%, rgba(255,255,255,.14), transparent 22%),
              radial-gradient(circle at 50% 90%, rgba(255,255,255,.08), transparent 30%);
 }
-.channel-card{display:flex;gap:18px;align-items:flex-start;min-width:0}
+.channel-card{display:flex;gap:18px;align-items:flex-start;min-width:0;margin-top:16px}
 .channel-avatar{
   width:96px;height:96px;border-radius:999px;background:linear-gradient(135deg,#ff0033,#ff7a00);
   display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;flex-shrink:0;
 }
-.channel-copy{min-width:0}
 .channel-copy h1{margin:0 0 6px;font-size:32px;letter-spacing:-.03em}
 .channel-meta{color:var(--muted);font-size:14px;line-height:1.5}
 .channel-desc{margin-top:10px;color:#ddd;max-width:860px;font-size:14px;line-height:1.6}
@@ -123,7 +120,7 @@ img{display:block;max-width:100%}
   position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.82);padding:4px 6px;border-radius:6px;font-size:12px;font-weight:800;
 }
 .play-badge{
-  position:absolute;left:10px;top:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+  position:absolute;left:10px;top:10px;background:rgba(0,0,0,.55);
   width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:14px;
 }
 .video-meta{display:grid;grid-template-columns:40px 1fr;gap:12px;padding-top:10px;align-items:start}
@@ -131,7 +128,6 @@ img{display:block;max-width:100%}
   width:40px;height:40px;border-radius:999px;background:linear-gradient(135deg,#ff0033,#ff7a00);
   display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;
 }
-.video-copy{min-width:0}
 .video-title{
   margin:0;font-size:16px;line-height:1.35;font-weight:800;color:#f1f1f1;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
@@ -171,14 +167,11 @@ img{display:block;max-width:100%}
 .side-card:hover{background:#232323}
 .side-thumb{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;background:#222}
 .side-thumb img{width:100%;height:100%;object-fit:cover}
-.side-copy{min-width:0}
 .side-title{
   margin:0;font-size:14px;font-weight:700;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
 .side-sub{margin-top:6px;font-size:12px;color:var(--muted);line-height:1.45}
-@media (max-width: 1180px){
-  .video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
+@media (max-width: 1180px){ .video-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width: 980px){
   .layout{grid-template-columns:1fr}
   .sidebar{display:none}
@@ -189,14 +182,12 @@ img{display:block;max-width:100%}
   .topbar-inner{grid-template-columns:1fr auto;gap:12px}
   .searchbar{grid-column:1 / -1;order:3}
   .content{padding:14px 12px 28px}
-  .channel-card{align-items:center}
   .channel-avatar{width:76px;height:76px;font-size:28px}
   .channel-copy h1{font-size:26px}
   .video-grid{grid-template-columns:1fr;gap:18px}
   .modal-backdrop{padding:0}
   .modal{width:100%;height:100%;max-height:none;border-radius:0}
   .player-wrap{padding:12px}
-  .side-card{grid-template-columns:140px 1fr}
 }
 </style>
 </head>
@@ -206,7 +197,7 @@ img{display:block;max-width:100%}
     <div class="brand-wrap">
       <button class="burger">☰</button>
       <a class="brand" href="#">
-        <span class="brand-mark">▶</span>
+        <img src="images/icon-phutube.png" alt="PhuTube icon">
         <span>PhuTube</span>
       </a>
     </div>
@@ -228,39 +219,29 @@ img{display:block;max-width:100%}
 <div class="layout">
   <aside class="sidebar">
     <div class="nav-group">
-      <div class="nav-item active"><span class="nav-icon">🏠</span><span>Home</span></div>
-      <a class="nav-item" href="index.html"><span class="nav-icon">📘</span><span>Phubook</span></a>
-      <a class="nav-item" href="phustagram.html"><span class="nav-icon">📷</span><span>Phustagram</span></a>
-    </div>
-    <div class="nav-group">
-      <div class="nav-item"><span class="nav-icon">🎬</span><span>Shorts</span></div>
-      <div class="nav-item"><span class="nav-icon">📁</span><span>Projects</span></div>
-      <div class="nav-item"><span class="nav-icon">⭐</span><span>Highlights</span></div>
-    </div>
-    <div class="nav-group">
-      <div class="nav-item"><span class="nav-icon">🧰</span><span>Motion Graphics</span></div>
-      <div class="nav-item"><span class="nav-icon">🎨</span><span>Brand Videos</span></div>
-      <div class="nav-item"><span class="nav-icon">📱</span><span>Social Content</span></div>
+      <div class="nav-item active"><img class="nav-icon" src="images/icon-phutube.png" alt=""><span>PhuTube</span></div>
+      <a class="nav-item" href="index.html"><img class="nav-icon" src="images/icon-phubook.png" alt=""><span>Phubook</span></a>
+      <a class="nav-item" href="phustagram.html"><img class="nav-icon" src="images/icon-phustagram.png" alt=""><span>Phustagram</span></a>
+      <a class="nav-item" href="phugleads.html"><img class="nav-icon" src="images/icon-phugleads.png" alt=""><span>Phugle Ads</span></a>
     </div>
   </aside>
 
   <main class="content">
-    <section class="channel-hero">
-      <div class="channel-banner"></div>
-      <div class="channel-card">
-        <div class="channel-avatar">P</div>
-        <div class="channel-copy">
-          <h1>PhuTube</h1>
-          <div class="channel-meta">@phudiusvideo • Video works showcase • Motion, campaigns, reels, and branded content</div>
-          <div class="channel-desc">A YouTube-style showcase for video projects, from resort campaigns and social reels to motion graphics and promotional edits. Open a video card to view the featured project and project information.</div>
-          <div class="channel-actions">
-            <button class="btn primary">Subscribe</button>
-            <button class="btn">Share channel</button>
-            <button class="btn">Contact</button>
-          </div>
+    <div class="channel-banner"></div>
+
+    <div class="channel-card">
+      <div class="channel-avatar">P</div>
+      <div class="channel-copy">
+        <h1>PhuTube</h1>
+        <div class="channel-meta">@phudiusvideo • Video works showcase • Motion, campaigns, reels, and branded content</div>
+        <div class="channel-desc">A YouTube-style showcase for video projects, from resort campaigns and social reels to motion graphics and promotional edits.</div>
+        <div class="channel-actions">
+          <a class="btn primary" href="index.html">Phubook</a>
+          <a class="btn" href="phustagram.html">Phustagram</a>
+          <a class="btn" href="phugleads.html">Phugle Ads</a>
         </div>
       </div>
-    </section>
+    </div>
 
     <div class="filter-row" id="filterRow">
       <button class="filter-chip active" data-filter="all">All</button>
@@ -308,7 +289,7 @@ img{display:block;max-width:100%}
 <script>
 const VIDEOS = [
   {
-    title: "Autograph Moment Week • Twilight Ember Promo",
+    title: "Video Project One",
     category: "campaign",
     thumbnail: "images/video1.jpg",
     poster: "images/video1.jpg",
@@ -317,11 +298,11 @@ const VIDEOS = [
     views: "1.8K views",
     date: "2 weeks ago",
     channel: "PhuTube",
-    description: "A campaign video created to promote the Twilight Ember signature experience. This piece blends sunset mood, premium hospitality storytelling, and short-form social pacing for a polished branded result.",
+    description: "Replace this with your real video project description.",
     details: ["Role: Concept, storyboard, editing", "Tools: Premiere Pro, After Effects", "Format: Reel / social video"]
   },
   {
-    title: "Fluid Wonder Resort Brand Film Concept",
+    title: "Video Project Two",
     category: "branding",
     thumbnail: "images/video2.jpg",
     poster: "images/video2.jpg",
@@ -330,60 +311,8 @@ const VIDEOS = [
     views: "2.4K views",
     date: "1 month ago",
     channel: "PhuTube",
-    description: "A brand-led visual treatment focused on atmosphere, architecture, and emotional pacing. Designed to communicate the resort's Fluid Wonder positioning through cinematic sequencing.",
+    description: "Replace this with your second video project description.",
     details: ["Role: Art direction and editing", "Focus: Brand storytelling", "Output: Presentation teaser"]
-  },
-  {
-    title: "TikTok Motion Graphic • Insurance Explainer",
-    category: "motion",
-    thumbnail: "images/video3.jpg",
-    poster: "images/video3.jpg",
-    video: "",
-    duration: "0:35",
-    views: "980 views",
-    date: "3 weeks ago",
-    channel: "PhuTube",
-    description: "A fast, friendly motion graphic designed for TikTok with clear information flow, voiceover support, and simple visual storytelling optimized for mobile viewers.",
-    details: ["Role: Script + motion design", "Style: Clean explainer", "Format: 9:16 vertical"]
-  },
-  {
-    title: "Event Launch Reel • Social Teaser Edit",
-    category: "social",
-    thumbnail: "images/video4.jpg",
-    poster: "images/video4.jpg",
-    video: "",
-    duration: "0:28",
-    views: "1.1K views",
-    date: "6 days ago",
-    channel: "PhuTube",
-    description: "A short teaser cut for social launch communication, using high-energy timing, typography moments, and mobile-first editing rhythm.",
-    details: ["Role: Edit + graphic overlays", "Platform: Instagram / Facebook", "Goal: Event awareness"]
-  },
-  {
-    title: "Wedding Showcase Highlight Video",
-    category: "campaign",
-    thumbnail: "images/video5.jpg",
-    poster: "images/video5.jpg",
-    video: "",
-    duration: "0:54",
-    views: "1.5K views",
-    date: "4 weeks ago",
-    channel: "PhuTube",
-    description: "A visual highlight reel presenting wedding atmosphere, destination romance, and premium venue appeal through elegant pacing and cinematic transitions.",
-    details: ["Role: Creative direction", "Focus: Romance and luxury", "Output: Social campaign video"]
-  },
-  {
-    title: "Behind the Brand • Creative Process Cut",
-    category: "motion",
-    thumbnail: "images/video6.jpg",
-    poster: "images/video6.jpg",
-    video: "",
-    duration: "1:05",
-    views: "760 views",
-    date: "5 days ago",
-    channel: "PhuTube",
-    description: "A process-led video showcasing storyboard fragments, design development, and editing snapshots to present the thinking behind the final output.",
-    details: ["Role: Editor + designer", "Type: Behind the scenes", "Audience: Portfolio viewers"]
   }
 ];
 
@@ -408,21 +337,18 @@ let filteredVideos = [...VIDEOS];
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 }
-
 function applyFilters(){
   const q = searchInput.value.trim().toLowerCase();
   filteredVideos = VIDEOS.filter(video => {
     const passFilter = currentFilter === 'all' || video.category === currentFilter;
     const hay = `${video.title} ${video.description} ${video.category} ${video.details.join(' ')}`.toLowerCase();
-    const passSearch = !q || hay.includes(q);
-    return passFilter && passSearch;
+    return passFilter && (!q || hay.includes(q));
   });
   renderGrid();
 }
-
 function renderGrid(){
   if(!filteredVideos.length){
-    videoGrid.innerHTML = `<div style="grid-column:1 / -1;background:#181818;border:1px solid rgba(255,255,255,.06);padding:28px;border-radius:18px;color:#aaa">No videos found. Try another search or filter.</div>`;
+    videoGrid.innerHTML = `<div style="grid-column:1 / -1;background:#181818;border:1px solid rgba(255,255,255,.06);padding:28px;border-radius:18px;color:#aaa">No videos found.</div>`;
     return;
   }
 
@@ -435,7 +361,7 @@ function renderGrid(){
       </div>
       <div class="video-meta">
         <div class="mini-avatar">P</div>
-        <div class="video-copy">
+        <div>
           <h3 class="video-title">${escapeHtml(video.title)}</h3>
           <div class="video-sub">${escapeHtml(video.channel)}<br>${escapeHtml(video.views)} • ${escapeHtml(video.date)}</div>
         </div>
@@ -447,11 +373,9 @@ function renderGrid(){
     card.addEventListener('click', () => openVideo(Number(card.dataset.index)));
   });
 }
-
 function openVideo(index){
   currentIndex = index;
   const video = filteredVideos[index];
-
   playerTitle.textContent = video.title;
   playerStats.textContent = `${video.views} • ${video.date}`;
   playerDuration.textContent = video.duration;
@@ -460,13 +384,11 @@ function openVideo(index){
     <div>${escapeHtml(video.description)}</div>
     <div style="margin-top:12px;color:#bdbdbd">${video.details.map(item => `• ${escapeHtml(item)}`).join('<br>')}</div>
   `;
-
   if(video.video){
     playerVideo.src = video.video;
     playerVideo.poster = video.poster || video.thumbnail;
     playerVideo.style.display = 'block';
     playerImage.style.display = 'none';
-    previewBtn.textContent = '▶ Play';
   } else {
     playerVideo.pause();
     playerVideo.removeAttribute('src');
@@ -475,13 +397,10 @@ function openVideo(index){
     playerImage.src = video.poster || video.thumbnail;
     playerImage.alt = video.title;
     playerImage.style.display = 'block';
-    previewBtn.textContent = '▶ Preview';
   }
-
   renderSideList();
   modalBackdrop.style.display = 'flex';
 }
-
 function renderSideList(){
   sideList.innerHTML = filteredVideos.map((video, index) => `
     <article class="side-card" data-side-index="${index}">
@@ -489,7 +408,7 @@ function renderSideList(){
         <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}">
         <div class="duration" style="right:6px;bottom:6px;font-size:11px">${escapeHtml(video.duration)}</div>
       </div>
-      <div class="side-copy">
+      <div>
         <h4 class="side-title">${escapeHtml(video.title)}</h4>
         <div class="side-sub">${escapeHtml(video.channel)}<br>${escapeHtml(video.views)} • ${escapeHtml(video.date)}</div>
       </div>
@@ -500,12 +419,10 @@ function renderSideList(){
     card.addEventListener('click', () => openVideo(Number(card.dataset.sideIndex)));
   });
 }
-
 function closeModal(){
   modalBackdrop.style.display = 'none';
   playerVideo.pause();
 }
-
 filterRow.querySelectorAll('[data-filter]').forEach(btn => {
   btn.addEventListener('click', () => {
     currentFilter = btn.dataset.filter;
@@ -514,22 +431,14 @@ filterRow.querySelectorAll('[data-filter]').forEach(btn => {
     applyFilters();
   });
 });
-
 searchInput.addEventListener('input', applyFilters);
 closeBtn.addEventListener('click', closeModal);
 modalBackdrop.addEventListener('click', e => {
   if(e.target === modalBackdrop) closeModal();
 });
-previewBtn.addEventListener('click', () => {
-  const video = filteredVideos[currentIndex];
-  if(video && video.video){
-    playerVideo.play();
-  }
-});
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape' && modalBackdrop.style.display === 'flex') closeModal();
 });
-
 applyFilters();
 </script>
 </body>
