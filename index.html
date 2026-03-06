@@ -4,615 +4,855 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Phubook</title>
+
   <style>
     :root{
       --bg:#f0f2f5;
       --card:#ffffff;
-      --text:#111827;
-      --muted:#6b7280;
-      --line:#e5e7eb;
+      --text:#1c1e21;
+      --muted:#65676b;
+      --line:#dcdfe3;
       --blue:#1877f2;
-      --shadow: 0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
-      --radius: 14px;
-      --max: 1240px;
+      --blue-soft:#e7f3ff;
+      --shadow:0 1px 2px rgba(0,0,0,.08), 0 4px 14px rgba(0,0,0,.05);
+      --radius:16px;
+      --max:1180px;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-      font-size:14px;
-      line-height:1.34;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      color:var(--text);
       background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
-    a{color:inherit; text-decoration:none}
-    button{font:inherit}
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    img{
+      display:block;
+      max-width:100%;
+    }
+
+    button{
+      font:inherit;
+    }
 
     .topbar{
-      position:sticky; top:0; z-index:50;
-      background:var(--card);
+      position:sticky;
+      top:0;
+      z-index:60;
+      background:#fff;
       border-bottom:1px solid var(--line);
     }
+
     .topbar-inner{
       max-width:var(--max);
       margin:0 auto;
       padding:10px 14px;
       display:flex;
-      gap:12px;
       align-items:center;
-      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:12px;
     }
+
     .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width:180px;
-    }
-    .brand img{
-      width:38px; height:38px; border-radius:999px; object-fit:cover;
-      border:1px solid var(--line);
-      background:#fff;
-      box-shadow:var(--shadow);
-    }
-    .search{
-      flex:1;
-      min-width:220px;
       display:flex;
       align-items:center;
       gap:10px;
-      background:#f0f2f5;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid #eef0f3;
+      min-width:0;
     }
-    .search input{
+
+    .brand img{
+      width:38px;
+      height:38px;
+      border-radius:10px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      background:#fff;
+      flex-shrink:0;
+    }
+
+    .brand span{
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .top-link{
+      padding:9px 12px;
+      border-radius:999px;
+      background:#f2f3f5;
+      font-size:13px;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .top-link:hover{
+      background:#e9ebee;
+    }
+
+    .top-link img{
+      width:16px;
+      height:16px;
+      object-fit:cover;
+      border-radius:4px;
+      flex-shrink:0;
+    }
+
+    .page{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px 14px 40px;
+    }
+
+    .hero{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      margin-bottom:16px;
+    }
+
+    .cover{
+      height:320px;
+      background:linear-gradient(135deg,#bcdcff 0%, #7db8ff 35%, #5f93d5 65%, #3c5578 100%);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .cover::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.45), transparent 18%),
+        radial-gradient(circle at 78% 25%, rgba(255,255,255,.24), transparent 18%),
+        radial-gradient(circle at 50% 90%, rgba(255,255,255,.18), transparent 24%);
+      pointer-events:none;
+    }
+
+    .hero-bottom{
+      padding:0 20px 20px;
+    }
+
+    .profile-row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-top:-54px;
+      flex-wrap:wrap;
+    }
+
+    .profile-main{
+      display:flex;
+      align-items:flex-end;
+      gap:18px;
+      min-width:0;
+      flex:1;
+    }
+
+    .avatar{
+      width:168px;
+      height:168px;
+      border-radius:999px;
+      border:5px solid #fff;
+      background:#ddd;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      flex-shrink:0;
+      position:relative;
+    }
+
+    .avatar img{
       width:100%;
-      border:0;
-      outline:0;
-      background:transparent;
-      font-size:14px;
+      height:100%;
+      object-fit:cover;
     }
-    .tabs{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+
+    .avatar-fallback{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,#1f2937,#5b8def);
+      color:#fff;
+      font-size:54px;
+      font-weight:900;
     }
-    .tab{
-      padding:10px 12px;
-      border-radius:999px;
+
+    .profile-copy{
+      min-width:0;
+      padding-bottom:10px;
+    }
+
+    .profile-copy h1{
+      margin:0;
+      font-size:34px;
+      line-height:1.08;
+      letter-spacing:-.03em;
+      font-weight:800;
+    }
+
+    .profile-meta{
+      margin-top:8px;
       color:var(--muted);
-      font-weight:600;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .friends-row{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      flex-wrap:wrap;
+    }
+
+    .friend-avatars{
+      display:flex;
+      align-items:center;
+    }
+
+    .friend-avatars span{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      border:2px solid #fff;
+      margin-left:-6px;
+      background:linear-gradient(135deg,#8c9eff,#4dd0e1);
+      display:inline-block;
+      box-shadow:0 1px 2px rgba(0,0,0,.12);
+    }
+
+    .friend-avatars span:first-child{
+      margin-left:0;
+    }
+
+    .action-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding-bottom:10px;
+    }
+
+    .btn{
+      height:38px;
+      padding:0 14px;
+      border-radius:10px;
+      border:none;
       cursor:pointer;
-      border:1px solid transparent;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .btn-primary{
+      background:var(--blue);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      filter:brightness(.97);
+    }
+
+    .btn-soft{
+      background:#e4e6eb;
+      color:var(--text);
+    }
+
+    .btn-soft:hover{
+      background:#d8dade;
+    }
+
+    .subnav{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding-top:16px;
+      margin-top:16px;
+      border-top:1px solid var(--line);
+    }
+
+    .subnav a{
+      padding:10px 14px;
+      border-radius:10px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--muted);
       display:inline-flex;
       align-items:center;
       gap:8px;
     }
-    .tab img{
-      width:16px;height:16px;object-fit:cover;border-radius:4px;
-    }
-    .tab.active{
+
+    .subnav a.active{
+      background:var(--blue-soft);
       color:var(--blue);
-      background: rgba(24,119,242,.10);
-      border-color: rgba(24,119,242,.18);
     }
 
-    .container{
-      max-width:var(--max);
-      margin:16px auto 40px;
-      padding:0 14px;
+    .subnav a:hover{
+      background:#f2f3f5;
+    }
+
+    .subnav img{
+      width:16px;
+      height:16px;
+      object-fit:cover;
+      border-radius:4px;
+      flex-shrink:0;
+    }
+
+    .layout{
       display:grid;
-      grid-template-columns: 280px 1fr 320px;
+      grid-template-columns:360px 1fr;
       gap:16px;
       align-items:start;
-    }
-    @media (max-width: 1100px){
-      .container{ grid-template-columns: 280px 1fr; }
-      .right{ display:none; }
-    }
-    @media (max-width: 760px){
-      .tabs{ display:none; }
-      .container{ grid-template-columns: 1fr; }
-      .left, .right{ display:none; }
     }
 
     .card{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
+      border-radius:20px;
+      box-shadow:var(--shadow);
     }
-    .left .card, .right .card{ position:sticky; top:76px; }
 
-    .profile{ padding:14px; }
-    .cover{
-      height:90px;
-      border-radius:12px;
-      background: linear-gradient(135deg, rgba(24,119,242,.25), rgba(17,24,39,.08));
-      border:1px solid rgba(0,0,0,.04);
+    .section{
+      padding:18px;
     }
-    .avatar{
-      width:72px; height:72px;
-      border-radius:999px;
-      border:4px solid var(--card);
-      background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
-      margin:-36px 0 10px 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.08);
-      display:grid; place-items:center;
-      font-weight:800;
-      color:#1f2937;
+
+    .section h2{
+      margin:0 0 14px;
+      font-size:20px;
+      letter-spacing:-.02em;
     }
-    .name{ font-size:18px; font-weight:800; margin:0 0 2px 10px; }
-    .headline{ margin:0 0 12px 10px; color:var(--muted); font-size:13px; }
-    .mini{ display:flex; gap:8px; padding:0 10px 12px; flex-wrap:wrap; }
-    .pill{
-      font-size:12px;
-      color:#0f172a;
-      background:#f3f4f6;
-      border:1px solid #e5e7eb;
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:600;
-    }
-    .menu{
-      border-top:1px solid var(--line);
-      padding:10px;
+
+    .detail-list{
       display:grid;
-      gap:6px;
-    }
-    .menu .item{
-      padding:10px 10px;
-      border-radius:12px;
-      display:flex; align-items:center; gap:10px;
-      color:#0f172a;
-      font-weight:650;
-      cursor:pointer;
-    }
-    .menu .item:hover{ background:#f6f7f9; }
-    .menu .item.active{
-      background: rgba(24,119,242,.10);
-      color: var(--blue);
-    }
-    .menu .item img{
-      width:20px;height:20px;border-radius:6px;object-fit:cover;flex-shrink:0;
-    }
-    .icon{
-      width:26px; height:26px;
-      border-radius:8px;
-      background:#eef2ff;
-      border:1px solid #e5e7eb;
-      display:grid; place-items:center;
-      font-size:14px;
-      flex-shrink:0;
+      gap:14px;
     }
 
-    .composer{ padding:12px; margin-bottom:12px; }
-    .composer-top{ display:flex; gap:10px; align-items:center; }
-    .composer .avatar-sm{
-      width:40px; height:40px; border-radius:999px;
-      background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
-      display:grid; place-items:center;
-      font-weight:800;
-      flex-shrink:0;
-    }
-    .composer input{
-      flex:1;
-      border:1px solid var(--line);
-      background:#f6f7f9;
-      padding:10px 12px;
-      border-radius:999px;
-      outline:0;
-      min-width:0;
-    }
-    .composer-actions{
-      margin-top:10px;
-      display:flex; gap:8px; flex-wrap:wrap;
-    }
-    .btn{
-      border:1px solid var(--line);
-      background:#fff;
-      padding:8px 10px;
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:650;
-      color:#111827;
-    }
-    .btn.primary{
-      background: rgba(24,119,242,.12);
-      border-color: rgba(24,119,242,.2);
-      color: var(--blue);
+    .detail-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      font-size:14px;
+      line-height:1.5;
+      color:var(--text);
     }
 
-    .feed{ display:flex; flex-direction:column; gap:12px; }
-    .post{ padding:12px; }
-    .post-head{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      margin-bottom:10px;
-    }
-    .post-left{
-      display:flex; align-items:center; gap:10px;
-      min-width:0;
-    }
-    .post .avatar-sm{
-      width:42px; height:42px; border-radius:999px;
-      background: linear-gradient(135deg, rgba(0,0,0,.08), rgba(24,119,242,.18));
-      display:grid; place-items:center;
-      font-weight:800;
+    .detail-icon{
+      width:22px;
       flex-shrink:0;
-    }
-    .post-title{
-      margin:0;
-      font-weight:800;
-      font-size:14px;
-    }
-    .post-meta{
-      font-size:12px;
+      text-align:center;
+      font-size:16px;
       color:var(--muted);
-      margin-top:2px;
+      margin-top:1px;
     }
-    .kebab{
-      border:0; background:transparent; cursor:pointer;
-      width:38px; height:38px; border-radius:999px;
+
+    .platform-grid{
+      display:grid;
+      gap:12px;
+    }
+
+    .platform-card{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fafbfc;
+      transition:.18s ease;
+    }
+
+    .platform-card:hover{
+      transform:translateY(-1px);
+      background:#f5f7fa;
+    }
+
+    .platform-card img{
+      width:40px;
+      height:40px;
+      border-radius:10px;
+      object-fit:cover;
+      border:1px solid var(--line);
       flex-shrink:0;
+      background:#fff;
     }
-    .kebab:hover{ background:#f6f7f9; }
-    .post-body{
-      color:#111827;
-      font-size:14px;
+
+    .platform-copy{
+      min-width:0;
+    }
+
+    .platform-copy strong{
+      display:block;
+      font-size:15px;
+    }
+
+    .platform-copy span{
+      display:block;
+      margin-top:3px;
+      font-size:13px;
+      color:var(--muted);
       line-height:1.45;
-      margin:8px 0 10px;
+    }
+
+    .post{
+      overflow:hidden;
+    }
+
+    .post-head{
+      padding:16px 18px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .post-author{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .post-author-avatar{
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      overflow:hidden;
+      flex-shrink:0;
+      background:linear-gradient(135deg,#1f2937,#5b8def);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:800;
+    }
+
+    .post-author img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .post-author-copy{
+      min-width:0;
+    }
+
+    .post-author-copy strong{
+      display:block;
+      font-size:15px;
+    }
+
+    .post-author-copy span{
+      display:block;
+      margin-top:2px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .post-body{
+      padding:0 18px 14px;
+      font-size:15px;
+      line-height:1.6;
       white-space:pre-line;
     }
-    .thumb{
-      height:220px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: linear-gradient(135deg, rgba(24,119,242,.16), rgba(17,24,39,.06));
-      overflow:hidden;
+
+    .post-media{
+      padding:0 18px 16px;
+    }
+
+    .post-placeholder{
+      min-height:250px;
+      border-radius:18px;
+      border:2px dashed #d7dbe0;
+      background:linear-gradient(180deg,#fafbfd,#f4f6f9);
       display:flex;
-      align-items:flex-end;
-      padding:14px;
-      position:relative;
-    }
-    .thumb::after{
-      content:"";
-      position:absolute; inset:-40px;
-      background: radial-gradient(circle at 20% 20%, rgba(24,119,242,.35), transparent 45%),
-                  radial-gradient(circle at 80% 30%, rgba(17,24,39,.18), transparent 45%),
-                  radial-gradient(circle at 50% 90%, rgba(99,102,241,.18), transparent 55%);
-      opacity:.9;
-    }
-    .thumb .chiprow{
-      position:relative;
-      display:flex; flex-wrap:wrap; gap:8px;
-    }
-    .chip{
-      font-size:12px;
-      color:#0f172a;
-      background: rgba(255,255,255,.8);
-      border:1px solid rgba(255,255,255,.9);
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:700;
-      backdrop-filter: blur(8px);
-    }
-    .post-actions{
-      margin-top:10px;
-      border-top:1px solid var(--line);
-      padding-top:10px;
-      display:flex;
-      justify-content:space-around;
-      gap:8px;
-    }
-    .action{
-      flex:1;
+      align-items:center;
+      justify-content:center;
       text-align:center;
-      padding:10px 8px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:750;
-      color:#374151;
-      border:1px solid transparent;
-    }
-    .action:hover{
-      background:#f6f7f9;
-      border-color:#f1f2f4;
-    }
-
-    .right .box{ padding:14px; }
-    .h2{
-      margin:0 0 8px;
+      padding:24px;
+      color:var(--muted);
       font-size:14px;
-      font-weight:900;
-    }
-    .muted{ color:var(--muted); font-size:13px; line-height:1.45; }
-    .list{ display:grid; gap:8px; margin-top:10px; }
-    .row{
-      display:flex; justify-content:space-between; gap:10px;
-      padding:10px 10px;
-      background:#f6f7f9;
-      border:1px solid #eef0f3;
-      border-radius:12px;
-      font-size:13px;
-      font-weight:650;
-    }
-    .badge{
-      color: var(--blue);
-      background: rgba(24,119,242,.12);
-      border:1px solid rgba(24,119,242,.18);
-      padding:4px 8px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-      white-space:nowrap;
+      line-height:1.6;
     }
 
-    .mobile-tabs{
-      display:none;
-      padding:10px 14px;
-      gap:8px;
+    .post-actions{
       border-top:1px solid var(--line);
-      flex-wrap:wrap;
+      display:flex;
+      gap:8px;
+      padding:8px 10px 10px;
     }
+
+    .post-actions button{
+      flex:1;
+      height:40px;
+      border:none;
+      border-radius:10px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .post-actions button:hover{
+      background:#f2f3f5;
+    }
+
+    .intro-card{
+      margin-bottom:16px;
+    }
+
+    .intro-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    @media (max-width: 1024px){
+      .layout{
+        grid-template-columns:1fr;
+      }
+
+      .profile-copy h1{
+        font-size:30px;
+      }
+    }
+
     @media (max-width: 760px){
-      .mobile-tabs{ display:flex; background:var(--card); position:sticky; top:58px; z-index:40; }
+      .topbar-inner{
+        padding:10px 12px;
+      }
+
+      .top-actions{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .page{
+        padding:0 0 28px;
+      }
+
+      .hero{
+        border-radius:0;
+        border-left:none;
+        border-right:none;
+      }
+
+      .cover{
+        height:220px;
+      }
+
+      .hero-bottom{
+        padding:0 14px 16px;
+      }
+
+      .profile-row{
+        margin-top:-42px;
+        gap:14px;
+      }
+
+      .profile-main{
+        gap:14px;
+        align-items:flex-end;
+      }
+
+      .avatar{
+        width:118px;
+        height:118px;
+        border-width:4px;
+      }
+
+      .profile-copy{
+        padding-bottom:4px;
+      }
+
+      .profile-copy h1{
+        font-size:24px;
+      }
+
+      .profile-meta{
+        font-size:13px;
+      }
+
+      .action-row{
+        width:100%;
+      }
+
+      .action-row .btn{
+        flex:1 1 calc(50% - 5px);
+      }
+
+      .subnav{
+        overflow:auto;
+        flex-wrap:nowrap;
+        padding-bottom:2px;
+      }
+
+      .layout{
+        padding:0 14px;
+      }
+
+      .section{
+        padding:16px;
+      }
+
+      .section h2{
+        font-size:18px;
+      }
+
+      .post-body{
+        font-size:14px;
+      }
+
+      .post-placeholder{
+        min-height:180px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <img src="images/icon-phubook.png" alt="Phubook icon">
-        <strong style="font-size:14px;">Phubook</strong>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="images/icon-phubook.png" alt="Phubook icon">
+      <span>Phubook</span>
+    </div>
+
+    <div class="top-actions">
+      <a class="top-link" href="phustagram.html">
+        <img src="images/icon-phustagram.png" alt="">
+        Phustagram
+      </a>
+      <a class="top-link" href="phutube.html">
+        <img src="images/icon-phutube.png" alt="">
+        PhuTube
+      </a>
+      <a class="top-link" href="phugleads.html">
+        <img src="images/icon-phugleads.png" alt="">
+        Phugle Ads
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <div class="cover"></div>
+
+    <div class="hero-bottom">
+      <div class="profile-row">
+        <div class="profile-main">
+          <div class="avatar">
+            <!-- Replace with your real profile image if needed -->
+            <!-- <img src="images/profile-phu.jpg" alt="Phu"> -->
+            <div class="avatar-fallback">P</div>
+          </div>
+
+          <div class="profile-copy">
+            <h1>Real Phuwadech Klinklay</h1>
+            <div class="profile-meta">
+              Digital Marketing • Graphic Designer • Hospitality Marketer<br>
+              Phuket, Thailand
+            </div>
+
+            <div class="friends-row">
+              <div class="friend-avatars">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div>Friends with things in common</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <a class="btn btn-primary" href="phugleads.html">Professional dashboard</a>
+          <button class="btn btn-soft">Add to story</button>
+          <button class="btn btn-soft">Advertise</button>
+        </div>
       </div>
 
-      <div class="search" title="Search your projects">
-        🔎
-        <input id="searchInput" placeholder="Search projects, skills, tags…" />
-      </div>
-
-      <nav class="tabs" aria-label="Sections">
-        <div class="tab active" data-section="front">Front Door</div>
-        <div class="tab" data-section="lab">Lab</div>
-        <div class="tab" data-section="gallery">Gallery</div>
-        <a class="tab" href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
-        <a class="tab" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
-        <a class="tab" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
+      <nav class="subnav">
+        <a href="#" class="active">Posts</a>
+        <a href="phustagram.html">
+          <img src="images/icon-phustagram.png" alt="">
+          Phustagram
+        </a>
+        <a href="phutube.html">
+          <img src="images/icon-phutube.png" alt="">
+          PhuTube
+        </a>
+        <a href="phugleads.html">
+          <img src="images/icon-phugleads.png" alt="">
+          Phugle Ads
+        </a>
       </nav>
     </div>
+  </section>
 
-    <div class="mobile-tabs">
-      <div class="tab active" data-section="front">Front Door</div>
-      <div class="tab" data-section="lab">Lab</div>
-      <div class="tab" data-section="gallery">Gallery</div>
-      <a class="tab" href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
-      <a class="tab" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
-      <a class="tab" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
-    </div>
-  </header>
+  <div class="layout">
 
-  <main class="container">
-    <aside class="left">
-      <div class="card profile">
-        <div class="cover"></div>
-        <div class="avatar" id="avatar">P</div>
-        <h1 class="name" id="name">Phu</h1>
-        <p class="headline" id="headline">Digital Marketing • Graphic Design • Hospitality</p>
+    <aside>
+      <section class="card section">
+        <h2>Personal details</h2>
 
-        <div class="mini" id="pills">
-          <span class="pill">Strategy</span>
-          <span class="pill">Ads</span>
-          <span class="pill">Design</span>
-          <span class="pill">Brand</span>
+        <div class="detail-list">
+          <div class="detail-item">
+            <div class="detail-icon">📍</div>
+            <div>Phuket, Thailand</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">🎂</div>
+            <div>February 16</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">💍</div>
+            <div>Married</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">💼</div>
+            <div>Digital marketing, design, content, and hospitality campaigns</div>
+          </div>
         </div>
+      </section>
 
-        <div class="menu" role="navigation" aria-label="Menu">
-          <div class="item active" data-section="front"><span class="icon">🏠</span>Front Door</div>
-          <div class="item" data-section="lab"><span class="icon">🧪</span>Lab (Marketing)</div>
-          <div class="item" data-section="gallery"><span class="icon">🖼️</span>Gallery (Design)</div>
+      <section class="card section" style="margin-top:16px;">
+        <h2>My platforms</h2>
 
-          <a class="item" href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
-          <a class="item" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
-          <a class="item" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
+        <div class="platform-grid">
+          <a class="platform-card" href="phustagram.html">
+            <img src="images/icon-phustagram.png" alt="Phustagram">
+            <div class="platform-copy">
+              <strong>Phustagram</strong>
+              <span>Visual design showcase in an Instagram-style UI.</span>
+            </div>
+          </a>
 
-          <div class="item" id="downloadCV"><span class="icon">⬇️</span>Download CV</div>
+          <a class="platform-card" href="phutube.html">
+            <img src="images/icon-phutube.png" alt="PhuTube">
+            <div class="platform-copy">
+              <strong>PhuTube</strong>
+              <span>Video works, reels, and branded content in a YouTube-style UI.</span>
+            </div>
+          </a>
+
+          <a class="platform-card" href="phugleads.html">
+            <img src="images/icon-phugleads.png" alt="Phugle Ads">
+            <div class="platform-copy">
+              <strong>Phugle Ads</strong>
+              <span>Digital marketing showcase in a Google Ads-inspired UI.</span>
+            </div>
+          </a>
         </div>
-      </div>
+      </section>
     </aside>
 
     <section>
-      <div class="card composer">
-        <div class="composer-top">
-          <div class="avatar-sm" id="avatarSm">P</div>
-          <input id="statusBox" placeholder="Pin a highlight… (e.g., “Open to freelance work”)">
-        </div>
-        <div class="composer-actions">
-          <button class="btn primary" id="btnAdd">Add a project post</button>
-          <button class="btn" id="btnTheme">Toggle compact mode</button>
-          <button class="btn" onclick="location.href='phustagram.html'">Open Phustagram</button>
-          <button class="btn" onclick="location.href='phutube.html'">Open PhuTube</button>
-          <button class="btn" onclick="location.href='phugleads.html'">Open Phugle Ads</button>
-        </div>
-      </div>
+      <section class="card section intro-card">
+        <h2>About this page</h2>
+        <p>
+          Phubook is the main landing page of my portfolio. It works like a social profile hub where visitors can quickly understand who I am and then explore my design works, video projects, and digital marketing showcase.
+        </p>
+      </section>
 
-      <div class="feed" id="feed"></div>
+      <article class="card post">
+        <div class="post-head">
+          <div class="post-author">
+            <div class="post-author-avatar">P</div>
+            <div class="post-author-copy">
+              <strong>Real Phuwadech Klinklay</strong>
+              <span>Pinned post • Main landing page</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:22px;line-height:1;">⋯</div>
+        </div>
+
+        <div class="post-body">Welcome to Phubook.
+
+This page is the starting point of my portfolio ecosystem:
+• Phustagram for visual design works
+• PhuTube for video and motion showcase
+• Phugle Ads for digital marketing and campaign presentation
+
+Each page is designed in a different familiar platform style, so the experience feels more interactive and memorable.</div>
+
+        <div class="post-media">
+          <div class="post-placeholder">
+            You can replace this area with your own cover image, intro artwork, or screenshot later.
+          </div>
+        </div>
+
+        <div class="post-actions">
+          <button>👍 Like</button>
+          <button>💬 Comment</button>
+          <button>↗ Share</button>
+        </div>
+      </article>
+
+      <article class="card post" style="margin-top:16px;">
+        <div class="post-head">
+          <div class="post-author">
+            <div class="post-author-avatar">P</div>
+            <div class="post-author-copy">
+              <strong>Real Phuwadech Klinklay</strong>
+              <span>Portfolio update</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:22px;line-height:1;">⋯</div>
+        </div>
+
+        <div class="post-body">Current focus:
+• digital marketing strategy
+• graphic design
+• content creation
+• hospitality storytelling
+
+Use the platform links above to explore each category in its own UI style.</div>
+
+        <div class="post-actions">
+          <button>👍 Like</button>
+          <button>💬 Comment</button>
+          <button>↗ Share</button>
+        </div>
+      </article>
     </section>
 
-    <aside class="right">
-      <div class="card box">
-        <h2 class="h2">About</h2>
-        <p class="muted" id="about">
-          A social-style landing page that connects all of my portfolio worlds: design, video, and digital marketing.
-        </p>
+  </div>
+</main>
 
-        <div class="list">
-          <div class="row"><span>Primary Focus</span><span class="badge" id="focusBadge">Marketing + Design</span></div>
-          <div class="row"><span>Location</span><span class="badge" id="locationBadge">Phuket / Bangkok</span></div>
-          <div class="row"><span>Email</span><span class="badge" id="emailBadge">you@email.com</span></div>
-        </div>
-
-        <div style="margin-top:14px;">
-          <h2 class="h2">Portfolio Platforms</h2>
-          <div class="mini" style="padding:0;">
-            <span class="pill">Phubook</span>
-            <span class="pill">Phustagram</span>
-            <span class="pill">PhuTube</span>
-            <span class="pill">Phugle Ads</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-  </main>
-
-  <script>
-    const PROFILE = {
-      initials: "P",
-      name: "Phu",
-      headline: "Digital Marketing • Graphic Design • Hospitality",
-      about: "I build campaigns, visuals, and content experiences across social, video, and paid media.",
-      focus: "Marketing + Design",
-      location: "Phuket / Bangkok",
-      email: "you@email.com",
-      cvUrl: "#",
-      skills: ["Meta Ads", "Google Ads", "Branding", "Graphic Design", "Content Strategy", "Hospitality Marketing"]
-    };
-
-    const POSTS = [
-      {
-        section: "front",
-        type: "Pinned",
-        title: "Welcome to Phubook",
-        when: "Pinned • Always visible",
-        text: "Phubook is my main landing page.\n\nFrom here you can explore:\n• Phustagram for design works\n• PhuTube for video showcase\n• Phugle Ads for digital marketing",
-        tags: ["Overview","Landing Page","Portfolio"],
-      },
-      {
-        section: "lab",
-        type: "Case Study",
-        title: "Digital Marketing Campaign Strategy",
-        when: "Lab • Marketing",
-        text: "This section is for campaign planning, market targeting, paid media, and performance storytelling.",
-        tags: ["Marketing","Paid Media","Strategy"],
-      },
-      {
-        section: "gallery",
-        type: "Design",
-        title: "Creative Visual Showcase",
-        when: "Gallery • Design",
-        text: "This section introduces the visual side of my work. For full project viewing, open Phustagram.",
-        tags: ["Design","Branding","Visual"],
-      }
-    ];
-
-    const feed = document.getElementById("feed");
-    const searchInput = document.getElementById("searchInput");
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[m]));
-    }
-
-    function applyProfile(){
-      document.getElementById("avatar").textContent = PROFILE.initials;
-      document.getElementById("avatarSm").textContent = PROFILE.initials;
-      document.getElementById("name").textContent = PROFILE.name;
-      document.getElementById("headline").textContent = PROFILE.headline;
-      document.getElementById("about").textContent = PROFILE.about;
-      document.getElementById("focusBadge").textContent = PROFILE.focus;
-      document.getElementById("locationBadge").textContent = PROFILE.location;
-      document.getElementById("emailBadge").textContent = PROFILE.email;
-    }
-
-    let currentSection = "front";
-    let compactMode = false;
-
-    function setActiveSection(section){
-      currentSection = section;
-      document.querySelectorAll(".tab[data-section]").forEach(t=>{
-        t.classList.toggle("active", t.dataset.section === section);
-      });
-      document.querySelectorAll(".menu .item[data-section]").forEach(i=>{
-        i.classList.toggle("active", i.dataset.section === section);
-      });
-      render();
-    }
-
-    function truncate(text, max){
-      return text.length <= max ? text : text.slice(0, max - 1) + "…";
-    }
-
-    function postCard(p){
-      const tags = (p.tags||[]).map(t => `<span class="chip">${escapeHtml(t)}</span>`).join("");
-      const body = compactMode ? truncate(p.text, 140) : p.text;
-
-      return `
-        <article class="card post">
-          <div class="post-head">
-            <div class="post-left">
-              <div class="avatar-sm">${escapeHtml(PROFILE.initials)}</div>
-              <div>
-                <p class="post-title">${escapeHtml(p.title)}</p>
-                <div class="post-meta">${escapeHtml(p.when)} • ${escapeHtml(p.type)}</div>
-              </div>
-            </div>
-            <button class="kebab">⋯</button>
-          </div>
-
-          <div class="post-body">${escapeHtml(body)}</div>
-
-          <div class="thumb" aria-hidden="true">
-            <div class="chiprow">${tags}</div>
-          </div>
-
-          <div class="post-actions">
-            <div class="action">👍 Like</div>
-            <div class="action">💬 Comment</div>
-            <div class="action">↗ Share</div>
-          </div>
-        </article>
-      `;
-    }
-
-    function render(){
-      const q = (searchInput.value || "").trim().toLowerCase();
-
-      const visible = POSTS.filter(p => {
-        const inSection = currentSection === "front"
-          ? (p.section === "front" || p.type === "Pinned")
-          : p.section === currentSection;
-        const hay = (p.title + " " + p.text + " " + (p.tags||[]).join(" ")).toLowerCase();
-        return inSection && (!q || hay.includes(q));
-      });
-
-      feed.innerHTML = visible.map(postCard).join("");
-    }
-
-    document.querySelectorAll(".tab[data-section]").forEach(t=>{
-      t.addEventListener("click", ()=> setActiveSection(t.dataset.section));
-    });
-
-    document.querySelectorAll(".menu .item[data-section]").forEach(i=>{
-      i.addEventListener("click", ()=> setActiveSection(i.dataset.section));
-    });
-
-    searchInput.addEventListener("input", render);
-
-    document.getElementById("btnTheme").addEventListener("click", ()=>{
-      compactMode = !compactMode;
-      render();
-    });
-
-    document.getElementById("downloadCV").addEventListener("click", ()=>{
-      if (!PROFILE.cvUrl || PROFILE.cvUrl === "#"){
-        alert("Set PROFILE.cvUrl to your CV link.");
-        return;
-      }
-      window.open(PROFILE.cvUrl, "_blank", "noopener");
-    });
-
-    applyProfile();
-    setActiveSection("front");
-  </script>
 </body>
 </html>
