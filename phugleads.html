@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Phugle Ads</title>
+
+<style>
+
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+background:#f6f8fc;
+color:#202124;
+}
+
+/* TOP BAR */
+
+.topbar{
+height:60px;
+background:white;
+border-bottom:1px solid #e5e7eb;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 20px;
+}
+
+.brand{
+
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:700;
+font-size:20px;
+
+}
+
+.logo{
+width:26px;
+height:26px;
+border-radius:50%;
+background:#1a73e8;
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:12px;
+font-weight:900;
+}
+
+.search input{
+
+width:360px;
+padding:10px 14px;
+
+border-radius:999px;
+border:1px solid #e5e7eb;
+outline:none;
+
+background:#f1f3f4;
+
+}
+
+.avatar{
+
+width:36px;
+height:36px;
+
+border-radius:50%;
+
+background:#1a73e8;
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-weight:800;
+
+}
+
+/* LAYOUT */
+
+.layout{
+
+display:grid;
+grid-template-columns:240px 1fr;
+
+min-height:calc(100vh - 60px);
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+background:white;
+border-right:1px solid #e5e7eb;
+
+padding:20px;
+
+}
+
+.sidebar h4{
+
+margin:0 0 10px;
+font-size:12px;
+color:#5f6368;
+text-transform:uppercase;
+
+}
+
+.nav-item{
+
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+margin-bottom:6px;
+
+}
+
+.nav-item:hover{
+
+background:#f1f3f4;
+
+}
+
+.nav-item.active{
+
+background:#e8f0fe;
+color:#1a73e8;
+font-weight:700;
+
+}
+
+/* CONTENT */
+
+.content{
+
+padding:24px;
+
+}
+
+/* KPI CARDS */
+
+.kpi-grid{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+
+margin-bottom:20px;
+
+}
+
+.kpi{
+
+background:white;
+border-radius:16px;
+padding:16px;
+border:1px solid #e5e7eb;
+
+}
+
+.kpi h3{
+
+margin:0;
+font-size:13px;
+color:#5f6368;
+
+}
+
+.kpi strong{
+
+font-size:28px;
+
+}
+
+/* TABLE */
+
+.table{
+
+width:100%;
+border-collapse:collapse;
+background:white;
+border-radius:16px;
+overflow:hidden;
+
+}
+
+.table th,
+.table td{
+
+padding:14px;
+border-bottom:1px solid #eee;
+text-align:left;
+
+}
+
+.table th{
+
+font-size:12px;
+color:#5f6368;
+text-transform:uppercase;
+
+}
+
+.status{
+
+padding:4px 10px;
+border-radius:999px;
+font-size:12px;
+
+}
+
+.active{
+
+background:#e6f4ea;
+color:#188038;
+
+}
+
+.paused{
+
+background:#fff4e5;
+color:#b06000;
+
+}
+
+.ended{
+
+background:#fce8e6;
+color:#d93025;
+
+}
+
+.metric-up{
+
+color:#188038;
+font-weight:700;
+
+}
+
+.metric-down{
+
+color:#d93025;
+font-weight:700;
+
+}
+
+/* CHART */
+
+.chart{
+
+display:flex;
+align-items:flex-end;
+gap:14px;
+height:200px;
+
+margin-top:20px;
+
+}
+
+.bar{
+
+width:50px;
+background:#1a73e8;
+border-radius:10px 10px 0 0;
+
+}
+
+.bar-label{
+
+font-size:12px;
+text-align:center;
+
+margin-top:6px;
+
+}
+
+.bar-wrap{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">A</div>
+Phugle Ads
+
+</div>
+
+<div class="search">
+<input placeholder="Search campaigns..." />
+</div>
+
+<div class="avatar">P</div>
+
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h4>Workspace</h4>
+
+<div class="nav-item active">Overview</div>
+<div class="nav-item">Campaigns</div>
+<div class="nav-item">Audiences</div>
+
+<h4 style="margin-top:20px;">Portfolio</h4>
+
+<a href="index.html"><div class="nav-item">Phubook</div></a>
+<a href="phustagram.html"><div class="nav-item">Phustagram</div></a>
+<a href="phutube.html"><div class="nav-item">PhuTube</div></a>
+
+</aside>
+
+<!-- CONTENT -->
+
+<main class="content">
+
+<div class="kpi-grid">
+
+<div class="kpi">
+<h3>Total Spend</h3>
+<strong>$5,788</strong>
+</div>
+
+<div class="kpi">
+<h3>Revenue</h3>
+<strong>$57,303</strong>
+</div>
+
+<div class="kpi">
+<h3>GRE / ROAS</h3>
+<strong>9.9x</strong>
+</div>
+
+<div class="kpi">
+<h3>Average CTR</h3>
+<strong>3.4%</strong>
+</div>
+
+</div>
+
+<table class="table">
+
+<thead>
+<tr>
+<th>Campaign</th>
+<th>Status</th>
+<th>Platform</th>
+<th>Target Market</th>
+<th>Spend</th>
+<th>Revenue</th>
+<th>CTR</th>
+<th>GRE</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Phuket Luxury Escape</td>
+<td><span class="status active">Active</span></td>
+<td>Meta Ads</td>
+<td>UK / DE / AU</td>
+<td>$5,788</td>
+<td>$57,303</td>
+<td class="metric-up">3.4%</td>
+<td class="metric-up">9.9x</td>
+</tr>
+
+<tr>
+<td>Middle East Winter Escape</td>
+<td><span class="status active">Active</span></td>
+<td>Meta Ads</td>
+<td>AE / SA / QA</td>
+<td>$3,200</td>
+<td>$24,100</td>
+<td>3.1%</td>
+<td class="metric-up">7.5x</td>
+</tr>
+
+<tr>
+<td>Brand Search Protection</td>
+<td><span class="status active">Active</span></td>
+<td>Google Ads</td>
+<td>Branded traffic</td>
+<td>$1,450</td>
+<td>$16,800</td>
+<td class="metric-up">7.9%</td>
+<td class="metric-up">11.6x</td>
+</tr>
+
+<tr>
+<td>Thai Tiew Thai Fair Push</td>
+<td><span class="status paused">Paused</span></td>
+<td>Meta Ads</td>
+<td>Thailand</td>
+<td>$2,200</td>
+<td>$12,900</td>
+<td>2.8%</td>
+<td>5.9x</td>
+</tr>
+
+<tr>
+<td>Expedia TravelAds</td>
+<td><span class="status active">Active</span></td>
+<td>OTA</td>
+<td>OTA traffic</td>
+<td>$4,100</td>
+<td>$27,800</td>
+<td class="metric-up">4.6%</td>
+<td>6.8x</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="chart">
+
+<div class="bar-wrap">
+<div class="bar" style="height:180px"></div>
+<div class="bar-label">Luxury</div>
+</div>
+
+<div class="bar-wrap">
+<div class="bar" style="height:140px"></div>
+<div class="bar-label">ME</div>
+</div>
+
+<div class="bar-wrap">
+<div class="bar" style="height:200px"></div>
+<div class="bar-label">Brand</div>
+</div>
+
+<div class="bar-wrap">
+<div class="bar" style="height:110px"></div>
+<div class="bar-label">Thai</div>
+</div>
+
+<div class="bar-wrap">
+<div class="bar" style="height:160px"></div>
+<div class="bar-label">OTA</div>
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+</body>
+</html>
