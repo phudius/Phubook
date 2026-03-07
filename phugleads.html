@@ -53,12 +53,13 @@ img{max-width:100%;display:block}
   min-width:0;
 }
 .brand img{
-  height:28px;
   width:28px;
-  border-radius:8px;
-  object-fit:cover;
-  border:1px solid var(--line);
+  height:28px;
+  border-radius:50%;
+  object-fit:contain;
   background:#fff;
+  padding:4px;
+  border:1px solid var(--line);
 }
 .search{
   flex:1;
@@ -125,7 +126,14 @@ img{max-width:100%;display:block}
   color:var(--blue);
 }
 .nav-item img{
-  width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:2px;
+  border:1px solid var(--line);
+  flex-shrink:0;
 }
 .nav-divider{
   height:1px;
@@ -156,7 +164,13 @@ img{max-width:100%;display:block}
   gap:8px;
 }
 .mobile-links img{
-  width:16px;height:16px;border-radius:4px;object-fit:cover;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:2px;
+  border:1px solid var(--line);
 }
 
 .hero{
