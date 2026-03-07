@@ -61,10 +61,11 @@
     .brand img{
       width:38px;
       height:38px;
-      border-radius:10px;
-      object-fit:cover;
-      border:1px solid var(--line);
+      border-radius:50%;
+      object-fit:contain;
       background:#fff;
+      padding:6px;
+      border:1px solid var(--line);
       flex-shrink:0;
     }
 
@@ -258,11 +259,21 @@
       color:var(--text);
     }
 
-    .detail-icon{
-      width:22px;
-      height:22px;
+    .detail-icon-wrap{
+      width:34px;
+      height:34px;
       flex-shrink:0;
+      border-radius:50%;
+      background:#f0f2f5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       margin-top:1px;
+    }
+
+    .detail-icon{
+      width:18px;
+      height:18px;
       object-fit:contain;
     }
 
@@ -288,13 +299,14 @@
     }
 
     .platform-card img{
-      width:40px;
-      height:40px;
-      border-radius:10px;
-      object-fit:cover;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      object-fit:contain;
+      background:#fff;
+      padding:6px;
       border:1px solid var(--line);
       flex-shrink:0;
-      background:#fff;
     }
 
     .platform-copy{ min-width:0; }
@@ -488,7 +500,7 @@
           </div>
 
           <div class="profile-copy">
-            <h1>Phuwadech Klinklay</h1>
+            <h1>Real Phuwadech Klinklay</h1>
             <div class="profile-meta">
               Digital Marketing • Graphic Designer • Hospitality Marketer<br>
               Phuket, Thailand
@@ -519,27 +531,37 @@
 
         <div class="detail-list">
           <div class="detail-item">
-            <img class="detail-icon" src="images/location.svg" alt="Location">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/location.svg" alt="Location">
+            </div>
             <div>Phuket, Thailand</div>
           </div>
 
           <div class="detail-item">
-            <img class="detail-icon" src="images/BD.svg" alt="Birthday">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/BD.svg" alt="Birthday">
+            </div>
             <div>February 1988</div>
           </div>
 
           <div class="detail-item">
-            <img class="detail-icon" src="images/relationship.svg" alt="Relationship">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/relationship.svg" alt="Relationship">
+            </div>
             <div>Married</div>
           </div>
 
           <div class="detail-item">
-            <img class="detail-icon" src="images/wrk.svg" alt="Work">
-            <div>Left Brain × Right Brain</div>
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/wrk.svg" alt="Work">
+            </div>
+            <div>Digital marketing, design, content, and hospitality campaigns</div>
           </div>
 
           <div class="detail-item">
-            <img class="detail-icon" src="images/ed.svg" alt="Education">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/ed.svg" alt="Education">
+            </div>
             <div>Computer Science, Prince of Songkla University</div>
           </div>
         </div>
@@ -569,7 +591,7 @@
             <img src="images/icon-phugleads.png" alt="Phugle Ads">
             <div class="platform-copy">
               <strong>Phugle Ads</strong>
-              <span>DDigital marketing projects, strategy, and market insights.</span>
+              <span>Digital marketing projects, strategy, and market insights.</span>
             </div>
           </a>
         </div>
@@ -578,10 +600,9 @@
 
     <section>
       <section class="card section intro-card">
-        <h2>"Hello, World!"</h2>
+        <h2>About this page</h2>
         <p>
-          I'm Phu! A digital marketer with expertise in graphic design and over ten years of creative experience.
-          Currently serving as Digital Marketing & Communications Manager at a five-star resort, part of a global hospitality brand. I blend strategic thinking with visual creativity to craft engaging and effective marketing experiences.
+          Phubook is the main landing page of my portfolio. It works like a social profile hub where visitors can quickly understand who I am and then explore my design works, video projects, and digital marketing showcase.
         </p>
       </section>
 
@@ -592,7 +613,7 @@
               <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
             </div>
             <div class="post-author-copy">
-              <strong>Phuwadech Klinklay</strong>
+              <strong>Real Phuwadech Klinklay</strong>
               <span>Pinned post • Main landing page</span>
             </div>
           </div>
@@ -628,7 +649,7 @@ Each page is designed in a different familiar platform style, so the experience 
               <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
             </div>
             <div class="post-author-copy">
-              <strong>Phuwadech Klinklay</strong>
+              <strong>Real Phuwadech Klinklay</strong>
               <span>Portfolio update</span>
             </div>
           </div>
@@ -641,7 +662,7 @@ Each page is designed in a different familiar platform style, so the experience 
 • content creation
 • hospitality storytelling
 
-Use the My platforms section below to explore each category in its own UI style.</div>
+Use the My Ecosystem section to explore each category in its own UI style.</div>
 
         <div class="post-actions">
           <button>👍 Like</button>
@@ -655,5 +676,3 @@ Use the My platforms section below to explore each category in its own UI style.
 
 </body>
 </html>
-
-
