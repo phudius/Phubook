@@ -39,7 +39,13 @@ img{display:block;max-width:100%}
 .burger:hover{background:#272727}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
 .brand img{
-  width:28px;height:28px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,.15);
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:4px;
+  border:1px solid rgba(255,255,255,.15);
 }
 .searchbar{display:flex;align-items:center;justify-content:center;min-width:0}
 .search-shell{
@@ -75,7 +81,14 @@ img{display:block;max-width:100%}
 .nav-item:hover{background:#272727}
 .nav-item.active{background:#272727;font-weight:700}
 .nav-icon{
-  width:22px;height:22px;border-radius:6px;object-fit:cover;flex-shrink:0;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:3px;
+  border:1px solid rgba(255,255,255,.15);
+  flex-shrink:0;
 }
 .content{padding:18px 24px 40px;min-width:0}
 .channel-banner{
