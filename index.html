@@ -20,7 +20,10 @@
 --line:#dcdfe3;
 --blue:#1877f2;
 --blue-soft:#e7f3ff;
---shadow:0 1px 2px rgba(0,0,0,.08),0 4px 14px rgba(0,0,0,.05);
+
+/* improved shadow */
+--shadow:0 1px 2px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
+
 --max:1180px;
 }
 
@@ -84,6 +87,7 @@ border:1px solid var(--line);
 border-radius:18px;
 overflow:hidden;
 box-shadow:var(--shadow);
+margin-bottom:20px;
 }
 
 .cover{
@@ -173,7 +177,9 @@ margin-left:-6px;
 background:linear-gradient(135deg,#8c9eff,#4dd0e1);
 }
 
-.friend-avatars span:first-child{margin-left:0}
+.friend-avatars span:first-child{
+margin-left:0;
+}
 
 .profile-actions{
 margin-top:12px;
@@ -198,7 +204,7 @@ height:16px;
 .layout{
 display:grid;
 grid-template-columns:340px 1fr;
-gap:16px;
+gap:18px;
 margin-top:16px;
 }
 
@@ -216,6 +222,11 @@ padding:18px;
 .section h2{
 margin:0 0 12px;
 font-size:20px;
+}
+
+/* spacing improvement */
+.intro-card{
+margin-bottom:32px;
 }
 
 .detail-list{
@@ -264,7 +275,7 @@ border-radius:50%;
 }
 
 .post{
-margin-bottom:16px;
+margin-bottom:20px;
 }
 
 .post-head{
@@ -294,7 +305,7 @@ object-fit:cover;
 
 .post-body{
 padding:0 16px 16px;
-line-height:1.6;
+line-height:1.7;
 }
 
 .post-placeholder{
@@ -317,6 +328,10 @@ padding:12px;
 border:none;
 background:none;
 cursor:pointer;
+}
+
+.post-actions button:hover{
+background:#f2f2f2;
 }
 
 @media(max-width:900px){
@@ -505,7 +520,7 @@ Contact Me
 
 <section>
 
-<section class="card section">
+<section class="card section intro-card">
 
 <h2>"Hello, World!"</h2>
 
@@ -515,6 +530,9 @@ I'm Phu! A digital marketer with expertise in graphic design and over ten years 
 
 </section>
 
+<!-- POSTS -->
+
+<!-- first post -->
 <article class="card post">
 
 <div class="post-head">
@@ -564,6 +582,7 @@ You can replace this area with your own intro artwork, featured post image, or p
 
 </article>
 
+<!-- second post -->
 <article class="card post">
 
 <div class="post-head">
