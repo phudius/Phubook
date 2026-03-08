@@ -148,7 +148,7 @@ img{display:block;max-width:100%}
   padding-bottom:6px;
 }
 
-/* Updated name + badges */
+/* Name system */
 .profile-name{
   display:flex;
   align-items:center;
@@ -171,6 +171,28 @@ img{display:block;max-width:100%}
 .verified-badge{
   width:16px;
   height:16px;
+  object-fit:contain;
+}
+
+/* Reusable inline name + badges for posts and other locations */
+.name-with-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  flex-wrap:wrap;
+}
+
+.name-badges{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  margin-left:2px;
+  transform:translateY(1px);
+}
+
+.name-badges img{
+  width:14px;
+  height:14px;
   object-fit:contain;
 }
 
@@ -378,6 +400,7 @@ img{display:block;max-width:100%}
 .post-author-copy strong{
   display:block;
   font-size:15px;
+  font-weight:700;
 }
 
 .post-author-copy span{
@@ -668,7 +691,13 @@ img{display:block;max-width:100%}
               <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
             </div>
             <div class="post-author-copy">
-              <strong>Phuwadech Klinklay</strong>
+              <strong class="name-with-badge">
+                Phuwadech Klinklay
+                <span class="name-badges">
+                  <img src="images/vrf.png" alt="Verified">
+                  <img src="images/vrf.png" alt="Verified">
+                </span>
+              </strong>
               <span>Pinned post • Main landing page</span>
             </div>
           </div>
@@ -704,7 +733,13 @@ Each page is designed in a different familiar platform style, so the experience 
               <img src="images/profile-phu.jpg" alt="Phuwadech Klinklay">
             </div>
             <div class="post-author-copy">
-              <strong>Phuwadech Klinklay</strong>
+              <strong class="name-with-badge">
+                Phuwadech Klinklay
+                <span class="name-badges">
+                  <img src="images/vrf.png" alt="Verified">
+                  <img src="images/vrf.png" alt="Verified">
+                </span>
+              </strong>
               <span>Portfolio update</span>
             </div>
           </div>
