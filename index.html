@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
 
 <meta charset="utf-8">
@@ -19,11 +18,7 @@
 --muted:#65676b;
 --line:#dcdfe3;
 --blue:#1877f2;
---blue-soft:#e7f3ff;
-
-/* improved shadow */
 --shadow:0 1px 2px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
-
 --max:1180px;
 }
 
@@ -34,7 +29,6 @@ margin:0;
 background:var(--bg);
 color:var(--text);
 font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
--webkit-font-smoothing:antialiased;
 }
 
 img{display:block;max-width:100%}
@@ -177,9 +171,7 @@ margin-left:-6px;
 background:linear-gradient(135deg,#8c9eff,#4dd0e1);
 }
 
-.friend-avatars span:first-child{
-margin-left:0;
-}
+.friend-avatars span:first-child{margin-left:0}
 
 .profile-actions{
 margin-top:12px;
@@ -224,7 +216,6 @@ margin:0 0 12px;
 font-size:20px;
 }
 
-/* spacing improvement */
 .intro-card{
 margin-bottom:32px;
 }
@@ -334,6 +325,8 @@ cursor:pointer;
 background:#f2f2f2;
 }
 
+/* MOBILE */
+
 @media(max-width:900px){
 
 .layout{
@@ -351,6 +344,10 @@ width:120px;
 height:120px;
 }
 
+.profile-copy{
+padding-top:8px;   /* FIXED MOBILE GAP */
+}
+
 .profile-name{
 font-size:26px;
 }
@@ -366,7 +363,6 @@ justify-content:center;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -432,206 +428,3 @@ Contact Me
 
 </div>
 </section>
-
-<div class="layout">
-
-<aside>
-
-<section class="card section">
-
-<h2>Personal details</h2>
-
-<div class="detail-list">
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/location.svg">
-</div>
-<div>Phuket, Thailand</div>
-</div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/BD.svg">
-</div>
-<div>February 1988</div>
-</div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/relationship.svg">
-</div>
-<div>Married</div>
-</div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/wrk.svg">
-</div>
-<div>Left Brain × Right Brain</div>
-</div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/ed.svg">
-</div>
-<div>Computer Science, Prince of Songkla University</div>
-</div>
-
-</div>
-
-</section>
-
-<section class="card section" style="margin-top:16px">
-
-<h2>My Ecosystem</h2>
-
-<div class="platform-grid">
-
-<a class="platform-card" href="phustagram.html">
-<img src="images/icon-phustagram.png">
-<div>
-<strong>Phustagram</strong><br>
-<span>Visual design showcase</span>
-</div>
-</a>
-
-<a class="platform-card" href="phutube.html">
-<img src="images/icon-phutube.png">
-<div>
-<strong>PhuTube</strong><br>
-<span>Video works</span>
-</div>
-</a>
-
-<a class="platform-card" href="phugleads.html">
-<img src="images/icon-phugleads.png">
-<div>
-<strong>Phugle Ads</strong><br>
-<span>Digital marketing projects</span>
-</div>
-</a>
-
-</div>
-
-</section>
-
-</aside>
-
-<section>
-
-<section class="card section intro-card">
-
-<h2>"Hello, World!"</h2>
-
-<p>
-I'm Phu! A digital marketer with expertise in graphic design and over ten years of creative experience. Currently serving as Digital Marketing & Communications Manager at a five-star resort, part of a global hospitality brand, I blend strategic thinking with visual creativity to craft engaging and effective marketing experiences.
-</p>
-
-</section>
-
-<!-- POSTS -->
-
-<!-- first post -->
-<article class="card post">
-
-<div class="post-head">
-
-<div class="post-author">
-
-<div class="post-author-avatar">
-<img src="images/profile-phu.jpg">
-</div>
-
-<div>
-<strong>Phuwadech Klinklay</strong>
-<div style="font-size:13px;color:#666">
-Pinned post • Main landing page
-</div>
-</div>
-
-</div>
-
-<div style="color:#666">•••</div>
-
-</div>
-
-<div class="post-body">
-
-Welcome to Phubook.
-
-This page is the starting point of my portfolio ecosystem:
-
-• Phustagram for visual design works  
-• PhuTube for video and motion showcase  
-• Phugle Ads for digital marketing and campaign presentation  
-
-Each page is designed in a different familiar platform style, so the experience feels more interactive and memorable.
-
-</div>
-
-<div class="post-placeholder">
-You can replace this area with your own intro artwork, featured post image, or portfolio highlight screenshot later.
-</div>
-
-<div class="post-actions">
-<button>👍 Like</button>
-<button>💬 Comment</button>
-<button>↗ Share</button>
-</div>
-
-</article>
-
-<!-- second post -->
-<article class="card post">
-
-<div class="post-head">
-
-<div class="post-author">
-
-<div class="post-author-avatar">
-<img src="images/profile-phu.jpg">
-</div>
-
-<div>
-<strong>Phuwadech Klinklay</strong>
-<div style="font-size:13px;color:#666">
-Portfolio update
-</div>
-</div>
-
-</div>
-
-<div style="color:#666">•••</div>
-
-</div>
-
-<div class="post-body">
-
-Current focus:
-
-• digital marketing strategy  
-• graphic design  
-• content creation  
-• hospitality storytelling  
-
-Use the My Ecosystem section to explore each category in its own UI style.
-
-</div>
-
-<div class="post-actions">
-<button>👍 Like</button>
-<button>💬 Comment</button>
-<button>↗ Share</button>
-</div>
-
-</article>
-
-</section>
-
-</div>
-
-</main>
-
-</body>
-</html>
