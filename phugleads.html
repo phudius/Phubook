@@ -283,7 +283,6 @@ img{max-width:100%;display:block}
 
 .embed-frame{
   width:100%;
-  min-height:1100px;
   border:0;
   display:block;
   background:#fff;
@@ -306,7 +305,6 @@ img{max-width:100%;display:block}
   .section-head{ padding:16px; }
   .section-body{ padding:16px; }
   .placeholder{ min-height:240px; font-size:14px; }
-  .embed-frame{ min-height:1200px; }
 }
 </style>
 </head>
@@ -372,9 +370,11 @@ img{max-width:100%;display:block}
         <div class="section-body">
           <div class="embed-wrap">
             <iframe
+              id="dashboardFrame"
               class="embed-frame"
               src="koddi-performance.html"
-              title="Digital Marketing Performance Dashboard">
+              title="Digital Marketing Performance Dashboard"
+              scrolling="no">
             </iframe>
           </div>
 
@@ -435,6 +435,42 @@ img{max-width:100%;display:block}
     </div>
   </main>
 </div>
+
+<script>
+const iframe = document.getElementById("dashboardFrame");
+
+iframe.addEventListener("load", function () {
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+  function resizeIframe() {
+    if (!iframeDoc || !iframeDoc.body) return;
+
+    const body = iframeDoc.body;
+    const html = iframeDoc.documentElement;
+
+    const height = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+
+    iframe.style.height = height + "px";
+  }
+
+  resizeIframe();
+
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(resizeIframe);
+    observer.observe(iframeDoc.body);
+  }
+
+  window.addEventListener("resize", resizeIframe);
+  setTimeout(resizeIframe, 200);
+  setTimeout(resizeIframe, 600);
+});
+</script>
 
 </body>
 </html>
