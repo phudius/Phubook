@@ -99,9 +99,21 @@ img{max-width:100%;display:block}
 }
 
 .sidebar{
+  position:sticky;
+  top:65px;
+  height:calc(100vh - 65px);
+  overflow-y:auto;
+  scrollbar-width:thin;
   background:var(--panel);
   border-right:1px solid var(--line);
   padding:20px 16px;
+}
+.sidebar::-webkit-scrollbar{
+  width:6px;
+}
+.sidebar::-webkit-scrollbar-thumb{
+  background:#d1d5db;
+  border-radius:4px;
 }
 .sidebar h4{
   margin:0 0 10px;
@@ -264,12 +276,6 @@ img{max-width:100%;display:block}
   line-height:1.6;
 }
 
-.grid-2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
 .footer-note{
   color:var(--muted);
   font-size:12px;
@@ -297,7 +303,6 @@ img{max-width:100%;display:block}
   .sidebar{ display:none; }
   .mobile-links{ display:flex; }
   .content{ padding:18px; }
-  .grid-2{ grid-template-columns:1fr; }
 }
 @media (max-width: 640px){
   .topbar-inner{ flex-wrap:wrap; padding:12px; }
