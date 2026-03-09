@@ -453,9 +453,14 @@ img{max-width:100%;display:block}
           <p>Show paid social campaign setup, audience targeting, or creative structure.</p>
         </div>
         <div class="section-body">
-          <div class="placeholder">
-            Insert social media work here<br>
-            <strong>images/phugle-work-1.jpg</strong>
+          <div class="embed-wrap">
+            <iframe
+              id="socialMediaFrame"
+              class="embed-frame"
+              src="socialmedia.html"
+              title="Social Media Dashboard"
+              scrolling="no">
+            </iframe>
           </div>
         </div>
       </div>
@@ -476,44 +481,49 @@ img{max-width:100%;display:block}
       </div>
     </section>
 
-
   </main>
 </div>
 
 <script>
-const iframe = document.getElementById("dashboardFrame");
+function setupIframeAutoResize(iframeId){
+  const iframe = document.getElementById(iframeId);
+  if (!iframe) return;
 
-iframe.addEventListener("load", function () {
-  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+  iframe.addEventListener("load", function () {
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-  function resizeIframe() {
-    if (!iframeDoc || !iframeDoc.body) return;
+    function resizeIframe() {
+      if (!iframeDoc || !iframeDoc.body) return;
 
-    const body = iframeDoc.body;
-    const html = iframeDoc.documentElement;
+      const body = iframeDoc.body;
+      const html = iframeDoc.documentElement;
 
-    const height = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
+      const height = Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        html.clientHeight,
+        html.scrollHeight,
+        html.offsetHeight
+      );
 
-    iframe.style.height = height + "px";
-  }
+      iframe.style.height = height + "px";
+    }
 
-  resizeIframe();
+    resizeIframe();
 
-  if (typeof ResizeObserver !== "undefined") {
-    const observer = new ResizeObserver(resizeIframe);
-    observer.observe(iframeDoc.body);
-  }
+    if (typeof ResizeObserver !== "undefined" && iframeDoc.body) {
+      const observer = new ResizeObserver(resizeIframe);
+      observer.observe(iframeDoc.body);
+    }
 
-  window.addEventListener("resize", resizeIframe);
-  setTimeout(resizeIframe, 200);
-  setTimeout(resizeIframe, 600);
-});
+    window.addEventListener("resize", resizeIframe);
+    setTimeout(resizeIframe, 200);
+    setTimeout(resizeIframe, 600);
+  });
+}
+
+setupIframeAutoResize("dashboardFrame");
+setupIframeAutoResize("socialMediaFrame");
 
 const searchInput = document.getElementById("siteSearch");
 const searchDropdown = document.getElementById("searchDropdown");
