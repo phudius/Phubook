@@ -7,494 +7,467 @@
 <link rel="icon" type="image/png" href="images/icon-phugleads.png" />
 
 <style>
-
 :root{
---blue:#4285F4;
---bg:#f8f9fa;
---panel:#ffffff;
---line:#e0e3e7;
---text:#202124;
---muted:#5f6368;
---soft:#eef3fd;
---shadow:0 1px 2px rgba(60,64,67,.15);
+  --blue:#4285F4;
+  --bg:#f8f9fa;
+  --panel:#ffffff;
+  --line:#e0e3e7;
+  --text:#202124;
+  --muted:#5f6368;
+  --soft:#eef3fd;
+  --shadow:0 1px 2px rgba(60,64,67,.15);
 }
-
 *{box-sizing:border-box}
-
 html{scroll-behavior:smooth}
-
 body{
-margin:0;
-background:var(--bg);
-color:var(--text);
-font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
-
 a{color:inherit;text-decoration:none}
-
 img{max-width:100%;display:block}
 
-/* TOP BAR */
-
 .topbar{
-position:sticky;
-top:0;
-z-index:50;
-background:rgba(255,255,255,.96);
-backdrop-filter:blur(8px);
-border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
 }
-
 .topbar-inner{
-max-width:1440px;
-margin:0 auto;
-padding:12px 20px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:16px;
+  max-width:1440px;
+  margin:0 auto;
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
 }
-
 .brand{
-display:flex;
-align-items:center;
-gap:12px;
-font-size:20px;
-font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:20px;
+  font-weight:700;
+  min-width:0;
 }
-
 .brand img{
-width:28px;
-height:28px;
-border-radius:50%;
-background:#fff;
-padding:4px;
-border:1px solid var(--line);
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:4px;
+  border:1px solid var(--line);
 }
-
 .search{
-flex:1;
-display:flex;
-justify-content:center;
+  flex:1;
+  display:flex;
+  justify-content:center;
+  min-width:0;
 }
-
 .search input{
-width:100%;
-max-width:420px;
-padding:10px 14px;
-border:1px solid var(--line);
-border-radius:999px;
-background:var(--soft);
-outline:none;
+  width:100%;
+  max-width:420px;
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--soft);
+  outline:none;
 }
-
 .avatar{
-width:36px;
-height:36px;
-border-radius:50%;
-background:var(--blue);
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:800;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--blue);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  flex-shrink:0;
 }
-
-/* LAYOUT */
 
 .layout{
-max-width:1440px;
-margin:0 auto;
-display:grid;
-grid-template-columns:240px 1fr;
-min-height:calc(100vh - 65px);
+  max-width:1440px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:240px 1fr;
+  min-height:calc(100vh - 65px);
 }
-
-/* SIDEBAR */
 
 .sidebar{
-background:var(--panel);
-border-right:1px solid var(--line);
-padding:20px 16px;
+  background:var(--panel);
+  border-right:1px solid var(--line);
+  padding:20px 16px;
 }
-
 .sidebar h4{
-margin:0 0 10px;
-font-size:12px;
-text-transform:uppercase;
-color:var(--muted);
+  margin:0 0 10px;
+  font-size:12px;
+  text-transform:uppercase;
+  color:var(--muted);
+  letter-spacing:.04em;
 }
-
+.sidebar a{
+  display:block;
+  color:inherit;
+}
 .nav-item{
-padding:10px 12px;
-border-radius:999px;
-margin-bottom:6px;
-font-size:14px;
-font-weight:600;
-display:flex;
-align-items:center;
-gap:10px;
+  padding:10px 12px;
+  border-radius:999px;
+  margin-bottom:6px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-
-.nav-item:hover{background:var(--soft)}
-
+.nav-item:hover{ background:var(--soft); }
 .nav-item.active{
-background:#e8f0fe;
-color:var(--blue);
+  background:#e8f0fe;
+  color:var(--blue);
 }
-
 .nav-item img{
-width:18px;
-height:18px;
-border-radius:50%;
-background:#fff;
-padding:2px;
-border:1px solid var(--line);
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:2px;
+  border:1px solid var(--line);
+  flex-shrink:0;
 }
-
 .nav-divider{
-height:1px;
-background:var(--line);
-margin:14px 0;
+  height:1px;
+  background:var(--line);
+  margin:14px 0;
 }
-
-/* CONTENT */
 
 .content{
-padding:24px;
+  padding:24px;
+  min-width:0;
 }
 
 .mobile-links{
-display:none;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:16px;
+  display:none;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
 }
-
 .mobile-links a{
-background:#fff;
-border:1px solid var(--line);
-padding:8px 12px;
-border-radius:999px;
-font-size:13px;
-font-weight:600;
-display:inline-flex;
-align-items:center;
-gap:8px;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
 }
-
-/* HERO */
+.mobile-links img{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  object-fit:contain;
+  background:#fff;
+  padding:2px;
+  border:1px solid var(--line);
+}
 
 .hero{
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:24px;
-padding:22px;
-box-shadow:var(--shadow);
-margin-bottom:18px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+  scroll-margin-top:88px;
 }
-
 .hero h1{
-margin:0;
-font-size:32px;
+  margin:0;
+  font-size:32px;
+  line-height:1.1;
+  letter-spacing:-.03em;
 }
-
 .hero p{
-margin:10px 0 0;
-max-width:860px;
-color:var(--muted);
-font-size:14px;
-line-height:1.6;
+  margin:10px 0 0;
+  max-width:860px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
 }
-
 .hero-tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:14px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:14px;
 }
-
 .hero-tags a{
-padding:8px 12px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
-background:#f1f3f4;
-transition:.2s;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  background:#f1f3f4;
+  color:#202124;
+  transition:all .2s ease;
 }
-
 .hero-tags a:hover{
-background:#e8f0fe;
-color:#4285F4;
+  background:#e8f0fe;
+  color:#4285F4;
 }
 
-/* SECTION */
-
-.section{margin-bottom:18px}
+.section{
+  margin-bottom:18px;
+  scroll-margin-top:88px;
+}
 
 .section-card{
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:24px;
-box-shadow:var(--shadow);
-overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
-
 .section-head{
-padding:18px 20px;
-border-bottom:1px solid var(--line);
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
 }
-
 .section-head h2{
-margin:0;
-font-size:18px;
+  margin:0;
+  font-size:18px;
+  letter-spacing:-.02em;
 }
+.section-head p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+.section-body{ padding:20px; }
 
-.section-body{
-padding:20px;
+.placeholder{
+  width:100%;
+  min-height:340px;
+  border:2px dashed #d2d6dc;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fafbff,#f5f7fb);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
 }
 
 .grid-2{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
 }
 
-.placeholder{
-width:100%;
-min-height:340px;
-border:2px dashed #d2d6dc;
-border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:var(--muted);
+.footer-note{
+  color:var(--muted);
+  font-size:12px;
+  padding:4px 2px 0;
 }
-
-/* IFRAME */
 
 .embed-wrap{
-width:100%;
-border:1px solid var(--line);
-border-radius:20px;
-overflow:hidden;
-background:#fff;
-box-shadow:var(--shadow);
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:var(--shadow);
 }
 
 .embed-frame{
-width:100%;
-border:0;
-display:block;
-background:#fff;
+  width:100%;
+  border:0;
+  display:block;
+  background:#fff;
 }
 
-/* FOOTER */
-
-.footer-note{
-color:var(--muted);
-font-size:12px;
-padding:4px 2px 0;
+@media (max-width: 980px){
+  .layout{ grid-template-columns:1fr; }
+  .sidebar{ display:none; }
+  .mobile-links{ display:flex; }
+  .content{ padding:18px; }
+  .grid-2{ grid-template-columns:1fr; }
 }
-
-/* MOBILE */
-
-@media (max-width:980px){
-
-.layout{grid-template-columns:1fr}
-
-.sidebar{display:none}
-
-.mobile-links{display:flex}
-
-.grid-2{grid-template-columns:1fr}
-
+@media (max-width: 640px){
+  .topbar-inner{ flex-wrap:wrap; padding:12px; }
+  .search{ order:3; width:100%; flex:0 0 100%; }
+  .search input{ max-width:none; }
+  .content{ padding:14px; }
+  .hero{ padding:18px; border-radius:20px; }
+  .hero h1{ font-size:26px; }
+  .section-head{ padding:16px; }
+  .section-body{ padding:16px; }
+  .placeholder{ min-height:240px; font-size:14px; }
 }
-
 </style>
 </head>
-
 <body>
 
 <header class="topbar">
-<div class="topbar-inner">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="images/icon-phugleads.png" alt="Phugle Ads icon">
+      <span>Phugle Ads</span>
+    </div>
 
-<div class="brand">
-<img src="images/icon-phugleads.png">
-<span>Phugle Ads</span>
-</div>
+    <div class="search">
+      <input type="text" placeholder="Search campaigns, audiences, creative themes..." />
+    </div>
 
-<div class="search">
-<input type="text" placeholder="Search campaigns, audiences, creative themes..." />
-</div>
-
-<div class="avatar">P</div>
-
-</div>
+    <div class="avatar">P</div>
+  </div>
 </header>
 
 <div class="layout">
+  <aside class="sidebar">
+    <h4>Workspace</h4>
 
-<aside class="sidebar">
+    <a href="#overview">
+      <div class="nav-item active">
+        <img src="images/icon-phugleads.png" alt="">
+        Overview
+      </div>
+    </a>
 
-<h4>Workspace</h4>
+    <a href="#direct">
+      <div class="nav-item">Direct + OTAs</div>
+    </a>
 
-<div class="nav-item active">
-<img src="images/icon-phugleads.png">Overview
-</div>
+    <a href="#social">
+      <div class="nav-item">Social Media</div>
+    </a>
 
-<div class="nav-item">Campaigns</div>
-<div class="nav-item">Audiences</div>
-<div class="nav-item">Assets</div>
+    <a href="#googleads">
+      <div class="nav-item">Google Ads</div>
+    </a>
 
-<div class="nav-divider"></div>
+    <div class="nav-divider"></div>
 
-<h4>Portfolio</h4>
+    <h4>Portfolio</h4>
+    <a href="index.html"><div class="nav-item"><img src="images/icon-phubook.png" alt="">Phubook</div></a>
+    <a href="phustagram.html"><div class="nav-item"><img src="images/icon-phustagram.png" alt="">Phustagram</div></a>
+    <a href="phutube.html"><div class="nav-item"><img src="images/icon-phutube.png" alt="">PhuTube</div></a>
+  </aside>
 
-<a href="index.html"><div class="nav-item">
-<img src="images/icon-phubook.png">Phubook
-</div></a>
+  <main class="content">
+    <div class="mobile-links">
+      <a href="index.html"><img src="images/icon-phubook.png" alt="">Phubook</a>
+      <a href="phustagram.html"><img src="images/icon-phustagram.png" alt="">Phustagram</a>
+      <a href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
+    </div>
 
-<a href="phustagram.html"><div class="nav-item">
-<img src="images/icon-phustagram.png">Phustagram
-</div></a>
+    <section id="overview" class="hero">
+      <h1>Phugle Ads</h1>
+      <p>
+        A Google-inspired showcase space for my digital marketing work. This page is designed as a clean UI shell, so I can insert my own campaign visuals, dashboard mockups, and media plans as JPG images or embedded HTML dashboards.
+      </p>
+      <div class="hero-tags">
+        <a href="#direct">Direct + OTAs</a>
+        <a href="#social">Social Media</a>
+        <a href="#googleads">Google Ads</a>
+      </div>
+    </section>
 
-<a href="phutube.html"><div class="nav-item">
-<img src="images/icon-phutube.png">PhuTube
-</div></a>
+    <section id="direct" class="section">
+      <div class="section-card">
+        <div class="section-head">
+          <h2>Hotel Paid Media Performance</h2>
+        </div>
+        <div class="section-body">
+          <div class="embed-wrap">
+            <iframe
+              id="dashboardFrame"
+              class="embed-frame"
+              src="koddi-performance.html"
+              title="Digital Marketing Performance Dashboard"
+              scrolling="no">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</aside>
+    <section id="social" class="section">
+      <div class="section-card">
+        <div class="section-head">
+          <h2>Social Media</h2>
+          <p>Show paid social campaign setup, audience targeting, or creative structure.</p>
+        </div>
+        <div class="section-body">
+          <div class="placeholder">
+            Insert social media work here<br>
+            <strong>images/phugle-work-1.jpg</strong>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<main class="content">
+    <section id="googleads" class="section">
+      <div class="section-card">
+        <div class="section-head">
+          <h2>Google Ads</h2>
+          <p>Show Google Ads setup, search strategy, market logic, or keyword planning.</p>
+        </div>
+        <div class="section-body">
+          <div class="placeholder">
+            Insert Google Ads work here<br>
+            <strong>images/phugle-work-2.jpg</strong>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="mobile-links">
-<a href="index.html">Phubook</a>
-<a href="phustagram.html">Phustagram</a>
-<a href="phutube.html">PhuTube</a>
-</div>
-
-<section class="hero">
-
-<h1>Phugle Ads</h1>
-
-<p>
-A Google-inspired showcase space for my digital marketing work.  
-This page presents my hotel paid media strategy across OTA platforms, social media, and Google Ads.
-</p>
-
-<div class="hero-tags">
-<a href="#direct">Direct + OTAs</a>
-<a href="#social">Social Media</a>
-<a href="#googleads">Google Ads</a>
-</div>
-
-</section>
-
-<section id="direct" class="section">
-
-<div class="section-card">
-
-<div class="section-head">
-<h2>Hotel Paid Media Performance</h2>
-</div>
-
-<div class="section-body">
-
-<div class="embed-wrap">
-<iframe
-id="dashboardFrame"
-class="embed-frame"
-src="koddi-performance.html"
-scrolling="no">
-</iframe>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="grid-2">
-
-<div id="social" class="section-card">
-
-<div class="section-head">
-<h2>Social Media</h2>
-</div>
-
-<div class="section-body">
-
-<div class="placeholder">
-Insert social ads screenshots here
-</div>
-
-</div>
-
-</div>
-
-<div id="googleads" class="section-card">
-
-<div class="section-head">
-<h2>Google Ads</h2>
-</div>
-
-<div class="section-body">
-
-<div class="placeholder">
-Insert Google Ads screenshots here
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<div class="footer-note">
-Suggested image ratio: wide landscape screenshots for best presentation.
-</div>
-
-</main>
+    <div class="footer-note">
+      Suggested image ratio: wide landscape screenshots for best presentation.
+    </div>
+  </main>
 </div>
 
 <script>
-
 const iframe = document.getElementById("dashboardFrame");
 
-iframe.addEventListener("load", function(){
+iframe.addEventListener("load", function () {
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+  function resizeIframe() {
+    if (!iframeDoc || !iframeDoc.body) return;
 
-function resizeIframe(){
+    const body = iframeDoc.body;
+    const html = iframeDoc.documentElement;
 
-const body = iframeDoc.body;
-const html = iframeDoc.documentElement;
+    const height = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
 
-const height = Math.max(
-body.scrollHeight,
-body.offsetHeight,
-html.clientHeight,
-html.scrollHeight,
-html.offsetHeight
-);
+    iframe.style.height = height + "px";
+  }
 
-iframe.style.height = height + "px";
+  resizeIframe();
 
-}
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(resizeIframe);
+    observer.observe(iframeDoc.body);
+  }
 
-resizeIframe();
-
-setTimeout(resizeIframe,300);
-setTimeout(resizeIframe,700);
-
+  window.addEventListener("resize", resizeIframe);
+  setTimeout(resizeIframe, 200);
+  setTimeout(resizeIframe, 600);
 });
-
 </script>
 
 </body>
