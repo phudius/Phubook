@@ -18,7 +18,6 @@
 --muted:#65676b;
 --line:#dcdfe3;
 --blue:#1877f2;
---blue-soft:#e7f3ff;
 --shadow:0 1px 2px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
 --max:1180px;
 }
@@ -109,6 +108,7 @@ border:5px solid white;
 overflow:hidden;
 background:#ddd;
 box-shadow:var(--shadow);
+flex:0 0 160px;
 }
 
 .avatar img{
@@ -119,11 +119,13 @@ object-fit:cover;
 
 .profile-copy{
 padding-top:60px;
+min-width:0;
 }
 
 .profile-name{
 font-size:32px;
 font-weight:600;
+margin:0;
 }
 
 .name-with-badge{
@@ -178,7 +180,6 @@ background-position:center;
 margin-left:0;
 }
 
-/* avatars */
 .friend-avatars span:nth-child(1){
 background-image:url("images/mark.jpg");
 }
@@ -263,10 +264,60 @@ background:#f0f2f5;
 display:flex;
 align-items:center;
 justify-content:center;
+flex:0 0 34px;
 }
 
 .detail-icon{
 width:18px;
+height:18px;
+object-fit:contain;
+}
+
+.detail-text{
+line-height:1.35;
+}
+
+.detail-text strong{
+display:block;
+font-size:15px;
+font-weight:600;
+color:var(--text);
+}
+
+.detail-text span{
+display:block;
+font-size:14px;
+color:var(--muted);
+}
+
+.subsection{
+margin-top:28px;
+padding-top:4px;
+}
+
+.subsection h3{
+margin:0 0 14px;
+font-size:18px;
+font-weight:700;
+}
+
+.logo-badge{
+width:34px;
+height:34px;
+border-radius:50%;
+background:#fff;
+border:1px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+flex:0 0 34px;
+}
+
+.logo-badge img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .platform-grid{
@@ -310,6 +361,7 @@ width:44px;
 height:44px;
 border-radius:50%;
 overflow:hidden;
+flex:0 0 44px;
 }
 
 .post-author-avatar img{
@@ -323,13 +375,43 @@ padding:0 16px 16px;
 line-height:1.7;
 }
 
-.post-placeholder{
-border:2px dashed #ddd;
-border-radius:12px;
-padding:40px;
-text-align:center;
-color:#777;
+.timeline-card{
 margin:0 16px 16px;
+padding:18px 16px 6px;
+border-radius:12px;
+background:#ffffff;
+border:1px solid var(--line);
+}
+
+.timeline-title{
+font-size:18px;
+font-weight:600;
+margin:0 0 16px;
+color:#1c1e21;
+}
+
+.timeline-item{
+margin-bottom:16px;
+}
+
+.timeline-year{
+font-size:12px;
+color:#65676b;
+margin-top:2px;
+}
+
+.timeline-company{
+font-size:15px;
+font-weight:600;
+color:#050505;
+line-height:1.35;
+}
+
+.timeline-role{
+font-size:14px;
+color:#65676b;
+line-height:1.4;
+margin-top:2px;
 }
 
 .post-actions{
@@ -339,17 +421,28 @@ border-top:1px solid var(--line);
 
 .post-actions button{
 flex:1;
-padding:12px;
+padding:10px 12px;
 border:none;
 background:none;
 cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+font-size:14px;
+font-weight:500;
+color:#65676b;
 }
 
 .post-actions button:hover{
 background:#f2f2f2;
 }
 
-/* MOBILE */
+.post-actions button img{
+width:18px;
+height:18px;
+object-fit:contain;
+}
 
 @media(max-width:900px){
 
@@ -361,12 +454,13 @@ grid-template-columns:1fr;
 flex-direction:column;
 align-items:center;
 text-align:center;
-margin-top:-40px; /* FIXED avatar cropping */
+margin-top:-40px;
 }
 
 .avatar{
 width:120px;
 height:120px;
+flex-basis:120px;
 }
 
 .profile-copy{
@@ -378,6 +472,7 @@ font-size:26px;
 }
 
 .profile-actions{
+display:flex;
 justify-content:center;
 }
 
@@ -395,7 +490,7 @@ justify-content:center;
 <header class="topbar">
 <div class="topbar-inner">
 <div class="brand">
-<img src="images/icon-phubook.png">
+<img src="images/icon-phubook.png" alt="Phubook">
 <span>Phubook</span>
 </div>
 </div>
@@ -412,7 +507,7 @@ justify-content:center;
 <div class="profile-row">
 
 <div class="avatar">
-<img src="images/profile-phu.jpg">
+<img src="images/profile-phu.jpg" alt="Phu profile photo">
 </div>
 
 <div class="profile-copy">
@@ -421,8 +516,8 @@ justify-content:center;
 <span class="name-with-badge">
 Phuwadech Klinklay
 <span class="badges">
-<img src="images/vrf.png">
-<img src="images/vrf.png">
+<img src="images/vrf.png" alt="">
+<img src="images/vrf.png" alt="">
 </span>
 </span>
 </h1>
@@ -443,7 +538,7 @@ Phuket, Thailand
 
 <div class="profile-actions">
 <a class="contact-btn" href="mailto:refractory.liveid@gmail.com">
-<img src="images/mail.svg">
+<img src="images/mail.svg" alt="">
 Contact Me
 </a>
 </div>
@@ -466,39 +561,49 @@ Contact Me
 
 <div class="detail-item">
 <div class="detail-icon-wrap">
-<img class="detail-icon" src="images/location.svg">
+<img class="detail-icon" src="images/location.svg" alt="">
 </div>
-<div>Phuket, Thailand</div>
+<div class="detail-text">
+<strong>Lives in Phuket, Thailand</strong>
 </div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/BD.svg">
-</div>
-<div>February 1988</div>
 </div>
 
 <div class="detail-item">
 <div class="detail-icon-wrap">
-<img class="detail-icon" src="images/relationship.svg">
+<img class="detail-icon" src="images/BD.svg" alt="">
 </div>
-<div>Married</div>
+<div class="detail-text">
+<strong>Born in February 1988</strong>
 </div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/wrk.svg">
-</div>
-<div>Left Brain × Right Brain</div>
 </div>
 
 <div class="detail-item">
 <div class="detail-icon-wrap">
-<img class="detail-icon" src="images/ed.svg">
+<img class="detail-icon" src="images/relationship.svg" alt="">
 </div>
-<div>Computer Science, Prince of Songkla University</div>
+<div class="detail-text">
+<strong>Married</strong>
+</div>
 </div>
 
+</div>
+
+<div class="subsection">
+<h3>Education</h3>
+
+<div class="detail-list">
+
+<div class="detail-item">
+<div class="logo-badge">
+<img src="images/psu-logo.jpg" alt="Prince of Songkla University">
+</div>
+<div class="detail-text">
+<strong>Prince of Songkla University</strong>
+<span>Computer Science</span>
+</div>
+</div>
+
+</div>
 </div>
 
 </section>
@@ -510,7 +615,7 @@ Contact Me
 <div class="platform-grid">
 
 <a class="platform-card" href="phustagram.html">
-<img src="images/icon-phustagram.png">
+<img src="images/icon-phustagram.png" alt="Phustagram">
 <div>
 <strong>Phustagram</strong><br>
 <span>Visual design showcase</span>
@@ -518,7 +623,7 @@ Contact Me
 </a>
 
 <a class="platform-card" href="phutube.html">
-<img src="images/icon-phutube.png">
+<img src="images/icon-phutube.png" alt="PhuTube">
 <div>
 <strong>PhuTube</strong><br>
 <span>Video works</span>
@@ -526,7 +631,7 @@ Contact Me
 </a>
 
 <a class="platform-card" href="phugleads.html">
-<img src="images/icon-phugleads.png">
+<img src="images/icon-phugleads.png" alt="Phugle Ads">
 <div>
 <strong>Phugle Ads</strong><br>
 <span>Digital marketing projects</span>
@@ -546,7 +651,7 @@ Contact Me
 <h2>"Hello, World!"</h2>
 
 <p>
-I'm Phu! A digital marketer with expertise in graphic design and over ten years of creative experience. Currently serving as Digital Marketing & Communications Manager at a five-star resort, part of a global hospitality brand, I blend strategic thinking with visual creativity to craft engaging and effective marketing experiences.
+I'm Phu! A digital marketer with expertise in graphic design and over ten years of creative experience. Currently serving as Digital Marketing &amp; Communications Manager at a five-star resort, part of a global hospitality brand, I blend strategic thinking with visual creativity to craft engaging and effective marketing experiences.
 </p>
 
 </section>
@@ -558,13 +663,13 @@ I'm Phu! A digital marketer with expertise in graphic design and over ten years 
 <div class="post-author">
 
 <div class="post-author-avatar">
-<img src="images/profile-phu.jpg">
+<img src="images/profile-phu.jpg" alt="Phu profile photo">
 </div>
 
 <div>
 <strong>Phuwadech Klinklay</strong>
 <div style="font-size:13px;color:#666">
-Pinned post • Main landing page
+Pinned post • Career journey
 </div>
 </div>
 
@@ -575,27 +680,82 @@ Pinned post • Main landing page
 </div>
 
 <div class="post-body">
-
-Welcome to Phubook.
-
-This page is the starting point of my portfolio ecosystem:
-
-• Phustagram for visual design works  
-• PhuTube for video and motion showcase  
-• Phugle Ads for digital marketing and campaign presentation  
-
-Each page is designed in a different familiar platform style, so the experience feels more interactive and memorable.
-
+From graphic design to digital marketing and hospitality branding, this highlights the journey that shaped my creative and strategic experience.
 </div>
 
-<div class="post-placeholder">
-You can replace this area with your own intro artwork, featured post image, or portfolio highlight screenshot later.
+<div class="timeline-card">
+
+<h3 class="timeline-title">Work Experience</h3>
+
+<div class="timeline-item">
+<div class="timeline-company">Veranda Resort Phuket, Autograph Collection</div>
+<div class="timeline-role">Digital Marketing & Communications Manager</div>
+<div class="timeline-year">2025 – Present</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">Le Méridien Phuket Beach Resort</div>
+<div class="timeline-role">Assistant Digital Marketing Manager</div>
+<div class="timeline-year">2023-2025</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">Le Méridien Phuket Beach Resort</div>
+<div class="timeline-role">Marketing Graphic Designer</div>
+<div class="timeline-year">2021-2023</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">dtac & True Corporation, Goods Marketing Bangkok, Etc.</div>
+<div class="timeline-role">Freelance Graphic Designer</div>
+<div class="timeline-year">2020-2021</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">Swissôtel Resort Phuket Patong Beach</div>
+<div class="timeline-company">Swissôtel Suites Phuket Kamala Beach</div>
+<div class="timeline-company">Novotel Phuket Surin Beach Resort</div>
+<div class="timeline-company">Novotel Phuket Karon Beach Resort & Spa</div>
+<div class="timeline-company">Novotel Hua Hin Cha Am Beach Resort & Spa</div>
+<div class="timeline-role">Cluster Graphic Designer</div>
+<div class="timeline-year">2018-2020</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">Angsana Laguna Phuket</div>
+<div class="timeline-role">Graphic Designer</div>
+<div class="timeline-year">2017-2018</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">Lucknganpim (Worldlennium Graphic Design & Printing)</div>
+<div class="timeline-role">Graphic Designer</div>
+<div class="timeline-year">2012-2017</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-company">Blue Canyon Country Club</div>
+<div class="timeline-role">Graphics & Web Executive</div>
+<div class="timeline-year">2011-2012</div>
+</div>
+
 </div>
 
 <div class="post-actions">
-<button>👍 Like</button>
-<button>💬 Comment</button>
-<button>↗ Share</button>
+<button>
+<img src="images/like.svg" alt="">
+Like
+</button>
+
+<button>
+<img src="images/comment.svg" alt="">
+Comment
+</button>
+
+<button>
+<img src="images/share.svg" alt="">
+Share
+</button>
 </div>
 
 </article>
@@ -608,4 +768,3 @@ You can replace this area with your own intro artwork, featured post image, or p
 
 </body>
 </html>
-
