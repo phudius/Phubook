@@ -67,10 +67,11 @@ img{max-width:100%;display:block}
   display:flex;
   justify-content:center;
   min-width:0;
+  position:relative;
 }
 .search input{
   width:100%;
-  max-width:420px;
+  max-width:520px;
   padding:10px 14px;
   border:1px solid var(--line);
   border-radius:999px;
@@ -78,8 +79,8 @@ img{max-width:100%;display:block}
   outline:none;
 }
 .avatar{
-  width:36px;
-  height:36px;
+  width:44px;
+  height:44px;
   border-radius:50%;
   background:var(--blue);
   color:#fff;
@@ -89,19 +90,54 @@ img{max-width:100%;display:block}
   font-weight:800;
   flex-shrink:0;
 }
+.search-dropdown{
+  position:absolute;
+  top:calc(100% + 8px);
+  width:100%;
+  max-width:520px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(60,64,67,.18);
+  overflow:hidden;
+  display:none;
+  z-index:60;
+}
+.search-dropdown.show{
+  display:block;
+}
+.search-item{
+  width:100%;
+  text-align:left;
+  padding:12px 14px;
+  background:#fff;
+  border:0;
+  border-bottom:1px solid #eef1f4;
+  cursor:pointer;
+  font:inherit;
+  color:var(--text);
+}
+.search-item:last-child{
+  border-bottom:0;
+}
+.search-item:hover,
+.search-item.active{
+  background:#e8f0fe;
+  color:var(--blue);
+}
 
 .layout{
   max-width:1440px;
   margin:0 auto;
   display:grid;
   grid-template-columns:240px 1fr;
-  min-height:calc(100vh - 65px);
+  min-height:calc(100vh - 69px);
 }
 
 .sidebar{
   position:sticky;
-  top:65px;
-  height:calc(100vh - 65px);
+  top:69px;
+  height:calc(100vh - 69px);
   overflow-y:auto;
   scrollbar-width:thin;
   background:var(--panel);
@@ -307,7 +343,8 @@ img{max-width:100%;display:block}
 @media (max-width: 640px){
   .topbar-inner{ flex-wrap:wrap; padding:12px; }
   .search{ order:3; width:100%; flex:0 0 100%; }
-  .search input{ max-width:none; }
+  .search input,
+  .search-dropdown{ max-width:none; }
   .content{ padding:14px; }
   .hero{ padding:18px; border-radius:20px; }
   .hero h1{ font-size:26px; }
@@ -321,16 +358,22 @@ img{max-width:100%;display:block}
 
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="brand">
+    <a href="#overview" class="brand">
       <img src="images/icon-phugleads.png" alt="Phugle Ads icon">
       <span>Phugle Ads</span>
-    </div>
+    </a>
 
     <div class="search">
-      <input type="text" placeholder="Search campaigns, audiences, creative themes..." />
+      <input
+        id="siteSearch"
+        type="text"
+        placeholder="Search sections: OTA, Social, Google..."
+        autocomplete="off"
+      />
+      <div id="searchDropdown" class="search-dropdown"></div>
     </div>
 
-    <div class="avatar">P</div>
+    <a href="#overview" class="avatar" aria-label="Back to top">P</a>
   </div>
 </header>
 
@@ -472,6 +515,108 @@ iframe.addEventListener("load", function () {
   window.addEventListener("resize", resizeIframe);
   setTimeout(resizeIframe, 200);
   setTimeout(resizeIframe, 600);
+});
+
+const searchInput = document.getElementById("siteSearch");
+const searchDropdown = document.getElementById("searchDropdown");
+
+const searchItems = [
+  { label: "Overview", keywords: ["overview", "home", "top", "phugle"], target: "#overview" },
+  { label: "Direct + OTAs", keywords: ["direct", "ota", "otas", "hotel paid media"], target: "#direct" },
+  { label: "Social Media", keywords: ["social", "meta", "facebook", "instagram"], target: "#social" },
+  { label: "Google Ads", keywords: ["google", "sem", "search", "ppc"], target: "#googleads" }
+];
+
+function renderDropdown(items, activeIndex = -1) {
+  if (!items.length) {
+    searchDropdown.classList.remove("show");
+    searchDropdown.innerHTML = "";
+    return;
+  }
+
+  searchDropdown.innerHTML = items.map((item, index) => `
+    <button
+      type="button"
+      class="search-item ${index === activeIndex ? 'active' : ''}"
+      data-target="${item.target}">
+      ${item.label}
+    </button>
+  `).join("");
+
+  searchDropdown.classList.add("show");
+}
+
+function filterItems(query) {
+  const q = query.trim().toLowerCase();
+
+  if (!q) return searchItems;
+
+  return searchItems.filter(item =>
+    item.label.toLowerCase().includes(q) ||
+    item.keywords.some(keyword => keyword.includes(q))
+  );
+}
+
+function goToTarget(target) {
+  const el = document.querySelector(target);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+let filteredResults = searchItems;
+let activeIndex = -1;
+
+searchInput.addEventListener("focus", () => {
+  filteredResults = filterItems(searchInput.value);
+  renderDropdown(filteredResults, activeIndex);
+});
+
+searchInput.addEventListener("input", () => {
+  filteredResults = filterItems(searchInput.value);
+  activeIndex = -1;
+  renderDropdown(filteredResults, activeIndex);
+});
+
+searchInput.addEventListener("keydown", (e) => {
+  if (!filteredResults.length && e.key === "Enter") return;
+
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    activeIndex = (activeIndex + 1) % filteredResults.length;
+    renderDropdown(filteredResults, activeIndex);
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    activeIndex = (activeIndex - 1 + filteredResults.length) % filteredResults.length;
+    renderDropdown(filteredResults, activeIndex);
+  } else if (e.key === "Enter") {
+    e.preventDefault();
+    const chosen = activeIndex >= 0 ? filteredResults[activeIndex] : filteredResults[0];
+    if (chosen) {
+      goToTarget(chosen.target);
+      searchInput.value = chosen.label;
+      searchDropdown.classList.remove("show");
+    }
+  } else if (e.key === "Escape") {
+    searchDropdown.classList.remove("show");
+  }
+});
+
+searchDropdown.addEventListener("click", (e) => {
+  const btn = e.target.closest(".search-item");
+  if (!btn) return;
+
+  const target = btn.getAttribute("data-target");
+  const chosen = searchItems.find(item => item.target === target);
+  if (chosen) {
+    searchInput.value = chosen.label;
+    goToTarget(chosen.target);
+    searchDropdown.classList.remove("show");
+  }
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".search")) {
+    searchDropdown.classList.remove("show");
+  }
 });
 </script>
 
