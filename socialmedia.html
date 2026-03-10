@@ -14,6 +14,7 @@
 --line:#e4e6eb;
 --shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04);
 --radius:18px;
+--fb-blue:#1877F2;
 }
 
 *{box-sizing:border-box}
@@ -121,6 +122,11 @@ font-weight:600;
 font-size:38px;
 font-weight:800;
 margin-bottom:6px;
+letter-spacing:-0.02em;
+}
+
+.kpi-value .unit{
+color:var(--fb-blue);
 }
 
 .kpi-note{
@@ -198,37 +204,37 @@ Performance overview for the Facebook page managed in 2025, highlighting reach, 
 
 <div class="kpi">
 <div class="kpi-label">Views</div>
-<div class="kpi-value">4x.x M</div>
+<div class="kpi-value">4x.x<span class="unit">M</span></div>
 <div class="kpi-note">Total page and content visibility.</div>
 </div>
 
 <div class="kpi">
 <div class="kpi-label">Visits</div>
-<div class="kpi-value">2xx K</div>
+<div class="kpi-value">2xx<span class="unit">K</span></div>
 <div class="kpi-note">Page visit volume in 2025.</div>
 </div>
 
 <div class="kpi">
 <div class="kpi-label">Content React</div>
-<div class="kpi-value">2x K</div>
+<div class="kpi-value">2x<span class="unit">K</span></div>
 <div class="kpi-note">Audience engagement across content.</div>
 </div>
 
 <div class="kpi">
 <div class="kpi-label">Link Click</div>
-<div class="kpi-value">8x K</div>
+<div class="kpi-value">8x<span class="unit">K</span></div>
 <div class="kpi-note">Traffic to external destinations.</div>
 </div>
 
 <div class="kpi">
 <div class="kpi-label">Followers</div>
-<div class="kpi-value">4 K</div>
+<div class="kpi-value">4<span class="unit">K</span></div>
 <div class="kpi-note">Facebook followers gained.</div>
 </div>
 
 <div class="kpi">
 <div class="kpi-label">Meta Ads Spend</div>
-<div class="kpi-value">THB 3xx,xxx</div>
+<div class="kpi-value"><span class="unit">THB</span>3xx,xxx</div>
 <div class="kpi-note">Total paid media investment.</div>
 </div>
 
@@ -236,7 +242,7 @@ Performance overview for the Facebook page managed in 2025, highlighting reach, 
 
 <div class="section-title">
 <h3>Highlights</h3>
-<p>Portfolio summary</p>
+
 </div>
 
 <section class="insight-grid">
