@@ -202,8 +202,19 @@ img{max-width:100%;display:block}
 .mobile-links{
   display:none;
   gap:8px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
   margin-bottom:16px;
+  position:sticky;
+  top:69px;
+  z-index:40;
+  background:var(--bg);
+  padding:8px 0 10px;
+  scrollbar-width:none;
+}
+.mobile-links::-webkit-scrollbar{
+  display:none;
 }
 .mobile-links a{
   background:#fff;
@@ -215,6 +226,8 @@ img{max-width:100%;display:block}
   display:inline-flex;
   align-items:center;
   gap:8px;
+  white-space:nowrap;
+  flex:0 0 auto;
 }
 .mobile-links img{
   width:16px;
@@ -351,6 +364,7 @@ img{max-width:100%;display:block}
   .section-head{ padding:16px; }
   .section-body{ padding:16px; }
   .placeholder{ min-height:240px; font-size:14px; }
+  .mobile-links{ top:121px; }
 }
 </style>
 </head>
