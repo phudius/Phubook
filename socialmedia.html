@@ -14,7 +14,9 @@
 --line:#e4e6eb;
 --shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04);
 --radius:18px;
---fb-blue:#1877F2;
+
+--fb:#1877F2;
+--ig:#E1306C;
 }
 
 *{box-sizing:border-box}
@@ -50,13 +52,18 @@ gap:10px;
 flex-wrap:wrap;
 }
 
-.pill{
+.pill,
+.platform-toggle{
 padding:8px 14px;
 border-radius:999px;
 background:#fff;
 border:1px solid var(--line);
 font-size:14px;
 font-weight:600;
+}
+
+.platform-toggle{
+cursor:pointer;
 }
 
 .hero{
@@ -125,13 +132,25 @@ margin-bottom:6px;
 letter-spacing:-0.01em;
 }
 
-.kpi-value .unit{
-color:var(--fb-blue);
-}
-
 .kpi-note{
 font-size:14px;
 color:var(--muted);
+}
+
+.unit{
+font-weight:600;
+}
+
+.facebook .unit{
+color:var(--fb);
+}
+
+.instagram .unit{
+color:var(--ig);
+}
+
+.hidden{
+display:none;
 }
 
 .insight-grid{
@@ -183,14 +202,18 @@ line-height:1.6;
 </div>
 
 <div class="top-actions">
-<div class="pill">Platform: Facebook</div>
+<select id="platform" class="platform-toggle">
+<option value="facebook">Platform: Facebook</option>
+<option value="instagram">Platform: Instagram</option>
+</select>
+
 <div class="pill">Period: Jan–Dec 2025</div>
 </div>
 </div>
 
 <section class="hero">
-<h2>Social Media Dashboard</h2>
-<p>
+<h2 id="title">Social Media Dashboard</h2>
+<p id="description">
 Performance overview for the Facebook page managed in 2025, highlighting reach, engagement, traffic, visits, follower growth, and paid media investment.
 </p>
 </section>
@@ -200,7 +223,9 @@ Performance overview for the Facebook page managed in 2025, highlighting reach, 
 <p>Performance summary for 2025</p>
 </div>
 
-<section class="kpi-grid">
+<!-- FACEBOOK -->
+
+<section class="kpi-grid facebook" id="facebook">
 
 <div class="kpi">
 <div class="kpi-label">Views</div>
@@ -240,36 +265,82 @@ Performance overview for the Facebook page managed in 2025, highlighting reach, 
 
 </section>
 
-<div class="section-title">
-<h3>Highlights</h3>
+<!-- INSTAGRAM -->
+
+<section class="kpi-grid instagram hidden" id="instagram">
+
+<div class="kpi">
+<div class="kpi-label">Views</div>
+<div class="kpi-value">8.X<span class="unit">M</span></div>
+<div class="kpi-note">Total content views.</div>
 </div>
 
-<section class="insight-grid">
-
-<div class="insight">
-<h5>Massive reach</h5>
-<p>
-The page achieved strong visibility during 2025, demonstrating consistent content exposure and audience reach.
-</p>
+<div class="kpi">
+<div class="kpi-label">Reach</div>
+<div class="kpi-value">1X.X<span class="unit">M</span></div>
+<div class="kpi-note">Accounts reached during 2025.</div>
 </div>
 
-<div class="insight">
-<h5>Traffic generation</h5>
-<p>
-Social media content successfully generated significant outbound traffic to external destinations.
-</p>
+<div class="kpi">
+<div class="kpi-label">Content React</div>
+<div class="kpi-value">1X.X<span class="unit">K</span></div>
+<div class="kpi-note">Audience engagement across posts.</div>
 </div>
 
-<div class="insight">
-<h5>Audience engagement</h5>
-<p>
-The page delivered steady interaction levels while continuing to grow the follower base.
-</p>
+<div class="kpi">
+<div class="kpi-label">Link Click</div>
+<div class="kpi-value">4X.X<span class="unit">K</span></div>
+<div class="kpi-note">Traffic generated from Instagram.</div>
+</div>
+
+<div class="kpi">
+<div class="kpi-label">Profile Visits</div>
+<div class="kpi-value">1XX<span class="unit">K</span></div>
+<div class="kpi-note">Instagram profile visits.</div>
+</div>
+
+<div class="kpi">
+<div class="kpi-label">Followers</div>
+<div class="kpi-value">7<span class="unit">K</span></div>
+<div class="kpi-note">Followers gained in 2025.</div>
 </div>
 
 </section>
 
 </div>
+
+<script>
+const select = document.getElementById("platform");
+const facebook = document.getElementById("facebook");
+const instagram = document.getElementById("instagram");
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+
+select.addEventListener("change", function(){
+
+if(this.value === "facebook"){
+facebook.classList.remove("hidden");
+instagram.classList.add("hidden");
+
+title.textContent = "Social Media Dashboard";
+description.textContent =
+"Performance overview for the Facebook page managed in 2025, highlighting reach, engagement, traffic, visits, follower growth, and paid media investment.";
+
+}
+
+else{
+
+facebook.classList.add("hidden");
+instagram.classList.remove("hidden");
+
+title.textContent = "Instagram Insights";
+description.textContent =
+"Performance overview for the Instagram account managed in 2025, highlighting views, reach, engagement, traffic, profile visits, and follower growth.";
+
+}
+
+});
+</script>
 
 </body>
 </html>
