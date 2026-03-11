@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAds Dashboard</title>
+  <style>
+    :root{
+      --google-blue:#4285F4;
+      --google-red:#EA4335;
+      --google-yellow:#FBBC05;
+      --google-green:#34A853;
+      --bg:#f6f8fc;
+      --panel:#ffffff;
+      --text:#202124;
+      --muted:#5f6368;
+      --line:#e8eaed;
+      --soft:#f8f9fa;
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      background:transparent;
+      color:var(--text);
+    }
+
+    .wrap{
+      width:min(100%, 1280px);
+      margin:0 auto;
+      padding:10px 0;
+    }
+
+    .hero{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      display:grid;
+      gap:12px;
+    }
+
+    .hero-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .g-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:var(--soft);
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+      font-size:18px;
+      font-weight:800;
+      color:var(--google-blue);
+    }
+
+    .eyebrow{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(22px, 3vw, 30px);
+      line-height:1.1;
+      font-weight:700;
+    }
+
+    .sub{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+      max-width:700px;
+    }
+
+    .status{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .pill{
+      background:var(--soft);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:14px;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+    }
+
+    .span-3{grid-column:span 3}
+    .span-4{grid-column:span 4}
+    .span-5{grid-column:span 5}
+    .span-6{grid-column:span 6}
+    .span-7{grid-column:span 7}
+    .span-8{grid-column:span 8}
+    .span-12{grid-column:span 12}
+
+    .kpi-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .kpi-value{
+      font-size:28px;
+      line-height:1.05;
+      margin:0 0 6px;
+      font-weight:700;
+    }
+
+    .kpi-foot{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .top-blue{box-shadow:inset 0 3px 0 var(--google-blue)}
+    .top-red{box-shadow:inset 0 3px 0 var(--google-red)}
+    .top-yellow{box-shadow:inset 0 3px 0 var(--google-yellow)}
+    .top-green{box-shadow:inset 0 3px 0 var(--google-green)}
+
+    .section-title{
+      margin:0 0 12px;
+      font-size:16px;
+      font-weight:700;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric-box{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .metric-box .label{
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:700;
+    }
+
+    .metric-box .value{
+      font-size:22px;
+      font-weight:700;
+      margin:0;
+    }
+
+    .bar-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .bar-row{
+      display:grid;
+      gap:6px;
+    }
+
+    .bar-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .track{
+      width:100%;
+      height:8px;
+      background:#eef2f7;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .fill{
+      height:100%;
+      border-radius:999px;
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:760px;
+      background:#fff;
+    }
+
+    th,td{
+      padding:13px 14px;
+      text-align:left;
+      border-bottom:1px solid var(--line);
+      font-size:13px;
+      vertical-align:middle;
+    }
+
+    th{
+      background:#fafbfc;
+      color:var(--muted);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    tr:last-child td{border-bottom:none}
+
+    .note{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+      margin-top:10px;
+    }
+
+    @media (max-width: 1100px){
+      .span-3,.span-4,.span-5,.span-6,.span-7,.span-8{grid-column:span 12}
+    }
+
+    @media (max-width: 640px){
+      .hero,.card{padding:16px}
+      .mini-grid{grid-template-columns:1fr}
+      .kpi-value{font-size:24px}
+      .brand{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="g-icon">G</div>
+          <div>
+            <div class="eyebrow">Phugle Ads • Google Ads Dashboard</div>
+            <h1>Google Ads Overview</h1>
+            <p class="sub">A minimal Google Ads case study showing campaign scale and results in a clear, anonymized format.</p>
+          </div>
+        </div>
+        
+          <div class="pill">Channel: Google Ads</div>
+          <div class="pill">Period: Jan 2024 – Jan 2025</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+
+      <article class="card span-12">
+        <h2 class="section-title">Case Study 1: Hotel Wedding Page (Jan 2024 – Jan 2025)</h2>
+      </article>
+
+      <article class="card span-3 top-blue">
+        <div class="kpi-label">Impressions</div>
+        <div class="kpi-value">2.XM</div>
+        <div class="kpi-foot">Traffic visibility generated across the campaign period.</div>
+      </article>
+
+      <article class="card span-3 top-red">
+        <div class="kpi-label">Clicks</div>
+        <div class="kpi-value">1XXK</div>
+        <div class="kpi-foot">High-volume engagement driven to the campaign landing page.</div>
+      </article>
+
+      <article class="card span-3 top-yellow">
+        <div class="kpi-label">Conversions</div>
+        <div class="kpi-value">1.XK</div>
+        <div class="kpi-foot">Total tracked actions generated from the campaign.</div>
+      </article>
+
+      <article class="card span-3 top-green">
+        <div class="kpi-label">Cost</div>
+        <div class="kpi-value">฿1XXK</div>
+        <div class="kpi-foot">Media spend presented in anonymized portfolio format.</div>
+      </article>
+
+
+      <article class="card span-12">
+        <h2 class="section-title">Case Study 2: Restaurant Page (Jun 2025 – Mar 2026)</h2>
+      </article>
+
+      <article class="card span-3 top-blue">
+        <div class="kpi-label">Impressions</div>
+        <div class="kpi-value">528K</div>
+        <div class="kpi-foot">Traffic visibility generated across the campaign period.</div>
+      </article>
+
+      <article class="card span-3 top-red">
+        <div class="kpi-label">Clicks</div>
+        <div class="kpi-value">14.1K</div>
+        <div class="kpi-foot">High-volume engagement driven to the campaign landing page.</div>
+      </article>
+
+      <article class="card span-3 top-yellow">
+        <div class="kpi-label">Avg. CPC</div>
+        <div class="kpi-value">฿2.15</div>
+        <div class="kpi-foot">Efficient average cost per click across the selected period.</div>
+      </article>
+
+      <article class="card span-3 top-green">
+        <div class="kpi-label">Cost</div>
+        <div class="kpi-value">฿30.2K</div>
+        <div class="kpi-foot">Media spend presented in anonymized portfolio format.</div>
+      </article>
+
+    </section>
+  </div>
+</body>
+</html>
