@@ -309,22 +309,6 @@ img{max-width:100%;display:block}
 }
 .section-body{ padding:20px; }
 
-.placeholder{
-  width:100%;
-  min-height:340px;
-  border:2px dashed #d2d6dc;
-  border-radius:18px;
-  background:linear-gradient(180deg,#fafbff,#f5f7fb);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-  font-size:15px;
-  line-height:1.6;
-}
-
 .footer-note{
   color:var(--muted);
   font-size:12px;
@@ -363,7 +347,6 @@ img{max-width:100%;display:block}
   .hero h1{ font-size:26px; }
   .section-head{ padding:16px; }
   .section-body{ padding:16px; }
-  .placeholder{ min-height:240px; font-size:14px; }
   .mobile-links{ top:121px; }
 }
 </style>
@@ -487,9 +470,14 @@ img{max-width:100%;display:block}
           <p>Show Google Ads setup, search strategy, market logic, or keyword planning.</p>
         </div>
         <div class="section-body">
-          <div class="placeholder">
-            Insert Google Ads work here<br>
-            <strong>images/phugle-work-2.jpg</strong>
+          <div class="embed-wrap">
+            <iframe
+              id="googleAdsFrame"
+              class="embed-frame"
+              src="gads.html"
+              title="Google Ads Dashboard"
+              scrolling="no">
+            </iframe>
           </div>
         </div>
       </div>
@@ -538,6 +526,7 @@ function setupIframeAutoResize(iframeId){
 
 setupIframeAutoResize("dashboardFrame");
 setupIframeAutoResize("socialMediaFrame");
+setupIframeAutoResize("googleAdsFrame");
 
 const searchInput = document.getElementById("siteSearch");
 const searchDropdown = document.getElementById("searchDropdown");
