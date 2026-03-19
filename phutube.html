@@ -13,7 +13,6 @@
   --text:#f1f1f1;
   --muted:#aaa;
   --line:#303030;
-  --chip:#272727;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -108,21 +107,11 @@ img{display:block;max-width:100%}
   cursor:pointer;
 }
 .search-btn:hover{background:#2b2b2b}
-.top-actions{display:flex;align-items:center;gap:10px}
-.top-chip{
-  height:36px;
-  padding:0 14px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:var(--panel-2);
-  color:#fff;
+.top-actions{
   display:flex;
   align-items:center;
-  gap:8px;
-  cursor:pointer;
-  font-weight:600;
+  gap:10px;
 }
-.top-chip:hover{background:#2b2b2b}
 .avatar{
   width:34px;
   height:34px;
@@ -234,59 +223,6 @@ img{display:block;max-width:100%}
   color:var(--muted);
   font-size:14px;
   line-height:1.5;
-}
-.channel-desc{
-  margin-top:10px;
-  color:#ddd;
-  max-width:860px;
-  font-size:14px;
-  line-height:1.6;
-}
-.channel-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-.btn{
-  height:38px;
-  padding:0 14px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:var(--panel-2);
-  color:#fff;
-  cursor:pointer;
-  font-weight:700;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
-.btn.primary{
-  background:#fff;
-  color:#000;
-  border-color:#fff;
-}
-.btn:hover{opacity:.95}
-
-.filter-row{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:20px 0 18px;
-}
-.filter-chip{
-  padding:8px 12px;
-  border-radius:10px;
-  background:var(--chip);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.06);
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-}
-.filter-chip.active{
-  background:#fff;
-  color:#000;
 }
 
 .video-grid{
@@ -601,9 +537,6 @@ img{display:block;max-width:100%}
     grid-column:1 / -1;
     order:3;
   }
-  .top-actions .top-chip{
-    display:none;
-  }
   .content{padding:14px 12px 28px}
   .channel-card{
     flex-direction:column;
@@ -652,7 +585,6 @@ img{display:block;max-width:100%}
     </div>
 
     <div class="top-actions">
-      <button class="top-chip" type="button">＋ Create</button>
       <div class="avatar">P</div>
     </div>
   </div>
@@ -689,24 +621,8 @@ img{display:block;max-width:100%}
       <div class="channel-avatar">P</div>
       <div class="channel-copy">
         <h1>PhuTube</h1>
-        <div class="channel-meta">@phudiusvideo • Video works showcase • Motion, campaigns, reels, and branded content</div>
-        <div class="channel-desc">
-          A YouTube-style showcase for video projects, from resort campaigns and social reels to motion graphics and promotional edits.
-        </div>
-        <div class="channel-actions">
-          <a class="btn primary" href="index.html">Phubook</a>
-          <a class="btn" href="phustagram.html">Phustagram</a>
-          <a class="btn" href="phugleads.html">Phugle Ads</a>
-        </div>
+        <div class="channel-meta">@phutubevideo • Video Work Showcase • Filming, Video Editing, and Branded Content</div>
       </div>
-    </div>
-
-    <div class="filter-row" id="filterRow">
-      <button class="filter-chip active" data-filter="all" type="button">All</button>
-      <button class="filter-chip" data-filter="campaign" type="button">Campaign</button>
-      <button class="filter-chip" data-filter="motion" type="button">Motion</button>
-      <button class="filter-chip" data-filter="social" type="button">Social</button>
-      <button class="filter-chip" data-filter="branding" type="button">Branding</button>
     </div>
 
     <section class="video-grid" id="videoGrid"></section>
@@ -752,20 +668,20 @@ img{display:block;max-width:100%}
 <script>
 const VIDEOS = [
   {
-    title: "My First Video Work",
+    title: "1 Year Anniversary of Veranda Resort Phuket",
     category: "campaign",
-    thumbnail: "images/video1.jpg",
-    poster: "images/video1.jpg",
+    thumbnail: "images/phutubevidcover-01.jpg",
+    poster: "images/phutubevidcover-01.jpg",
     video: "",
     driveEmbed: "https://drive.google.com/file/d/169J5BO4UNfNJ-NKLwl-bdpz9KPV9d9S2/preview",
     duration: "0:47",
     views: "1.8K views",
     date: "2 weeks ago",
     channel: "PhuTube",
-    description: "My first video work hosted on Google Drive.",
+    description: "This project celebrates the 1-year anniversary of Veranda Resort Phuket, Autograph Collection, which I worked on with a video production company.",
     details: [
-      "Role: Concept and editing",
-      "Tools: Premiere Pro",
+      "Role: Concept Development, Visual Direction, and Editing",
+      "Tools: Adobe Premiere Pro",
       "Format: Promotional video"
     ]
   },
@@ -792,7 +708,6 @@ const VIDEOS = [
 const videoGrid = document.getElementById("videoGrid");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
-const filterRow = document.getElementById("filterRow");
 const modalBackdrop = document.getElementById("modalBackdrop");
 
 const playerVideo = document.getElementById("playerVideo");
@@ -810,7 +725,6 @@ const burgerBtn = document.getElementById("burgerBtn");
 const sidebar = document.getElementById("sidebar");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-let currentFilter = "all";
 let currentIndex = 0;
 let filteredVideos = [...VIDEOS];
 
@@ -848,7 +762,6 @@ function applyFilters(){
   const q = normalize(searchInput.value);
 
   filteredVideos = VIDEOS.filter(video => {
-    const passFilter = currentFilter === "all" || video.category === currentFilter;
     const haystack = [
       video.title,
       video.description,
@@ -857,7 +770,7 @@ function applyFilters(){
       ...(video.details || [])
     ].join(" ").toLowerCase();
 
-    return passFilter && (!q || haystack.includes(q));
+    return (!q || haystack.includes(q));
   });
 
   renderGrid();
@@ -868,7 +781,7 @@ function renderGrid(){
     videoGrid.innerHTML = `
       <div class="empty-state">
         No videos found for your search.<br>
-        Try another keyword or switch the category filter.
+        Try another keyword.
       </div>
     `;
     return;
@@ -983,15 +896,6 @@ previewBtn.addEventListener("click", () => {
     playerFrame.style.display = "none";
     playerVideo.play();
   }
-});
-
-filterRow.querySelectorAll("[data-filter]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    currentFilter = btn.dataset.filter;
-    filterRow.querySelectorAll("[data-filter]").forEach(x => x.classList.remove("active"));
-    btn.classList.add("active");
-    applyFilters();
-  });
 });
 
 searchInput.addEventListener("input", applyFilters);
