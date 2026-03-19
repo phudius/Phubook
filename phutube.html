@@ -23,6 +23,7 @@ body{
   color:var(--text);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 }
+body.modal-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button,input{font:inherit}
 img{display:block;max-width:100%}
@@ -30,10 +31,11 @@ img{display:block;max-width:100%}
 .topbar{
   position:sticky;
   top:0;
-  z-index:50;
+  z-index:70;
   height:56px;
   background:rgba(15,15,15,.96);
   border-bottom:1px solid rgba(255,255,255,.05);
+  backdrop-filter:blur(8px);
 }
 .topbar-inner{
   height:100%;
@@ -94,6 +96,9 @@ img{display:block;max-width:100%}
   border-radius:999px 0 0 999px;
   outline:none;
 }
+.search-shell input:focus{
+  border-color:#555;
+}
 .search-btn{
   height:40px;
   border:1px solid var(--line);
@@ -144,6 +149,7 @@ img{display:block;max-width:100%}
   position:sticky;
   top:56px;
   height:calc(100vh - 56px);
+  background:var(--bg);
 }
 .nav-group{
   padding-bottom:12px;
@@ -172,6 +178,10 @@ img{display:block;max-width:100%}
   padding:3px;
   border:1px solid rgba(255,255,255,.15);
   flex-shrink:0;
+}
+
+.sidebar-overlay{
+  display:none;
 }
 
 .content{
@@ -256,6 +266,7 @@ img{display:block;max-width:100%}
   color:#000;
   border-color:#fff;
 }
+.btn:hover{opacity:.95}
 
 .filter-row{
   display:flex;
@@ -498,8 +509,13 @@ img{display:block;max-width:100%}
   padding:8px;
   border-radius:14px;
   cursor:pointer;
+  border:1px solid transparent;
 }
 .side-card:hover{background:#232323}
+.side-card.active{
+  background:#232323;
+  border-color:rgba(255,255,255,.08);
+}
 .side-thumb{
   aspect-ratio:16/9;
   border-radius:12px;
@@ -536,6 +552,8 @@ img{display:block;max-width:100%}
   padding:28px;
   border-radius:18px;
   color:#aaa;
+  text-align:center;
+  line-height:1.6;
 }
 
 @media (max-width:1180px){
@@ -543,7 +561,30 @@ img{display:block;max-width:100%}
 }
 @media (max-width:980px){
   .layout{grid-template-columns:1fr}
-  .sidebar{display:none}
+  .sidebar{
+    position:fixed;
+    top:56px;
+    left:0;
+    width:260px;
+    height:calc(100vh - 56px);
+    z-index:80;
+    transform:translateX(-100%);
+    transition:transform .25s ease;
+    border-right:1px solid rgba(255,255,255,.08);
+  }
+  .sidebar.open{
+    transform:translateX(0);
+  }
+  .sidebar-overlay{
+    display:none;
+    position:fixed;
+    inset:56px 0 0 0;
+    background:rgba(0,0,0,.45);
+    z-index:75;
+  }
+  .sidebar-overlay.show{
+    display:block;
+  }
   .modal{grid-template-columns:1fr;max-height:94vh}
   .side-panel{
     border-left:none;
@@ -560,7 +601,13 @@ img{display:block;max-width:100%}
     grid-column:1 / -1;
     order:3;
   }
+  .top-actions .top-chip{
+    display:none;
+  }
   .content{padding:14px 12px 28px}
+  .channel-card{
+    flex-direction:column;
+  }
   .channel-avatar{
     width:76px;
     height:76px;
@@ -579,6 +626,9 @@ img{display:block;max-width:100%}
     border-radius:0;
   }
   .player-wrap{padding:12px}
+  .side-card{
+    grid-template-columns:132px 1fr;
+  }
 }
 </style>
 </head>
@@ -587,8 +637,8 @@ img{display:block;max-width:100%}
 <header class="topbar" id="top">
   <div class="topbar-inner">
     <div class="brand-wrap">
-      <button class="burger" type="button" aria-label="Menu">☰</button>
-      <a class="brand" href="#top">
+      <button class="burger" id="burgerBtn" type="button" aria-label="Open menu">☰</button>
+      <a class="brand" href="#top" aria-label="Back to top">
         <img src="images/icon-phutube.png" alt="PhuTube icon">
         <span>PhuTube</span>
       </a>
@@ -596,8 +646,8 @@ img{display:block;max-width:100%}
 
     <div class="searchbar">
       <div class="search-shell">
-        <input id="searchInput" type="text" placeholder="Search videos, campaigns, reels, motion works..." />
-        <button class="search-btn" id="searchBtn" type="button">⌕</button>
+        <input id="searchInput" type="text" placeholder="Search videos, campaigns, reels, motion works..." aria-label="Search videos" />
+        <button class="search-btn" id="searchBtn" type="button" aria-label="Search">⌕</button>
       </div>
     </div>
 
@@ -608,8 +658,10 @@ img{display:block;max-width:100%}
   </div>
 </header>
 
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="layout">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="nav-group">
       <div class="nav-item active">
         <img class="nav-icon" src="images/icon-phutube.png" alt="">
@@ -661,13 +713,13 @@ img{display:block;max-width:100%}
   </main>
 </div>
 
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal">
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="playerTitle">
     <div class="player-wrap">
       <div class="player-box">
         <video id="playerVideo" controls playsinline style="display:none"></video>
         <img id="playerImage" alt="Video preview" style="display:none" />
-        <iframe id="playerFrame" allow="autoplay" style="display:none"></iframe>
+        <iframe id="playerFrame" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" style="display:none"></iframe>
 
         <div class="player-overlay">
           <button class="player-control" id="previewBtn" type="button">▶ Preview</button>
@@ -690,7 +742,7 @@ img{display:block;max-width:100%}
     <aside class="side-panel">
       <div class="side-head">
         <h3>More videos</h3>
-        <button class="close-btn" id="closeBtn" type="button">×</button>
+        <button class="close-btn" id="closeBtn" type="button" aria-label="Close">×</button>
       </div>
       <div class="side-list" id="sideList"></div>
     </aside>
@@ -754,6 +806,10 @@ const playerDesc = document.getElementById("playerDesc");
 const sideList = document.getElementById("sideList");
 const closeBtn = document.getElementById("closeBtn");
 
+const burgerBtn = document.getElementById("burgerBtn");
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+
 let currentFilter = "all";
 let currentIndex = 0;
 let filteredVideos = [...VIDEOS];
@@ -784,8 +840,12 @@ function resetPlayer(){
   previewBtn.style.display = "inline-flex";
 }
 
+function normalize(text){
+  return String(text).toLowerCase().trim();
+}
+
 function applyFilters(){
-  const q = searchInput.value.trim().toLowerCase();
+  const q = normalize(searchInput.value);
 
   filteredVideos = VIDEOS.filter(video => {
     const passFilter = currentFilter === "all" || video.category === currentFilter;
@@ -793,6 +853,7 @@ function applyFilters(){
       video.title,
       video.description,
       video.category,
+      video.channel,
       ...(video.details || [])
     ].join(" ").toLowerCase();
 
@@ -804,14 +865,19 @@ function applyFilters(){
 
 function renderGrid(){
   if(!filteredVideos.length){
-    videoGrid.innerHTML = `<div class="empty-state">No videos found.</div>`;
+    videoGrid.innerHTML = `
+      <div class="empty-state">
+        No videos found for your search.<br>
+        Try another keyword or switch the category filter.
+      </div>
+    `;
     return;
   }
 
   videoGrid.innerHTML = filteredVideos.map((video, index) => `
-    <article class="video-card" data-index="${index}">
+    <article class="video-card" data-index="${index}" tabindex="0" aria-label="${escapeHtml(video.title)}">
       <div class="thumb">
-        <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}">
+        <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}" loading="lazy">
         <div class="play-badge">▶</div>
         <div class="duration">${escapeHtml(video.duration)}</div>
       </div>
@@ -829,8 +895,12 @@ function renderGrid(){
   `).join("");
 
   document.querySelectorAll(".video-card").forEach(card => {
-    card.addEventListener("click", () => {
-      openVideo(Number(card.dataset.index));
+    card.addEventListener("click", () => openVideo(Number(card.dataset.index)));
+    card.addEventListener("keydown", e => {
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        openVideo(Number(card.dataset.index));
+      }
     });
   });
 }
@@ -872,13 +942,15 @@ function openVideo(index){
 
   renderSideList();
   modalBackdrop.style.display = "flex";
+  modalBackdrop.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
 }
 
 function renderSideList(){
   sideList.innerHTML = filteredVideos.map((video, index) => `
-    <article class="side-card" data-side-index="${index}">
+    <article class="side-card ${index === currentIndex ? "active" : ""}" data-side-index="${index}">
       <div class="side-thumb">
-        <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}">
+        <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}" loading="lazy">
         <div class="duration" style="right:6px;bottom:6px;font-size:11px">${escapeHtml(video.duration)}</div>
       </div>
       <div>
@@ -892,14 +964,14 @@ function renderSideList(){
   `).join("");
 
   document.querySelectorAll("[data-side-index]").forEach(card => {
-    card.addEventListener("click", () => {
-      openVideo(Number(card.dataset.sideIndex));
-    });
+    card.addEventListener("click", () => openVideo(Number(card.dataset.sideIndex)));
   });
 }
 
 function closeModal(){
   modalBackdrop.style.display = "none";
+  modalBackdrop.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
   resetPlayer();
 }
 
@@ -937,6 +1009,32 @@ modalBackdrop.addEventListener("click", e => {
 document.addEventListener("keydown", e => {
   if(e.key === "Escape" && modalBackdrop.style.display === "flex"){
     closeModal();
+  }
+});
+
+function openSidebar(){
+  sidebar.classList.add("open");
+  sidebarOverlay.classList.add("show");
+}
+function closeSidebar(){
+  sidebar.classList.remove("open");
+  sidebarOverlay.classList.remove("show");
+}
+
+burgerBtn.addEventListener("click", () => {
+  const isOpen = sidebar.classList.contains("open");
+  if(isOpen){
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+});
+
+sidebarOverlay.addEventListener("click", closeSidebar);
+
+window.addEventListener("resize", () => {
+  if(window.innerWidth > 980){
+    closeSidebar();
   }
 });
 
