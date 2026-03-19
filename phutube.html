@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PhuTube</title>
 <link rel="icon" type="image/png" href="images/icon-phutube.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg:#0f0f0f;
@@ -20,7 +24,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family:"Roboto",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 body.modal-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
@@ -61,8 +65,8 @@ img{display:block;max-width:100%}
   display:flex;
   align-items:center;
   gap:10px;
-  font-weight:800;
-  letter-spacing:-.02em;
+  font-weight:700;
+  letter-spacing:0;
 }
 .brand img{
   width:28px;
@@ -95,9 +99,7 @@ img{display:block;max-width:100%}
   border-radius:999px 0 0 999px;
   outline:none;
 }
-.search-shell input:focus{
-  border-color:#555;
-}
+.search-shell input:focus{border-color:#555}
 .search-btn{
   height:40px;
   border:1px solid var(--line);
@@ -120,7 +122,7 @@ img{display:block;max-width:100%}
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:800;
+  font-weight:700;
   color:#fff;
   flex-shrink:0;
 }
@@ -157,7 +159,7 @@ img{display:block;max-width:100%}
   cursor:pointer;
 }
 .nav-item:hover{background:#272727}
-.nav-item.active{background:#272727;font-weight:700}
+.nav-item.active{background:#272727;font-weight:500}
 .nav-icon{
   width:22px;
   height:22px;
@@ -168,10 +170,7 @@ img{display:block;max-width:100%}
   border:1px solid rgba(255,255,255,.15);
   flex-shrink:0;
 }
-
-.sidebar-overlay{
-  display:none;
-}
+.sidebar-overlay{display:none}
 
 .content{
   padding:18px 24px 40px;
@@ -194,7 +193,6 @@ img{display:block;max-width:100%}
     radial-gradient(circle at 72% 35%, rgba(255,255,255,.14), transparent 22%),
     radial-gradient(circle at 50% 90%, rgba(255,255,255,.08), transparent 30%);
 }
-
 .channel-card{
   display:flex;
   gap:18px;
@@ -211,13 +209,14 @@ img{display:block;max-width:100%}
   align-items:center;
   justify-content:center;
   font-size:34px;
-  font-weight:900;
+  font-weight:700;
   flex-shrink:0;
 }
 .channel-copy h1{
   margin:0 0 6px;
-  font-size:32px;
-  letter-spacing:-.03em;
+  font-size:36px;
+  font-weight:700;
+  letter-spacing:0;
 }
 .channel-meta{
   color:var(--muted);
@@ -229,6 +228,7 @@ img{display:block;max-width:100%}
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:22px 16px;
+  margin-top:32px;
 }
 .video-card{
   cursor:pointer;
@@ -257,7 +257,7 @@ img{display:block;max-width:100%}
   padding:4px 6px;
   border-radius:6px;
   font-size:12px;
-  font-weight:800;
+  font-weight:500;
 }
 .play-badge{
   position:absolute;
@@ -287,14 +287,14 @@ img{display:block;max-width:100%}
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:800;
+  font-weight:700;
   color:#fff;
 }
 .video-title{
   margin:0;
   font-size:16px;
-  line-height:1.35;
-  font-weight:800;
+  line-height:1.4;
+  font-weight:500;
   color:#f1f1f1;
   display:-webkit-box;
   -webkit-line-clamp:2;
@@ -331,6 +331,7 @@ img{display:block;max-width:100%}
 .player-wrap{
   padding:18px;
   min-width:0;
+  overflow:auto;
 }
 .player-box{
   aspect-ratio:16/9;
@@ -371,42 +372,37 @@ img{display:block;max-width:100%}
   height:38px;
   padding:0 14px;
   cursor:pointer;
-  font-weight:700;
+  font-weight:500;
 }
 .player-title{
   margin:16px 0 8px;
   font-size:22px;
   line-height:1.35;
-  letter-spacing:-.02em;
+  font-weight:500;
+  letter-spacing:0;
 }
 .player-stats{
   color:var(--muted);
   font-size:14px;
-  margin-bottom:16px;
-}
-.player-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:18px;
-}
-.action-btn{
-  height:38px;
-  padding:0 14px;
-  border-radius:999px;
-  border:none;
-  background:#272727;
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
+  margin-bottom:14px;
 }
 .video-desc{
   background:#272727;
   border-radius:16px;
-  padding:14px 16px;
+  padding:16px;
   color:#ddd;
   font-size:14px;
   line-height:1.65;
+}
+.detail-block + .detail-block{
+  margin-top:14px;
+}
+.detail-label{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  color:#f1f1f1;
+  margin-bottom:6px;
 }
 
 .side-panel{
@@ -425,6 +421,7 @@ img{display:block;max-width:100%}
 .side-head h3{
   margin:0;
   font-size:16px;
+  font-weight:500;
 }
 .close-btn{
   border:none;
@@ -467,7 +464,7 @@ img{display:block;max-width:100%}
 .side-title{
   margin:0;
   font-size:14px;
-  font-weight:700;
+  font-weight:500;
   line-height:1.35;
   display:-webkit-box;
   -webkit-line-clamp:2;
@@ -508,9 +505,7 @@ img{display:block;max-width:100%}
     transition:transform .25s ease;
     border-right:1px solid rgba(255,255,255,.08);
   }
-  .sidebar.open{
-    transform:translateX(0);
-  }
+  .sidebar.open{transform:translateX(0)}
   .sidebar-overlay{
     display:none;
     position:fixed;
@@ -518,9 +513,7 @@ img{display:block;max-width:100%}
     background:rgba(0,0,0,.45);
     z-index:75;
   }
-  .sidebar-overlay.show{
-    display:block;
-  }
+  .sidebar-overlay.show{display:block}
   .modal{grid-template-columns:1fr;max-height:94vh}
   .side-panel{
     border-left:none;
@@ -538,18 +531,17 @@ img{display:block;max-width:100%}
     order:3;
   }
   .content{padding:14px 12px 28px}
-  .channel-card{
-    flex-direction:column;
-  }
+  .channel-card{flex-direction:column}
   .channel-avatar{
     width:76px;
     height:76px;
     font-size:28px;
   }
-  .channel-copy h1{font-size:26px}
+  .channel-copy h1{font-size:30px}
   .video-grid{
     grid-template-columns:1fr;
     gap:18px;
+    margin-top:28px;
   }
   .modal-backdrop{padding:0}
   .modal{
@@ -559,9 +551,7 @@ img{display:block;max-width:100%}
     border-radius:0;
   }
   .player-wrap{padding:12px}
-  .side-card{
-    grid-template-columns:132px 1fr;
-  }
+  .side-card{grid-template-columns:132px 1fr}
 }
 </style>
 </head>
@@ -621,7 +611,7 @@ img{display:block;max-width:100%}
       <div class="channel-avatar">P</div>
       <div class="channel-copy">
         <h1>PhuTube</h1>
-        <div class="channel-meta">@phutubevideo • Video Work Showcase • Filming, Video Editing, and Branded Content</div>
+        <div class="channel-meta">@phutubevideo • Video Filming, Video Editing, Color Grading, and Branded Content</div>
       </div>
     </div>
 
@@ -639,18 +629,12 @@ img{display:block;max-width:100%}
 
         <div class="player-overlay">
           <button class="player-control" id="previewBtn" type="button">▶ Preview</button>
-          <span id="playerDuration" style="background:rgba(0,0,0,.72);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800">00:00</span>
+          <span id="playerDuration" style="background:rgba(0,0,0,.72);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:500">00:00</span>
         </div>
       </div>
 
       <h2 class="player-title" id="playerTitle">Project Title</h2>
       <div class="player-stats" id="playerStats">1.2K views • 2 weeks ago</div>
-
-      <div class="player-actions">
-        <button class="action-btn" type="button">👍 Like</button>
-        <button class="action-btn" type="button">↗ Share</button>
-        <button class="action-btn" type="button">＋ Save</button>
-      </div>
 
       <div class="video-desc" id="playerDesc"></div>
     </div>
@@ -674,16 +658,13 @@ const VIDEOS = [
     poster: "images/phutubevidcover-01.jpg",
     video: "",
     driveEmbed: "https://drive.google.com/file/d/169J5BO4UNfNJ-NKLwl-bdpz9KPV9d9S2/preview",
-    duration: "0:47",
-    views: "1.8K views",
-    date: "2 weeks ago",
+    duration: "1:41",
+    views: "999K views",
+    date: "24 December 2025",
     channel: "PhuTube",
     description: "This project celebrates the 1-year anniversary of Veranda Resort Phuket, Autograph Collection, which I worked on with a video production company.",
-    details: [
-      "Role: Concept Development, Visual Direction, and Editing",
-      "Tools: Adobe Premiere Pro",
-      "Format: Promotional video"
-    ]
+    role: "Story, Visual Direction, and Editing",
+    tools: "Adobe Premiere Pro"
   },
   {
     title: "Video Project Two",
@@ -697,11 +678,8 @@ const VIDEOS = [
     date: "1 month ago",
     channel: "PhuTube",
     description: "Replace this with your second video project description.",
-    details: [
-      "Role: Art direction and editing",
-      "Focus: Brand storytelling",
-      "Output: Presentation teaser"
-    ]
+    role: "Art Direction and Editing",
+    tools: "Adobe After Effects, Adobe Premiere Pro"
   }
 ];
 
@@ -765,12 +743,13 @@ function applyFilters(){
     const haystack = [
       video.title,
       video.description,
+      video.role,
+      video.tools,
       video.category,
-      video.channel,
-      ...(video.details || [])
+      video.channel
     ].join(" ").toLowerCase();
 
-    return (!q || haystack.includes(q));
+    return !q || haystack.includes(q);
   });
 
   renderGrid();
@@ -828,10 +807,17 @@ function openVideo(index){
   playerDuration.textContent = video.duration;
 
   playerDesc.innerHTML = `
-    <div style="font-weight:700;margin-bottom:8px">${escapeHtml(video.channel)}</div>
-    <div>${escapeHtml(video.description)}</div>
-    <div style="margin-top:12px;color:#bdbdbd">
-      ${(video.details || []).map(item => `• ${escapeHtml(item)}`).join("<br>")}
+    <div class="detail-block">
+      <span class="detail-label">Project Description</span>
+      <div>${escapeHtml(video.description)}</div>
+    </div>
+    <div class="detail-block">
+      <span class="detail-label">Role</span>
+      <div>${escapeHtml(video.role)}</div>
+    </div>
+    <div class="detail-block">
+      <span class="detail-label">Tools</span>
+      <div>${escapeHtml(video.tools)}</div>
     </div>
   `;
 
