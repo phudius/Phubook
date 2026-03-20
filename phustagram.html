@@ -17,13 +17,18 @@
   --shadow:0 12px 40px rgba(0,0,0,.14);
 }
 *{box-sizing:border-box}
+html,body{margin:0;padding:0}
 body{
-  margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
+body.modal-open{ overflow:hidden; }
+
 a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* TOPBAR */
 .topbar{
   position:sticky;
   top:0;
@@ -38,7 +43,6 @@ a{color:inherit;text-decoration:none}
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:16px;
   flex-wrap:wrap;
 }
 .brand{
@@ -47,22 +51,16 @@ a{color:inherit;text-decoration:none}
   gap:10px;
   font-size:22px;
   font-weight:800;
-  letter-spacing:-.02em;
 }
 .brand img{
-  width:28px;
-  height:28px;
+  width:28px;height:28px;
   border-radius:50%;
-  object-fit:contain;
-  background:#fff;
   padding:4px;
   border:1px solid var(--line);
 }
 .nav-links{
   display:flex;
   gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
 }
 .back-link{
   font-size:14px;
@@ -70,16 +68,14 @@ a{color:inherit;text-decoration:none}
   font-weight:600;
 }
 .back-link img{
-  width:16px;
-  height:16px;
-  object-fit:contain;
-  border-radius:50%;
-  background:#fff;
-  padding:2px;
-  border:1px solid var(--line);
-  vertical-align:middle;
+  width:16px;height:16px;
   margin-right:6px;
+  border:1px solid var(--line);
+  padding:2px;
+  border-radius:50%;
 }
+
+/* PAGE */
 .page{
   max-width:1100px;
   margin:0 auto;
@@ -90,41 +86,26 @@ a{color:inherit;text-decoration:none}
   align-items:center;
   gap:16px;
   margin-bottom:26px;
-  min-width:0;
 }
 .profile-pic{
-  width:64px;
-  height:64px;
-  min-width:64px;
-  min-height:64px;
-  flex-shrink:0;
+  width:64px;height:64px;
   border-radius:50%;
   background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
   padding:2px;
 }
 .profile-pic-inner{
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   border-radius:50%;
   background:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:800;
-  font-size:20px;
 }
-.profile-copy{min-width:0}
-.profile-copy h1{
-  margin:0;
-  font-size:22px;
-  font-weight:700;
-}
-.profile-copy p{
-  margin:6px 0 0;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.45;
-}
+.profile-copy h1{ margin:0;font-size:22px; }
+.profile-copy p{ margin:6px 0 0;color:var(--muted);font-size:14px; }
+
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -135,41 +116,36 @@ a{color:inherit;text-decoration:none}
   aspect-ratio:1/1;
   overflow:hidden;
   cursor:pointer;
-  background:#eee;
 }
 .grid-item img{
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   object-fit:cover;
-  display:block;
-  transition:transform .25s ease;
+  transition:.25s;
 }
-.grid-item:hover img{ transform:scale(1.04); }
+.grid-item:hover img{ transform:scale(1.05); }
 .grid-overlay{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.25);
+  background:rgba(0,0,0,.3);
   color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
-  transition:.2s ease;
-  text-align:center;
-  padding:16px;
+  transition:.2s;
 }
 .grid-item:hover .grid-overlay{ opacity:1; }
 .multi-badge{
   position:absolute;
-  top:10px;
-  right:10px;
-  background:rgba(0,0,0,.55);
+  top:10px;right:10px;
+  background:rgba(0,0,0,.6);
   color:#fff;
   font-size:12px;
-  padding:6px 8px;
+  padding:5px 8px;
   border-radius:999px;
-  font-weight:700;
 }
+
+/* MODAL */
 .modal-backdrop{
   position:fixed;
   inset:0;
@@ -177,269 +153,135 @@ a{color:inherit;text-decoration:none}
   display:none;
   align-items:center;
   justify-content:center;
-  padding:24px;
   z-index:200;
 }
+.modal-backdrop.show{ display:flex; }
+
 .modal{
-  width:min(1280px, 100%);
-  height:min(90vh, 900px);
+  width:min(1200px,100%);
+  height:90vh;
   background:#fff;
-  border-radius:10px;
-  overflow:hidden;
   display:grid;
-  grid-template-columns:minmax(0, 1.35fr) 420px;
-  box-shadow:var(--shadow);
+  grid-template-columns:1.3fr 420px;
 }
+
 .modal-left{
+  background:#000;
   position:relative;
-  background:#000;
-  min-width:0;
-}
-.slide{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#000;
 }
 .slide img{
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   object-fit:contain;
-  display:block;
 }
+
 .nav-btn{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  width:38px;
-  height:38px;
+  width:36px;height:36px;
   border:none;
   border-radius:50%;
-  background:rgba(255,255,255,.92);
+  background:#fff;
   cursor:pointer;
-  font-size:20px;
-  font-weight:800;
-  color:#222;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
-.nav-btn.prev{ left:14px; }
-.nav-btn.next{ right:14px; }
+.nav-btn.prev{ left:10px; }
+.nav-btn.next{ right:10px; }
+
 .slide-count{
   position:absolute;
-  bottom:14px;
+  bottom:10px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(0,0,0,.58);
+  background:rgba(0,0,0,.6);
   color:#fff;
-  padding:6px 10px;
-  border-radius:999px;
+  padding:5px 10px;
+  border-radius:20px;
   font-size:12px;
-  font-weight:700;
 }
+
+/* RIGHT */
 .modal-right{
   display:flex;
   flex-direction:column;
-  min-height:0;
-  background:#fff;
 }
 .post-head{
-  padding:14px 16px;
+  padding:12px;
   border-bottom:1px solid var(--line);
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:12px;
 }
-.author{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-}
+.author{ display:flex;gap:10px;align-items:center; }
 .author-pic{
-  width:34px;
-  height:34px;
-  min-width:34px;
-  min-height:34px;
-  flex-shrink:0;
+  width:34px;height:34px;
   border-radius:50%;
   background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
   padding:2px;
 }
 .author-pic-inner{
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   border-radius:50%;
   background:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:11px;
-  font-weight:800;
 }
-.author-name{
-  font-size:14px;
-  font-weight:700;
-}
-.post-body{
-  flex:1;
-  min-height:0;
-  overflow:auto;
-}
-.caption{
-  padding:16px;
-  border-bottom:1px solid var(--line);
-}
-.caption-top{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  min-width:0;
-}
-.caption-copy{
-  font-size:14px;
-  line-height:1.55;
-  min-width:0;
-  overflow-wrap:break-word;
-  word-break:break-word;
-}
-.details{
-  padding:16px;
-  display:grid;
-  gap:10px;
-  border-bottom:1px solid var(--line);
-}
+.caption{ padding:16px;border-bottom:1px solid var(--line); }
+.details{ padding:16px;border-bottom:1px solid var(--line); }
 .detail-row{
   display:flex;
   justify-content:space-between;
-  gap:16px;
   font-size:13px;
-  background:#fafafa;
-  border:1px solid #efefef;
-  border-radius:10px;
-  padding:10px 12px;
+  margin-bottom:8px;
 }
-.tags{
-  padding:16px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  border-bottom:1px solid var(--line);
-}
+.tags{ padding:16px;border-bottom:1px solid var(--line); }
 .tag{
-  padding:7px 10px;
+  background:#eee;
+  padding:6px 10px;
   border-radius:999px;
-  background:#f2f2f2;
   font-size:12px;
-  font-weight:700;
-}
-.actions{
-  padding:14px 16px 10px;
-  border-bottom:1px solid var(--line);
-}
-.icons{
-  display:flex;
-  gap:16px;
-  font-size:25px;
-  line-height:1;
-}
-.likes{
-  margin-top:12px;
-  font-size:14px;
-  font-weight:700;
-}
-.meta{
-  margin-top:6px;
-  font-size:12px;
-  color:var(--muted);
-}
-.comment-box{
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.comment-input{
-  flex:1;
-  border:none;
-  outline:none;
-  font-size:14px;
-  background:transparent;
-  min-width:0;
-}
-.post-link{
-  color:var(--blue);
-  font-weight:700;
-  font-size:14px;
-}
-.close-btn{
-  border:none;
-  background:transparent;
-  cursor:pointer;
-  font-size:24px;
-  line-height:1;
-  flex-shrink:0;
-}
-@media (max-width: 980px){
-  .modal{
-    grid-template-columns:1fr;
-    height:auto;
-    max-height:92vh;
-    overflow:auto;
-  }
-  .modal-left{ height:55vh; }
-  .grid{ grid-template-columns:repeat(2,1fr); }
-}
-@media (max-width: 640px){
-  .page{ padding:18px 12px 28px; }
-  .grid{ gap:4px; }
-  .profile-copy h1{ font-size:20px; }
-  .topbar-inner{ padding:12px; }
-  .brand{ font-size:20px; }
-  .modal-backdrop{ padding:0; }
-  .modal{
-    width:100%;
-    height:100%;
-    max-height:none;
-    border-radius:0;
-  }
-  .modal-left{ height:42vh; }
-  .detail-row{ flex-direction:column; gap:6px; }
+  margin-right:6px;
 }
 
-  .site-footer{
+.actions{ padding:14px; }
+.likes{ font-weight:700;margin-top:8px; }
+.meta{ font-size:12px;color:var(--muted); }
+
+/* FOOTER */
+.site-footer{
   text-align:center;
-  color:var(--muted);
   font-size:12px;
-  padding:24px 16px 30px;
+  color:var(--muted);
+  padding:24px;
+}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  .modal{ grid-template-columns:1fr; height:auto; }
+  .grid{ grid-template-columns:repeat(2,1fr); }
 }
 </style>
 </head>
+
 <body>
 
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <img src="images/icon-phustagram.png" alt="Phustagram icon">
-      <span>Phustagram</span>
+      <img src="images/icon-phustagram.png">
+      Phustagram
     </div>
     <div class="nav-links">
-      <a class="back-link" href="index.html"><img src="images/icon-phubook.png" alt="">Phubook</a>
-      <a class="back-link" href="phutube.html"><img src="images/icon-phutube.png" alt="">PhuTube</a>
-      <a class="back-link" href="phugleads.html"><img src="images/icon-phugleads.png" alt="">Phugle Ads</a>
+      <a class="back-link" href="index.html">Phubook</a>
+      <a class="back-link" href="phutube.html">PhuTube</a>
+      <a class="back-link" href="phugleads.html">Phugle Ads</a>
     </div>
   </div>
 </header>
 
 <main class="page">
   <section class="profile-bar">
-    <div class="profile-pic">
-      <div class="profile-pic-inner">P</div>
-    </div>
+    <div class="profile-pic"><div class="profile-pic-inner">P</div></div>
     <div class="profile-copy">
       <h1>phustagram</h1>
       <p>Visual stories, design works, and selected creative projects.</p>
@@ -449,195 +291,134 @@ a{color:inherit;text-decoration:none}
   <section class="grid" id="grid"></section>
 </main>
 
+<footer class="site-footer">
+  © 2026 Phuwadech Klinklay
+</footer>
+
+<!-- MODAL -->
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
+
     <div class="modal-left">
       <button class="nav-btn prev" id="prevBtn">‹</button>
       <div class="slide">
-        <img id="slideImage" src="" alt="">
+        <img id="slideImage">
       </div>
       <button class="nav-btn next" id="nextBtn">›</button>
-      <div class="slide-count" id="slideCount">1 / 1</div>
+      <div class="slide-count" id="slideCount"></div>
     </div>
 
     <div class="modal-right">
       <div class="post-head">
         <div class="author">
           <div class="author-pic"><div class="author-pic-inner">P</div></div>
-          <div class="author-name">phudius</div>
+          <b>phudius</b>
         </div>
-        <button class="close-btn" id="closeBtn">×</button>
+        <button onclick="closeModal()">×</button>
       </div>
 
-      <div class="post-body">
-        <div class="caption">
-          <div class="caption-top">
-            <div class="author-pic" style="width:32px;height:32px;min-width:32px;min-height:32px;">
-              <div class="author-pic-inner">P</div>
-            </div>
-            <div class="caption-copy" id="captionText"></div>
-          </div>
-        </div>
-
-        <div class="details" id="detailsBox"></div>
-        <div class="tags" id="tagsBox"></div>
-      </div>
+      <div class="caption" id="captionText"></div>
+      <div class="details" id="detailsBox"></div>
+      <div class="tags" id="tagsBox"></div>
 
       <div class="actions">
-        <div class="icons">♡ 💬 ✈︎</div>
-        <div class="likes" id="likesText">12 likes</div>
-        <div class="meta" id="metaText">2 days ago</div>
-      </div>
-
-      <div class="comment-box">
-        <span style="font-size:22px;">☺</span>
-        <input class="comment-input" placeholder="Add a comment..." />
-        <span class="post-link">Post</span>
+        <div class="likes" id="likesText"></div>
+        <div class="meta" id="metaText"></div>
       </div>
     </div>
+
   </div>
 </div>
 
 <script>
 const PROJECTS = [
-  {
-    title: "Project One",
-    cover: "images/work1.jpg",
-    images: ["images/work1.jpg","images/work2.jpg","images/work3.jpg"],
-    caption: "Replace this with your real design project description.",
-    likes: "24 likes",
-    date: "3 days ago",
-    tags: ["Design", "Branding", "Creative"],
-    details: {
-      Client: "Your Client",
-      Category: "Design Project",
-      Role: "Concept + Design",
-      Tools: "Illustrator, Photoshop",
-      Format: "Carousel"
-    }
-  },
-  {
-    title: "Project Two",
-    cover: "images/work4.jpg",
-    images: ["images/work4.jpg","images/work5.jpg","images/work6.jpg"],
-    caption: "Replace this with another real project description.",
-    likes: "18 likes",
-    date: "1 week ago",
-    tags: ["Visual System", "Layout"],
-    details: {
-      Client: "Your Client",
-      Category: "Brand Design",
-      Role: "Art Direction",
-      Tools: "Illustrator, InDesign",
-      Output: "Guideline + Templates"
-    }
+{
+  title: "Mascot Design for Veranda Resort Phuket, Autograph Collection",
+  cover: "images/oaew1.jpg",
+  images: [
+    "images/oaew1.jpg",
+    "images/oaew2.jpg",
+    "images/oaew3.jpg",
+    "images/oaew4.jpg",
+    "images/oaew5.jpg",
+    "images/oaew6.jpg",
+    "images/oaew7.jpg"
+  ],
+  caption: "A mascot design project created for Veranda Resort Phuket, Autograph Collection, bringing the brand to life through a playful and distinctive character.",
+  likes: "48 likes",
+  date: "Brand Project",
+  tags: ["Mascot", "Branding", "Hospitality"],
+  details: {
+    Client: "Veranda Resort Phuket",
+    Category: "Mascot Design",
+    Role: "Concept + Character Design",
+    Tools: "Illustrator, Photoshop"
   }
+}
 ];
 
 const grid = document.getElementById("grid");
 const modalBackdrop = document.getElementById("modalBackdrop");
 const slideImage = document.getElementById("slideImage");
 const slideCount = document.getElementById("slideCount");
-const captionText = document.getElementById("captionText");
-const detailsBox = document.getElementById("detailsBox");
-const tagsBox = document.getElementById("tagsBox");
-const likesText = document.getElementById("likesText");
-const metaText = document.getElementById("metaText");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const closeBtn = document.getElementById("closeBtn");
 
 let currentProject = 0;
 let currentImage = 0;
 
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, m => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[m]));
-}
-
 function renderGrid(){
-  grid.innerHTML = PROJECTS.map((project, index) => `
-    <article class="grid-item" data-index="${index}">
-      <img src="${project.cover}" alt="${escapeHtml(project.title)}">
-      <div class="multi-badge">${project.images.length} photos</div>
-      <div class="grid-overlay"><div>${escapeHtml(project.title)}</div></div>
-    </article>
+  grid.innerHTML = PROJECTS.map((p,i)=>`
+    <div class="grid-item" onclick="openProject(${i})">
+      <img src="${p.cover}">
+      <div class="multi-badge">${p.images.length} photos</div>
+      <div class="grid-overlay">${p.title}</div>
+    </div>
   `).join("");
-
-  document.querySelectorAll(".grid-item").forEach(item => {
-    item.addEventListener("click", () => openProject(Number(item.dataset.index)));
-  });
 }
 
-function openProject(index){
-  currentProject = index;
-  currentImage = 0;
+function openProject(i){
+  currentProject=i;
+  currentImage=0;
   updateModal();
-  modalBackdrop.style.display = "flex";
+  modalBackdrop.classList.add("show");
+  document.body.classList.add("modal-open");
 }
 
 function updateModal(){
-  const project = PROJECTS[currentProject];
-  const imageSrc = project.images[currentImage];
+  const p=PROJECTS[currentProject];
+  slideImage.src=p.images[currentImage];
+  slideCount.innerText=(currentImage+1)+" / "+p.images.length;
 
-  slideImage.src = imageSrc;
-  slideImage.alt = project.title;
-  slideCount.textContent = `${currentImage + 1} / ${project.images.length}`;
-  captionText.innerHTML = `<strong>phudius</strong> ${escapeHtml(project.caption)}`;
-  likesText.textContent = project.likes;
-  metaText.textContent = project.date;
+  document.getElementById("captionText").innerHTML="<b>phudius</b> "+p.caption;
+  document.getElementById("likesText").innerText=p.likes;
+  document.getElementById("metaText").innerText=p.date;
 
-  tagsBox.innerHTML = project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
-  detailsBox.innerHTML = Object.entries(project.details).map(([key, value]) => `
-    <div class="detail-row">
-      <b>${escapeHtml(key)}</b>
-      <span>${escapeHtml(value)}</span>
-    </div>
-  `).join("");
+  document.getElementById("tagsBox").innerHTML=p.tags.map(t=>`<span class="tag">${t}</span>`).join("");
 
-  prevBtn.style.display = project.images.length > 1 ? "flex" : "none";
-  nextBtn.style.display = project.images.length > 1 ? "flex" : "none";
+  document.getElementById("detailsBox").innerHTML=
+    Object.entries(p.details).map(([k,v])=>`
+      <div class="detail-row"><b>${k}</b><span>${v}</span></div>
+    `).join("");
 }
 
 function closeModal(){
-  modalBackdrop.style.display = "none";
+  modalBackdrop.classList.remove("show");
+  document.body.classList.remove("modal-open");
 }
 
-function showPrev(){
-  const project = PROJECTS[currentProject];
-  currentImage = (currentImage - 1 + project.images.length) % project.images.length;
+document.getElementById("prevBtn").onclick=()=>{
+  const p=PROJECTS[currentProject];
+  currentImage=(currentImage-1+p.images.length)%p.images.length;
   updateModal();
-}
+};
 
-function showNext(){
-  const project = PROJECTS[currentProject];
-  currentImage = (currentImage + 1) % project.images.length;
+document.getElementById("nextBtn").onclick=()=>{
+  const p=PROJECTS[currentProject];
+  currentImage=(currentImage+1)%p.images.length;
   updateModal();
-}
-
-prevBtn.addEventListener("click", showPrev);
-nextBtn.addEventListener("click", showNext);
-closeBtn.addEventListener("click", closeModal);
-
-modalBackdrop.addEventListener("click", e => {
-  if(e.target === modalBackdrop) closeModal();
-});
-
-document.addEventListener("keydown", e => {
-  if(modalBackdrop.style.display === "flex"){
-    if(e.key === "Escape") closeModal();
-    if(e.key === "ArrowLeft") showPrev();
-    if(e.key === "ArrowRight") showNext();
-  }
-});
+};
 
 renderGrid();
 </script>
 
-  <footer class="site-footer">
-  © 2026 Phuwadech Klinklay
-</footer>
-  
 </body>
 </html>
