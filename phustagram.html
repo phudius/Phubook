@@ -349,6 +349,11 @@ img{display:block;max-width:100%}
   overflow-wrap:break-word;
   word-break:break-word;
 }
+.caption-meta{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--muted);
+}
 .details{
   padding:16px;
   display:grid;
@@ -370,7 +375,6 @@ img{display:block;max-width:100%}
   display:flex;
   gap:8px;
   flex-wrap:wrap;
-  border-bottom:1px solid var(--line);
 }
 .tag{
   padding:7px 10px;
@@ -378,45 +382,6 @@ img{display:block;max-width:100%}
   background:#f2f2f2;
   font-size:12px;
   font-weight:700;
-}
-.actions{
-  padding:14px 16px 10px;
-  border-bottom:1px solid var(--line);
-}
-.icons{
-  display:flex;
-  gap:16px;
-  font-size:25px;
-  line-height:1;
-}
-.likes{
-  margin-top:12px;
-  font-size:14px;
-  font-weight:700;
-}
-.meta{
-  margin-top:6px;
-  font-size:12px;
-  color:var(--muted);
-}
-.comment-box{
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.comment-input{
-  flex:1;
-  border:none;
-  outline:none;
-  font-size:14px;
-  background:transparent;
-  min-width:0;
-}
-.post-link{
-  color:var(--blue);
-  font-weight:700;
-  font-size:14px;
 }
 .close-btn{
   border:none;
@@ -447,6 +412,7 @@ img{display:block;max-width:100%}
     grid-template-columns:repeat(2,1fr);
   }
 }
+
 @media (max-width:640px){
   .page{padding:18px 12px 28px}
   .grid{gap:4px}
@@ -454,34 +420,72 @@ img{display:block;max-width:100%}
   .topbar-inner{padding:12px}
   .brand{font-size:20px}
 
-  .modal-backdrop{padding:0}
+  .modal-backdrop{
+    padding:0;
+    background:#000;
+  }
   .modal{
     width:100%;
     height:100%;
     max-height:none;
     border-radius:0;
     grid-template-columns:1fr;
+    box-shadow:none;
   }
   .modal-left{
-    height:50vh;
-    min-height:50vh;
+    height:auto;
+    min-height:auto;
+    aspect-ratio:auto;
+    background:#000;
+    width:100%;
   }
   .slide{
-    padding:14px;
+    padding:0;
+    width:100%;
+    height:auto;
+    min-height:0;
   }
-  .slide-frame.portrait img{
-    max-width:82%;
-    max-height:100%;
+  .slide-frame{
+    width:100%;
+    height:auto;
+    min-height:0;
+    background:#000;
   }
+  .slide-frame img{
+    width:100%;
+    height:auto;
+    max-width:100%;
+    max-height:none;
+    border-radius:0;
+    box-shadow:none;
+    background:#000;
+  }
+  .slide-frame.portrait img,
   .slide-frame.landscape img,
   .slide-frame.square img{
+    width:100%;
     max-width:100%;
-    max-height:100%;
+    height:auto;
+    max-height:none;
   }
   .nav-btn{
     width:34px;
     height:34px;
     font-size:18px;
+    background:rgba(255,255,255,.9);
+  }
+  .nav-btn.prev{left:10px}
+  .nav-btn.next{right:10px}
+  .slide-count{
+    bottom:10px;
+  }
+  .post-head{
+    padding:12px 14px;
+  }
+  .caption,
+  .details,
+  .tags{
+    padding:14px;
   }
   .detail-row{
     flex-direction:column;
@@ -552,24 +556,15 @@ img{display:block;max-width:100%}
             <div class="author-pic" style="width:32px;height:32px;min-width:32px;min-height:32px;">
               <div class="author-pic-inner">P</div>
             </div>
-            <div class="caption-copy" id="captionText"></div>
+            <div class="caption-copy">
+              <div id="captionText"></div>
+              <div class="caption-meta" id="metaText"></div>
+            </div>
           </div>
         </div>
 
         <div class="details" id="detailsBox"></div>
         <div class="tags" id="tagsBox"></div>
-      </div>
-
-      <div class="actions">
-        <div class="icons">♡ 💬 ✈︎</div>
-        <div class="likes" id="likesText">12 likes</div>
-        <div class="meta" id="metaText">2 days ago</div>
-      </div>
-
-      <div class="comment-box">
-        <span style="font-size:22px;">☺</span>
-        <input class="comment-input" placeholder="Add a comment..." />
-        <span class="post-link">Post</span>
       </div>
     </div>
   </div>
@@ -612,7 +607,6 @@ const slideCount = document.getElementById("slideCount");
 const captionText = document.getElementById("captionText");
 const detailsBox = document.getElementById("detailsBox");
 const tagsBox = document.getElementById("tagsBox");
-const likesText = document.getElementById("likesText");
 const metaText = document.getElementById("metaText");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -690,8 +684,7 @@ function updateModal(){
 
   slideCount.textContent = `${currentImage + 1} / ${images.length || 1}`;
   captionText.innerHTML = `<strong>phudius</strong> ${escapeHtml(project.caption || "")}`;
-  likesText.textContent = project.likes || "0 likes";
-  metaText.textContent = project.date || "";
+  metaText.textContent = `${project.likes || ""} • ${project.date || ""}`;
 
   tagsBox.innerHTML = (project.tags || []).map(tag => `
     <span class="tag">${escapeHtml(tag)}</span>
