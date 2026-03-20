@@ -178,20 +178,16 @@ img{display:block;max-width:100%}
 }
 .channel-banner{
   height:180px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#1f2937,#0ea5e9 55%,#111827);
   position:relative;
   overflow:hidden;
+  border-radius:18px;
   border:1px solid rgba(255,255,255,.05);
 }
-.channel-banner::after{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  background:
-    radial-gradient(circle at 20% 25%, rgba(255,255,255,.18), transparent 28%),
-    radial-gradient(circle at 72% 35%, rgba(255,255,255,.14), transparent 22%),
-    radial-gradient(circle at 50% 90%, rgba(255,255,255,.08), transparent 30%);
+.channel-banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 .channel-card{
   display:flex;
@@ -605,7 +601,9 @@ img{display:block;max-width:100%}
   </aside>
 
   <main class="content">
-    <div class="channel-banner"></div>
+    <div class="channel-banner">
+      <img src="images/phutubecover.jpg" alt="PhuTube cover">
+    </div>
 
     <div class="channel-card">
       <div class="channel-avatar">P</div>
@@ -679,6 +677,21 @@ const VIDEOS = [
     channel: "PhuTube",
     description: "This project promotes a brand campaign during the Valentine season for Le Méridien Phuket Beach Resort, which I worked on with a video production company.",
     role: "Story, Visual Direction, and Editing",
+    tools: "Adobe Premiere Pro"
+  },
+  {
+    title: "Santa on a mission! - Le Meridien Phuket Beach Resort",
+    category: "campaign",
+    thumbnail: "images/phutubevidcover-03.jpg",
+    poster: "images/phutubevidcover-03.jpg",
+    video: "",
+    driveEmbed: "https://drive.google.com/file/d/1Gf-hwRnNZ65OUcLlAfS5wTUBLNH-jtpi/preview",
+    duration: "1:00",
+    views: "999K views",
+    date: "16 December 2022",
+    channel: "PhuTube",
+    description: "This project promotes brand awareness during the festive season for Le Méridien Phuket Beach Resort.",
+    role: "Videography, Story, Visual Direction, and Editing",
     tools: "Adobe Premiere Pro"
   }
 ];
