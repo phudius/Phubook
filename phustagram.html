@@ -430,7 +430,7 @@ img{display:block;max-width:100%}
     <div class="nav-links">
       <a class="back-link" href="index.html">Phubook</a>
       <a class="back-link" href="phutube.html">PhuTube</a>
-      <a class="back-link" href="phugleads.html">Phugle Ads</a>
+      <a class="back-link" href="phugleads.html">PhuGle Ads</a>
     </div>
   </div>
 </header>
@@ -466,7 +466,7 @@ img{display:block;max-width:100%}
 
     <div class="modal-right">
       <div class="post-head">
-        <b>phudius</b>
+        <b>phustagram</b>
         <button id="closeBtn" aria-label="Close">×</button>
       </div>
 
@@ -560,6 +560,30 @@ const PROJECTS = [
       Role:"UX Flow Design, UI Development",
       Tools:"Illustrator, Figma"
     }
+  },
+  {
+    title:"Wedding CI Design",
+    cover:"images/wd1.jpg",
+    images:[
+      "images/wd1.jpg",
+      "images/wd2.jpg",
+      "images/wd3.jpg",
+      "images/wd4.jpg",
+      "images/wd5.jpg",
+      "images/wd6.jpg",
+      "images/wd7.jpg",
+      "images/wd8.jpg"
+    ],
+    caption:"A key visual, concept, and collateral guideline design created for my own wedding.",
+    likes:"40 likes",
+    date:"11 November 2023",
+    tags:["Wedding Collateral Design"],
+    details:{
+      Client:"Myself",
+      Category:"Brand Design",
+      Role:"Concept + Design",
+      Tools:"Illustrator, Photoshop"
+    }
   }
 ];
 
@@ -639,7 +663,7 @@ function update(){
   img.alt = x.title;
 
   slideCount.textContent = `${i + 1} / ${x.images.length}`;
-  captionText.innerHTML = `<b>phudius</b> ${escapeHtml(x.caption)}`;
+  captionText.innerHTML = `<b>phustagram</b> ${escapeHtml(x.caption)}`;
   metaText.innerText = `${x.likes} • ${x.date}`;
   tagsBox.innerHTML = x.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
   detailsBox.innerHTML = Object.entries(x.details).map(([k,v]) =>
