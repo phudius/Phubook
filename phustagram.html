@@ -9,420 +9,70 @@
 <style>
 :root{
   --bg:#fafafa;
-  --card:#ffffff;
-  --text:#111111;
+  --text:#111;
   --muted:#737373;
   --line:#dbdbdb;
   --blue:#0095f6;
   --shadow:0 12px 40px rgba(0,0,0,.14);
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-}
+body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
 body.modal-open{overflow:hidden}
-img{display:block;max-width:100%}
 
 /* Topbar */
-.topbar{
-  position:sticky;
-  top:0;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  z-index:50;
-}
-.topbar-inner{
-  max-width:1100px;
-  margin:auto;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  flex-wrap:wrap;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  font-size:22px;
-}
-.brand img{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  padding:4px;
-  border:1px solid var(--line);
-  object-fit:contain;
-}
-.nav-links{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.back-link{
-  font-size:14px;
-  color:var(--blue);
-  font-weight:600;
-  text-decoration:none;
-}
+.topbar{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:50}
+.topbar-inner{max-width:1100px;margin:auto;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:10px;font-weight:800;font-size:22px}
+.brand img{width:28px;height:28px;border-radius:50%;padding:4px;border:1px solid var(--line)}
+.nav-links{display:flex;gap:10px}
+.back-link{font-size:14px;color:var(--blue);font-weight:600;text-decoration:none}
 
-/* Page */
-.page{
-  max-width:1100px;
-  margin:auto;
-  padding:24px 18px;
-}
-.profile-bar{
-  display:flex;
-  gap:16px;
-  margin-bottom:26px;
-  align-items:center;
-}
-.profile-pic{
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
-  padding:2px;
-  flex-shrink:0;
-}
-.profile-pic-inner{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-}
-.profile-copy h1{
-  margin:0;
-  font-size:22px;
-}
-.profile-copy p{
-  margin:6px 0 0;
-  color:var(--muted);
-  font-size:14px;
-}
+/* Profile */
+.page{max-width:1100px;margin:auto;padding:24px 18px}
+.profile-bar{display:flex;gap:16px;margin-bottom:26px}
+.profile-pic{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);padding:2px}
+.profile-pic-inner{width:100%;height:100%;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.profile-copy h1{margin:0;font-size:22px}
+.profile-copy p{margin:6px 0 0;color:var(--muted);font-size:14px}
 
 /* Grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-.grid-item{
-  position:relative;
-  aspect-ratio:1/1;
-  overflow:hidden;
-  cursor:pointer;
-  background:#eee;
-}
-.grid-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .25s ease;
-}
-.grid-item:hover img{
-  transform:scale(1.04);
-}
-.grid-overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.25);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  transition:.2s ease;
-  text-align:center;
-  padding:16px;
-}
-.grid-item:hover .grid-overlay{
-  opacity:1;
-}
-.multi-badge{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:rgba(0,0,0,.6);
-  color:#fff;
-  padding:5px 8px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:700;
-}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid-item{aspect-ratio:1/1;overflow:hidden;cursor:pointer;position:relative}
+.grid-item img{width:100%;height:100%;object-fit:cover;transition:.25s}
+.grid-item:hover img{transform:scale(1.04)}
+.multi-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:5px 7px;border-radius:999px}
 
 /* Modal */
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  z-index:200;
-}
-.modal-backdrop.show{
-  display:flex;
-}
-.modal{
-  width:min(1280px,100%);
-  height:min(90vh,900px);
-  background:#fff;
-  display:grid;
-  grid-template-columns:minmax(0,1.3fr) 420px;
-  border-radius:10px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
-}
-.modal-left{
-  background:#000;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  touch-action:pan-y;
-}
-.slide{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:28px;
-}
-.slide-frame{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.slide-frame img{
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  border-radius:8px;
-  box-shadow:0 10px 30px rgba(0,0,0,.24);
-  background:#111;
-  transition:transform .35s ease, opacity .25s ease;
-  opacity:1;
-}
-.slide-frame.portrait img{
-  max-height:100%;
-  max-width:72%;
-}
-.slide-frame.landscape img{
-  max-width:100%;
-  max-height:88%;
-}
-.slide-frame.square img{
-  max-width:88%;
-  max-height:88%;
-}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:200}
+.modal-backdrop.show{display:flex}
+.modal{margin:auto;width:100%;max-width:1280px;height:90vh;background:#fff;display:grid;grid-template-columns:1.3fr 420px;border-radius:10px;overflow:hidden}
+.modal-left{background:#000;display:flex;align-items:center;justify-content:center;position:relative}
+.slide-frame img{max-width:100%;max-height:100%;object-fit:contain;transition:.3s}
+.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.3);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer}
+.prev{left:10px}
+.next{right:10px}
+.slide-count{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;padding:5px 10px;border-radius:20px;font-size:12px}
 
-.nav-btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:none;
-  background:rgba(255,255,255,0.35);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  font-size:20px;
-  cursor:pointer;
-  opacity:.3;
-  z-index:3;
-  transition:all .2s ease;
-}
-.modal-left:hover .nav-btn{
-  opacity:1;
-}
-.nav-btn:hover{
-  background:rgba(255,255,255,0.75);
-}
-.nav-btn.prev{left:10px}
-.nav-btn.next{right:10px}
+/* Right */
+.modal-right{display:flex;flex-direction:column}
+.post-head{padding:12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.caption{padding:16px;border-bottom:1px solid var(--line)}
+.details,.tags{padding:16px;border-bottom:1px solid var(--line)}
+.detail-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.tag{background:#eee;padding:6px 10px;border-radius:999px;font-size:12px}
 
-.slide-count{
-  position:absolute;
-  bottom:14px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(0,0,0,.58);
-  color:#fff;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-  z-index:3;
-}
-
-/* Modal right */
-.modal-right{
-  display:flex;
-  flex-direction:column;
-  min-height:0;
-}
-.post-head{
-  padding:12px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.post-head button{
-  border:none;
-  background:transparent;
-  font-size:24px;
-  cursor:pointer;
-}
-.caption{
-  padding:16px;
-  border-bottom:1px solid var(--line);
-}
-.caption-meta{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:6px;
-}
-.details{
-  padding:16px;
-  border-bottom:1px solid var(--line);
-}
-.detail-row{
-  display:flex;
-  justify-content:space-between;
-  gap:16px;
-  font-size:13px;
-  margin-bottom:8px;
-}
-.tags{
-  padding:16px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-.tag{
-  background:#eee;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
-.post-body{
-  overflow:auto;
-  min-height:0;
-  flex:1;
-}
-
-.site-footer{
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-  padding:20px;
-}
-
-@media(max-width:980px){
-  .modal{
-    grid-template-columns:1fr;
-    height:auto;
-    max-height:92vh;
-  }
-  .modal-left{
-    height:58vh;
-  }
-  .grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
+/* Mobile */
 @media(max-width:640px){
-  .page{
-    padding:12px 0 20px;
-  }
-  .profile-bar{
-    padding:0 12px;
-    margin-bottom:16px;
-  }
-  .grid{
-    grid-template-columns:repeat(3,1fr);
-    gap:2px;
-  }
-  .profile-copy h1{
-    font-size:20px;
-  }
-
-  .modal-backdrop{
-    padding:0;
-    background:#000;
-  }
-  .modal{
-    grid-template-columns:1fr;
-    width:100%;
-    height:100%;
-    max-height:none;
-    border-radius:0;
-    box-shadow:none;
-  }
-  .modal-left{
-    width:100%;
-    height:auto;
-    min-height:auto;
-    background:#000;
-  }
-  .slide{
-    padding:0;
-    width:100%;
-    height:auto;
-  }
-  .slide-frame{
-    width:100%;
-    height:auto;
-    background:#000;
-  }
-  .slide-frame img,
-  .slide-frame.portrait img,
-  .slide-frame.landscape img,
-  .slide-frame.square img{
-    width:100%;
-    height:auto;
-    max-width:100%;
-    max-height:none;
-    border-radius:0;
-    box-shadow:none;
-  }
-
-  .nav-btn{
-    width:34px;
-    height:34px;
-    font-size:18px;
-    background:rgba(255,255,255,0.3);
-    opacity:.6;
-  }
-  .slide-count{
-    bottom:10px;
-  }
-  .detail-row{
-    flex-direction:column;
-    gap:6px;
-  }
+  .grid{gap:2px}
+  .page{padding:12px 0}
+  .profile-bar{padding:0 12px}
+  .modal{grid-template-columns:1fr;height:100%;border-radius:0}
+  .modal-left{height:auto}
+  .slide-frame img{width:100%;height:auto}
 }
+
+/* Footer */
+.site-footer{text-align:center;font-size:12px;color:var(--muted);padding:20px}
 </style>
 </head>
 
@@ -431,7 +81,7 @@ img{display:block;max-width:100%}
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <img src="images/icon-phustagram.png" alt="Phustagram icon">
+      <img src="images/icon-phustagram.png">
       Phustagram
     </div>
     <div class="nav-links">
@@ -444,9 +94,7 @@ img{display:block;max-width:100%}
 
 <main class="page">
   <section class="profile-bar">
-    <div class="profile-pic">
-      <div class="profile-pic-inner">P</div>
-    </div>
+    <div class="profile-pic"><div class="profile-pic-inner">P</div></div>
     <div class="profile-copy">
       <h1>phustagram</h1>
       <p>Visual stories and creative works</p>
@@ -462,329 +110,80 @@ img{display:block;max-width:100%}
   <div class="modal">
     <div class="modal-left" id="modalLeft">
       <button class="nav-btn prev" id="prevBtn">‹</button>
-      <div class="slide">
-        <div class="slide-frame" id="slideFrame">
-          <img id="slideImage" alt="">
-        </div>
-      </div>
+      <div class="slide-frame"><img id="slideImage"></div>
       <button class="nav-btn next" id="nextBtn">›</button>
-      <div class="slide-count" id="slideCount">1 / 1</div>
+      <div class="slide-count" id="slideCount"></div>
     </div>
 
     <div class="modal-right">
       <div class="post-head">
         <b>phustagram</b>
-        <button id="closeBtn" aria-label="Close">×</button>
+        <button id="closeBtn">×</button>
       </div>
-
-      <div class="post-body">
-        <div class="caption">
-          <div id="captionText"></div>
-          <div class="caption-meta" id="metaText"></div>
-        </div>
-
-        <div class="details" id="detailsBox"></div>
-        <div class="tags" id="tagsBox"></div>
+      <div class="caption">
+        <div id="captionText"></div>
+        <div id="metaText" style="font-size:13px;color:var(--muted);margin-top:6px;"></div>
       </div>
+      <div class="details" id="detailsBox"></div>
+      <div class="tags" id="tagsBox"></div>
     </div>
   </div>
 </div>
 
 <script>
 const PROJECTS = [
-  {
-    title:"Mascot Design for Veranda Resort Phuket",
-    cover:"images/oaew1.jpg",
-    images:[
-      "images/oaew1.jpg",
-      "images/oaew2.jpg",
-      "images/oaew3.jpg",
-      "images/oaew4.jpg",
-      "images/oaew5.jpg",
-      "images/oaew6.jpg",
-      "images/oaew7.jpg"
-    ],
-    caption:"A mascot design project created for Veranda Resort Phuket, bringing the brand to life through a playful and distinctive character.",
-    likes:"48 likes",
-    date:"Brand Project",
-    tags:["Mascot Design","Brand Character"],
-    details:{
-      Client:"Veranda Resort Phuket",
-      Category:"Mascot Design",
-      Role:"Concept + Character Design",
-      Tools:"Illustrator, Photoshop"
-    }
-  },
-  {
-    title:"Autograph Moment Marketing Concept",
-    cover:"images/AK-01.jpg",
-    images:[
-      "images/AK-01.jpg",
-      "images/AK-02.jpg",
-      "images/AK-03.jpg",
-      "images/AK-04.jpg",
-      "images/AK-05.jpg",
-      "images/AK-06.jpg",
-      "images/AK-07.jpg",
-      "images/AK-08.jpg",
-      "images/AK-09.jpg",
-      "images/AK-10.jpg",
-      "images/AK-11.jpg"
-    ],
-    caption:"An “Autograph Moment” is a signature, immersive experience designed by Autograph Collection Hotels to express each property’s unique story.",
-    likes:"56 likes",
-    date:"Marketing Concept",
-    tags:["Marketing Initiative","Autograph Moment"],
-    details:{
-      Client:"Veranda Resort Phuket",
-      Category:"Marketing Initiative Planning & Design",
-      Role:"Concept + Collateral Design",
-      Tools:"Illustrator, Photoshop"
-    }
-  },
-  {
-    title:"UX/UI Design for Hotel In-Room Service App",
-    cover:"images/LM1.webp",
-    images:[
-      "images/LM1.webp",
-      "images/LM2.webp",
-      "images/LM3.webp",
-      "images/LM4.webp",
-      "images/LM5.webp",
-      "images/LM6.webp",
-      "images/LM7.webp",
-      "images/LM8.webp",
-      "images/LM9.webp",
-      "images/LM10.webp"
-    ],
-    caption:"An application UX/UI design project for in-room service, created to help hotel guests access services more easily through a clear, convenient, and user-friendly digital experience.",
-    likes:"52 likes",
-    date:"UX/UI Design",
-    tags:["UX/UI Design","Hotel App","Guest Experience"],
-    details:{
-      Client:"Le Meridien Phuket Beach Resort",
-      Category:"UX/UI Design",
-      Role:"UX Flow Design, UI Development",
-      Tools:"Illustrator, Figma"
-    }
-  },
-  {
-    title:"Wedding CI Design",
-    cover:"images/wd1.jpg",
-    images:[
-      "images/wd1.jpg",
-      "images/wd2.jpg",
-      "images/wd3.jpg",
-      "images/wd4.jpg",
-      "images/wd5.jpg",
-      "images/wd6.jpg",
-      "images/wd7.jpg",
-      "images/wd8.jpg"
-    ],
-    caption:"A key visual, concept, and collateral guideline design created for my own wedding.",
-    likes:"40 likes",
-    date:"11 November 2023",
-    tags:["Wedding Collateral Design"],
-    details:{
-      Client:"Myself",
-      Category:"Brand Design",
-      Role:"Concept + Design",
-      Tools:"Illustrator, Photoshop"
-    }
-  },
-  {
-    title:"Nonthaburi United Rebranding",
-    cover:"images/nu1.jpg",
-    images:[
-      "images/nu1.jpg",
-      "images/nu2.jpg",
-      "images/nu3.jpg",
-      "images/nu4.jpg",
-      "images/nu5.jpg",
-      "images/nu6.jpg",
-      "images/nu7.jpg",
-      "images/nu8.jpg",
-      "images/nu9.jpg"
-    ],
-    caption:"A key visual, concept, and collateral guideline design created for Nonthaburi United’s rebranding.",
-    likes:"44 likes",
-    date:"2020 - 2024",
-    tags:["Branding Design","Key Visual"],
-    details:{
-      Client:"Nonthaburi United",
-      Category:"Brand Design",
-      Role:"Concept + Design",
-      Tools:"Illustrator, Photoshop"
-    }
-  },
-  {
-    title:"Graphic Design Works",
-    cover:"images/ov1.jpg",
-    images:[
-      "images/ov1.jpg","images/ov2.jpg","images/ov3.jpg","images/ov4.jpg","images/ov5.jpg",
-      "images/ov6.jpg","images/ov7.jpg","images/ov8.jpg","images/ov9.jpg","images/ov10.jpg",
-      "images/ov11.jpg","images/ov12.jpg","images/ov13.jpg","images/ov14.jpg","images/ov15.jpg",
-      "images/ov16.jpg","images/ov17.jpg","images/ov18.jpg","images/ov19.jpg","images/ov20.jpg",
-      "images/ov21.jpg","images/ov22.jpg","images/ov23.jpg","images/ov24.jpg","images/ov25.jpg",
-      "images/ov26.jpg","images/ov27.jpg","images/ov28.jpg","images/ov29.jpg","images/ov30.jpg",
-      "images/ov31.jpg","images/ov32.jpg","images/ov33.jpg"
-    ],
-    caption:"Graphic design works across multiple hospitality brands, including key visuals, marketing collaterals, and brand assets developed between 2017 and 2023.",
-    likes:"72 likes",
-    date:"2017 - 2023",
-    tags:["Graphic Design"],
-    details:{
-      Client:"Angsana Laguna Phuket, Banyan Tree Krabi, Swissotel Hotels, Novotel, etc.",
-      Category:"Graphic Design",
-      Role:"Concept + Design",
-      Tools:"Illustrator, Photoshop"
-    }
-  }
+  {title:"Mascot Design",cover:"images/PIG_CV-01.jpg",images:["images/oaew1.jpg","images/oaew2.jpg","images/oaew3.jpg","images/oaew4.jpg","images/oaew5.jpg","images/oaew6.jpg","images/oaew7.jpg"],caption:"Mascot design for Veranda Resort Phuket.",likes:"48 likes",date:"Brand Project",tags:["Mascot Design"],details:{Client:"Veranda Resort Phuket",Category:"Mascot Design",Role:"Concept + Design",Tools:"Illustrator"}},
+  {title:"Autograph Moment",cover:"images/PIG_CV-02.jpg",images:["images/AK-01.jpg","images/AK-02.jpg","images/AK-03.jpg","images/AK-04.jpg","images/AK-05.jpg","images/AK-06.jpg","images/AK-07.jpg","images/AK-08.jpg","images/AK-09.jpg","images/AK-10.jpg","images/AK-11.jpg"],caption:"Autograph Moment concept.",likes:"56 likes",date:"Marketing",tags:["Marketing"],details:{Client:"Veranda Resort",Category:"Marketing",Role:"Concept",Tools:"Illustrator"}},
+  {title:"UX/UI App",cover:"images/PIG_CV-03.jpg",images:["images/LM1.webp","images/LM2.webp","images/LM3.webp","images/LM4.webp","images/LM5.webp","images/LM6.webp","images/LM7.webp","images/LM8.webp","images/LM9.webp","images/LM10.webp"],caption:"UX/UI design for hotel app.",likes:"52 likes",date:"UX/UI",tags:["UX/UI"],details:{Client:"Le Meridien",Category:"UX/UI",Role:"UX/UI",Tools:"Figma"}},
+  {title:"Wedding CI",cover:"images/PIG_CV-00.jpg",images:["images/wd1.jpg","images/wd2.jpg","images/wd3.jpg","images/wd4.jpg","images/wd5.jpg","images/wd6.jpg","images/wd7.jpg","images/wd8.jpg"],caption:"Wedding CI design.",likes:"40 likes",date:"2023",tags:["Wedding"],details:{Client:"Myself"}},
+  {title:"Nonthaburi United",cover:"images/PIG_CV-04.jpg",images:["images/nu1.jpg","images/nu2.jpg","images/nu3.jpg","images/nu4.jpg","images/nu5.jpg","images/nu6.jpg","images/nu7.jpg","images/nu8.jpg","images/nu9.jpg"],caption:"Football rebranding.",likes:"44 likes",date:"2020-2024",tags:["Branding"],details:{Client:"Nonthaburi United"}},
+  {title:"Graphic Design Works",cover:"images/PIG_CV-05.jpg",images:["images/ov1.jpg","images/ov2.jpg","images/ov3.jpg","images/ov4.jpg","images/ov5.jpg"],caption:"Graphic works.",likes:"72 likes",date:"2017-2023",tags:["Design"],details:{Client:"Multiple Hotels"}}
 ];
 
-const grid = document.getElementById("grid");
-const modal = document.getElementById("modalBackdrop");
-const modalLeft = document.getElementById("modalLeft");
-const slideFrame = document.getElementById("slideFrame");
-const img = document.getElementById("slideImage");
-const slideCount = document.getElementById("slideCount");
-const captionText = document.getElementById("captionText");
-const metaText = document.getElementById("metaText");
-const detailsBox = document.getElementById("detailsBox");
-const tagsBox = document.getElementById("tagsBox");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const closeBtn = document.getElementById("closeBtn");
+const grid=document.getElementById("grid");
+const modal=document.getElementById("modalBackdrop");
+const img=document.getElementById("slideImage");
+const caption=document.getElementById("captionText");
+const meta=document.getElementById("metaText");
+const details=document.getElementById("detailsBox");
+const tags=document.getElementById("tagsBox");
+const count=document.getElementById("slideCount");
 
-let p = 0;
-let i = 0;
-let touchStartX = 0;
-let touchEndX = 0;
-let imageSwapTimer = null;
-
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
-}
+let p=0,i=0;
 
 function render(){
-  grid.innerHTML = PROJECTS.map((x, idx) => `
-    <div class="grid-item" data-index="${idx}">
-      <img src="${x.cover}" alt="${escapeHtml(x.title)}">
-      <div class="multi-badge">${x.images.length} photos</div>
-      <div class="grid-overlay"><div>${escapeHtml(x.title)}</div></div>
-    </div>
-  `).join("");
-
-  document.querySelectorAll(".grid-item").forEach(item => {
-    item.addEventListener("click", () => openProject(Number(item.dataset.index)));
+  grid.innerHTML=PROJECTS.map((x,idx)=>`
+    <div class="grid-item" data-i="${idx}">
+      <img src="${x.cover}">
+      <div class="multi-badge">${x.images.length}</div>
+    </div>`).join("");
+  document.querySelectorAll(".grid-item").forEach(el=>{
+    el.onclick=()=>open(Number(el.dataset.i));
   });
 }
 
-function openProject(idx){
-  p = idx;
-  i = 0;
-  update();
-  modal.classList.add("show");
-  document.body.classList.add("modal-open");
-}
-
-function setImageOrientation(){
-  slideFrame.classList.remove("portrait","landscape","square");
-
-  const w = img.naturalWidth;
-  const h = img.naturalHeight;
-  if(!w || !h) return;
-
-  const ratio = w / h;
-
-  if(ratio < 0.9){
-    slideFrame.classList.add("portrait");
-  }else if(ratio > 1.1){
-    slideFrame.classList.add("landscape");
-  }else{
-    slideFrame.classList.add("square");
-  }
-}
+function open(idx){p=idx;i=0;update();modal.classList.add("show");document.body.classList.add("modal-open")}
+function close(){modal.classList.remove("show");document.body.classList.remove("modal-open")}
+function next(){i=(i+1)%PROJECTS[p].images.length;update()}
+function prev(){i=(i-1+PROJECTS[p].images.length)%PROJECTS[p].images.length;update()}
 
 function update(){
-  const x = PROJECTS[p];
-
-  clearTimeout(imageSwapTimer);
-  img.style.opacity = 0;
-
-  imageSwapTimer = setTimeout(() => {
-    img.onload = () => {
-      setImageOrientation();
-      img.style.opacity = 1;
-    };
-    img.src = x.images[i];
-    img.alt = x.title;
-  }, 120);
-
-  slideCount.textContent = `${i + 1} / ${x.images.length}`;
-  captionText.innerHTML = `<b>phustagram</b> ${escapeHtml(x.caption)}`;
-  metaText.innerText = `${x.likes} • ${x.date}`;
-  tagsBox.innerHTML = x.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
-  detailsBox.innerHTML = Object.entries(x.details).map(([k,v]) =>
-    `<div class="detail-row"><b>${escapeHtml(k)}</b><span>${escapeHtml(v)}</span></div>`
-  ).join("");
-
-  const hasMultiple = x.images.length > 1;
-  prevBtn.style.display = hasMultiple ? "block" : "none";
-  nextBtn.style.display = hasMultiple ? "block" : "none";
+  const x=PROJECTS[p];
+  img.style.opacity=0;
+  setTimeout(()=>{
+    img.src=x.images[i];
+    img.onload=()=>img.style.opacity=1;
+  },120);
+  caption.innerHTML="<b>phustagram</b> "+x.caption;
+  meta.innerText=x.likes+" • "+x.date;
+  tags.innerHTML=x.tags.map(t=>`<span class="tag">${t}</span>`).join("");
+  details.innerHTML=Object.entries(x.details).map(([k,v])=>`<div class="detail-row"><b>${k}</b><span>${v}</span></div>`).join("");
+  count.innerText=`${i+1} / ${x.images.length}`;
 }
 
-function closeModal(){
-  modal.classList.remove("show");
-  document.body.classList.remove("modal-open");
-}
-
-function showPrev(){
-  i = (i - 1 + PROJECTS[p].images.length) % PROJECTS[p].images.length;
-  update();
-}
-
-function showNext(){
-  i = (i + 1) % PROJECTS[p].images.length;
-  update();
-}
-
-prevBtn.addEventListener("click", showPrev);
-nextBtn.addEventListener("click", showNext);
-closeBtn.addEventListener("click", closeModal);
-
-modal.addEventListener("click", e => {
-  if(e.target === modal) closeModal();
-});
-
-document.addEventListener("keydown", e => {
-  if(!modal.classList.contains("show")) return;
-  if(e.key === "Escape") closeModal();
-  if(e.key === "ArrowLeft") showPrev();
-  if(e.key === "ArrowRight") showNext();
-});
-
-modalLeft.addEventListener("touchstart", e => {
-  touchStartX = e.changedTouches[0].screenX;
-}, { passive:true });
-
-modalLeft.addEventListener("touchend", e => {
-  touchEndX = e.changedTouches[0].screenX;
-  const diff = touchEndX - touchStartX;
-  const threshold = 50;
-  if(Math.abs(diff) < threshold) return;
-  if(diff < 0){
-    showNext();
-  }else{
-    showPrev();
-  }
-}, { passive:true });
+document.getElementById("prevBtn").onclick=prev;
+document.getElementById("nextBtn").onclick=next;
+document.getElementById("closeBtn").onclick=close;
 
 render();
 </script>
