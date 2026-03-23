@@ -348,16 +348,21 @@ img{display:block;max-width:100%}
     height:58vh;
   }
   .grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 }
 
 @media(max-width:640px){
   .page{
-    padding:18px 12px 28px;
+    padding:12px 0 20px;
+  }
+  .profile-bar{
+    padding:0 12px;
+    margin-bottom:16px;
   }
   .grid{
-    gap:4px;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
   }
   .profile-copy h1{
     font-size:20px;
@@ -624,7 +629,7 @@ const PROJECTS = [
       "images/ov26.jpg","images/ov27.jpg","images/ov28.jpg","images/ov29.jpg","images/ov30.jpg",
       "images/ov31.jpg","images/ov32.jpg","images/ov33.jpg"
     ],
-    caption:"Graphic design works across multiple brands, including key visuals, marketing collaterals, and brand assets developed between 2017 and 2023.",
+    caption:"Graphic design works across multiple hospitality brands, including key visuals, marketing collaterals, and brand assets developed between 2017 and 2023.",
     likes:"72 likes",
     date:"2017 - 2023",
     tags:["Graphic Design"],
