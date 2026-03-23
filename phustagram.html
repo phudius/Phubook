@@ -56,7 +56,8 @@ body.modal-open{overflow:hidden}
 /* Right */
 .modal-right{display:flex;flex-direction:column}
 .post-head{padding:12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
-.caption{padding:16px;border-bottom:1px solid var(--line)}
+.caption{padding:16px;border-bottom:1px solid var(--line);line-height:1.5}
+.caption-meta{font-size:13px;color:var(--muted);margin-top:6px}
 .details,.tags{padding:16px;border-bottom:1px solid var(--line)}
 .detail-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
 .tag{background:#eee;padding:6px 10px;border-radius:999px;font-size:12px}
@@ -67,7 +68,6 @@ body.modal-open{overflow:hidden}
   .page{padding:12px 0}
   .profile-bar{padding:0 12px}
   .modal{grid-template-columns:1fr;height:100%;border-radius:0}
-  .modal-left{height:auto}
   .slide-frame img{width:100%;height:auto}
 }
 
@@ -108,7 +108,7 @@ body.modal-open{overflow:hidden}
 
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
-    <div class="modal-left" id="modalLeft">
+    <div class="modal-left">
       <button class="nav-btn prev" id="prevBtn">‹</button>
       <div class="slide-frame"><img id="slideImage"></div>
       <button class="nav-btn next" id="nextBtn">›</button>
@@ -120,10 +120,12 @@ body.modal-open{overflow:hidden}
         <b>phustagram</b>
         <button id="closeBtn">×</button>
       </div>
+
       <div class="caption">
         <div id="captionText"></div>
-        <div id="metaText" style="font-size:13px;color:var(--muted);margin-top:6px;"></div>
+        <div class="caption-meta" id="metaText"></div>
       </div>
+
       <div class="details" id="detailsBox"></div>
       <div class="tags" id="tagsBox"></div>
     </div>
@@ -132,12 +134,101 @@ body.modal-open{overflow:hidden}
 
 <script>
 const PROJECTS = [
-  {title:"Mascot Design",cover:"images/PIG_CV-01.jpg",images:["images/oaew1.jpg","images/oaew2.jpg","images/oaew3.jpg","images/oaew4.jpg","images/oaew5.jpg","images/oaew6.jpg","images/oaew7.jpg"],caption:"Mascot design for Veranda Resort Phuket.",likes:"48 likes",date:"Brand Project",tags:["Mascot Design"],details:{Client:"Veranda Resort Phuket",Category:"Mascot Design",Role:"Concept + Design",Tools:"Illustrator"}},
-  {title:"Autograph Moment",cover:"images/PIG_CV-02.jpg",images:["images/AK-01.jpg","images/AK-02.jpg","images/AK-03.jpg","images/AK-04.jpg","images/AK-05.jpg","images/AK-06.jpg","images/AK-07.jpg","images/AK-08.jpg","images/AK-09.jpg","images/AK-10.jpg","images/AK-11.jpg"],caption:"Autograph Moment concept.",likes:"56 likes",date:"Marketing",tags:["Marketing"],details:{Client:"Veranda Resort",Category:"Marketing",Role:"Concept",Tools:"Illustrator"}},
-  {title:"UX/UI App",cover:"images/PIG_CV-03.jpg",images:["images/LM1.webp","images/LM2.webp","images/LM3.webp","images/LM4.webp","images/LM5.webp","images/LM6.webp","images/LM7.webp","images/LM8.webp","images/LM9.webp","images/LM10.webp"],caption:"UX/UI design for hotel app.",likes:"52 likes",date:"UX/UI",tags:["UX/UI"],details:{Client:"Le Meridien",Category:"UX/UI",Role:"UX/UI",Tools:"Figma"}},
-  {title:"Wedding CI",cover:"images/PIG_CV-00.jpg",images:["images/wd1.jpg","images/wd2.jpg","images/wd3.jpg","images/wd4.jpg","images/wd5.jpg","images/wd6.jpg","images/wd7.jpg","images/wd8.jpg"],caption:"Wedding CI design.",likes:"40 likes",date:"2023",tags:["Wedding"],details:{Client:"Myself"}},
-  {title:"Nonthaburi United",cover:"images/PIG_CV-04.jpg",images:["images/nu1.jpg","images/nu2.jpg","images/nu3.jpg","images/nu4.jpg","images/nu5.jpg","images/nu6.jpg","images/nu7.jpg","images/nu8.jpg","images/nu9.jpg"],caption:"Football rebranding.",likes:"44 likes",date:"2020-2024",tags:["Branding"],details:{Client:"Nonthaburi United"}},
-  {title:"Graphic Design Works",cover:"images/PIG_CV-05.jpg",images:["images/ov1.jpg","images/ov2.jpg","images/ov3.jpg","images/ov4.jpg","images/ov5.jpg"],caption:"Graphic works.",likes:"72 likes",date:"2017-2023",tags:["Design"],details:{Client:"Multiple Hotels"}}
+  {
+    title:"Mascot Design",
+    cover:"images/PIG_CV-01.jpg",
+    images:["images/oaew1.jpg","images/oaew2.jpg","images/oaew3.jpg","images/oaew4.jpg","images/oaew5.jpg","images/oaew6.jpg","images/oaew7.jpg"],
+    caption:"A mascot design project created for Veranda Resort Phuket, bringing the brand to life through a playful and distinctive character.",
+    likes:"48 likes",
+    date:"Brand Project",
+    tags:["Mascot Design","Brand Character"],
+    details:{
+      Client:"Veranda Resort Phuket",
+      Category:"Mascot Design",
+      Role:"Concept + Character Design",
+      Tools:"Illustrator, Photoshop"
+    }
+  },
+
+  {
+    title:"Autograph Moment",
+    cover:"images/PIG_CV-02.jpg",
+    images:["images/AK-01.jpg","images/AK-02.jpg","images/AK-03.jpg","images/AK-04.jpg","images/AK-05.jpg","images/AK-06.jpg","images/AK-07.jpg","images/AK-08.jpg","images/AK-09.jpg","images/AK-10.jpg","images/AK-11.jpg"],
+    caption:"An Autograph Moment is a signature, immersive experience designed to express each hotel's unique story.",
+    likes:"56 likes",
+    date:"Marketing Concept",
+    tags:["Marketing Initiative","Experience Design"],
+    details:{
+      Client:"Veranda Resort Phuket",
+      Category:"Marketing Initiative",
+      Role:"Concept + Collateral Design",
+      Tools:"Illustrator, Photoshop"
+    }
+  },
+
+  {
+    title:"UX/UI App",
+    cover:"images/PIG_CV-03.jpg",
+    images:["images/LM1.webp","images/LM2.webp","images/LM3.webp","images/LM4.webp","images/LM5.webp","images/LM6.webp","images/LM7.webp","images/LM8.webp","images/LM9.webp","images/LM10.webp"],
+    caption:"An application UX/UI design project for in-room service, enhancing guest convenience through a clear and user-friendly interface.",
+    likes:"52 likes",
+    date:"UX/UI Design",
+    tags:["UX/UI","Guest Experience"],
+    details:{
+      Client:"Le Meridien Phuket Beach Resort",
+      Category:"UX/UI Design",
+      Role:"UX Flow + UI Development",
+      Tools:"Illustrator, Figma"
+    }
+  },
+
+  {
+    title:"Wedding CI",
+    cover:"images/PIG_CV-00.jpg",
+    images:["images/wd1.jpg","images/wd2.jpg","images/wd3.jpg","images/wd4.jpg","images/wd5.jpg","images/wd6.jpg","images/wd7.jpg","images/wd8.jpg"],
+    caption:"A key visual, concept, and collateral guideline design created for my own wedding.",
+    likes:"40 likes",
+    date:"11 November 2023",
+    tags:["Wedding Design"],
+    details:{
+      Client:"Myself",
+      Category:"Brand Design",
+      Role:"Concept + Design",
+      Tools:"Illustrator, Photoshop"
+    }
+  },
+
+  {
+    title:"Nonthaburi United",
+    cover:"images/PIG_CV-04.jpg",
+    images:["images/nu1.jpg","images/nu2.jpg","images/nu3.jpg","images/nu4.jpg","images/nu5.jpg","images/nu6.jpg","images/nu7.jpg","images/nu8.jpg","images/nu9.jpg"],
+    caption:"A key visual, concept, and collateral guideline design created for Nonthaburi United's rebranding.",
+    likes:"44 likes",
+    date:"2020 - 2024",
+    tags:["Branding","Key Visual"],
+    details:{
+      Client:"Nonthaburi United",
+      Category:"Brand Design",
+      Role:"Concept + Design",
+      Tools:"Illustrator, Photoshop"
+    }
+  },
+
+  {
+    title:"Graphic Works",
+    cover:"images/PIG_CV-05.jpg",
+    images:["images/ov1.jpg","images/ov2.jpg","images/ov3.jpg","images/ov4.jpg","images/ov5.jpg"],
+    caption:"Graphic design works across multiple hospitality brands including marketing collaterals and brand assets developed between 2017 and 2023.",
+    likes:"72 likes",
+    date:"2017 - 2023",
+    tags:["Graphic Design"],
+    details:{
+      Client:"Multiple Hospitality Brands",
+      Category:"Graphic Design",
+      Role:"Concept + Design",
+      Tools:"Illustrator, Photoshop"
+    }
+  }
 ];
 
 const grid=document.getElementById("grid");
@@ -174,6 +265,7 @@ function update(){
     img.src=x.images[i];
     img.onload=()=>img.style.opacity=1;
   },120);
+
   caption.innerHTML="<b>phustagram</b> "+x.caption;
   meta.innerText=x.likes+" • "+x.date;
   tags.innerHTML=x.tags.map(t=>`<span class="tag">${t}</span>`).join("");
