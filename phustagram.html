@@ -218,6 +218,8 @@ img{display:block;max-width:100%}
   border-radius:8px;
   box-shadow:0 10px 30px rgba(0,0,0,.24);
   background:#111;
+  transition:transform .35s ease, opacity .25s ease;
+  opacity:1;
 }
 .slide-frame.portrait img{
   max-height:100%;
@@ -609,6 +611,29 @@ const PROJECTS = [
       Role:"Concept + Design",
       Tools:"Illustrator, Photoshop"
     }
+  },
+  {
+    title:"Graphic Design Works",
+    cover:"images/ov1.jpg",
+    images:[
+      "images/ov1.jpg","images/ov2.jpg","images/ov3.jpg","images/ov4.jpg","images/ov5.jpg",
+      "images/ov6.jpg","images/ov7.jpg","images/ov8.jpg","images/ov9.jpg","images/ov10.jpg",
+      "images/ov11.jpg","images/ov12.jpg","images/ov13.jpg","images/ov14.jpg","images/ov15.jpg",
+      "images/ov16.jpg","images/ov17.jpg","images/ov18.jpg","images/ov19.jpg","images/ov20.jpg",
+      "images/ov21.jpg","images/ov22.jpg","images/ov23.jpg","images/ov24.jpg","images/ov25.jpg",
+      "images/ov26.jpg","images/ov27.jpg","images/ov28.jpg","images/ov29.jpg","images/ov30.jpg",
+      "images/ov31.jpg","images/ov32.jpg","images/ov33.jpg"
+    ],
+    caption:"Graphic design works across multiple brands, including key visuals, marketing collaterals, and brand assets developed between 2017 and 2023.",
+    likes:"72 likes",
+    date:"2017 - 2023",
+    tags:["Graphic Design"],
+    details:{
+      Client:"Angsana Laguna Phuket, Banyan Tree Krabi, Swissotel Hotels, Novotel, etc.",
+      Category:"Graphic Design",
+      Role:"Concept + Design",
+      Tools:"Illustrator, Photoshop"
+    }
   }
 ];
 
@@ -630,6 +655,7 @@ let p = 0;
 let i = 0;
 let touchStartX = 0;
 let touchEndX = 0;
+let imageSwapTimer = null;
 
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({
@@ -683,9 +709,18 @@ function setImageOrientation(){
 
 function update(){
   const x = PROJECTS[p];
-  img.onload = setImageOrientation;
-  img.src = x.images[i];
-  img.alt = x.title;
+
+  clearTimeout(imageSwapTimer);
+  img.style.opacity = 0;
+
+  imageSwapTimer = setTimeout(() => {
+    img.onload = () => {
+      setImageOrientation();
+      img.style.opacity = 1;
+    };
+    img.src = x.images[i];
+    img.alt = x.title;
+  }, 120);
 
   slideCount.textContent = `${i + 1} / ${x.images.length}`;
   captionText.innerHTML = `<b>phustagram</b> ${escapeHtml(x.caption)}`;
