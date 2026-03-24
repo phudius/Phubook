@@ -24,7 +24,7 @@ body.modal-open{overflow:hidden}
 .topbar-inner{max-width:1100px;margin:auto;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
 .brand{display:flex;gap:10px;font-weight:800;font-size:22px}
 .brand img{width:28px;height:28px;border-radius:50%;padding:4px;border:1px solid var(--line)}
-.nav-links{display:flex;gap:10px}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap}
 .back-link{font-size:14px;color:var(--blue);font-weight:600;text-decoration:none}
 
 /* Profile */
@@ -37,42 +37,164 @@ body.modal-open{overflow:hidden}
 
 /* Grid */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.grid-item{aspect-ratio:1/1;overflow:hidden;cursor:pointer;position:relative}
+.grid-item{aspect-ratio:1/1;overflow:hidden;cursor:pointer;position:relative;background:#f2f2f2}
 .grid-item img{width:100%;height:100%;object-fit:cover;transition:.25s}
 .grid-item:hover img{transform:scale(1.04)}
-.multi-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:5px 7px;border-radius:999px}
+.multi-badge{
+  position:absolute;
+  top:8px;
+  right:8px;
+  background:rgba(0,0,0,.6);
+  color:#fff;
+  font-size:11px;
+  padding:5px 7px;
+  border-radius:999px
+}
 
 /* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:200}
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  z-index:200
+}
 .modal-backdrop.show{display:flex}
-.modal{margin:auto;width:100%;max-width:1280px;height:90vh;background:#fff;display:grid;grid-template-columns:1.3fr 420px;border-radius:10px;overflow:hidden}
-.modal-left{background:#000;display:flex;align-items:center;justify-content:center;position:relative}
-.slide-frame img{max-width:100%;max-height:100%;object-fit:contain;transition:.3s}
-.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.3);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer}
+.modal{
+  margin:auto;
+  width:100%;
+  max-width:1280px;
+  height:90vh;
+  background:#fff;
+  display:grid;
+  grid-template-columns:1.3fr 420px;
+  border-radius:10px;
+  overflow:hidden
+}
+.modal-left{
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative
+}
+.slide-frame{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.slide-frame img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  transition:opacity .3s ease
+}
+.nav-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,.3);
+  border:none;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  cursor:pointer;
+  font-size:22px;
+  line-height:1
+}
 .prev{left:10px}
 .next{right:10px}
-.slide-count{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;padding:5px 10px;border-radius:20px;font-size:12px}
+.slide-count{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.5);
+  color:#fff;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px
+}
 
 /* Right */
-.modal-right{display:flex;flex-direction:column}
-.post-head{padding:12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
-.caption{padding:16px;border-bottom:1px solid var(--line);line-height:1.5}
-.caption-meta{font-size:13px;color:var(--muted);margin-top:6px}
-.details,.tags{padding:16px;border-bottom:1px solid var(--line)}
-.detail-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
-.tag{background:#eee;padding:6px 10px;border-radius:999px;font-size:12px}
+.modal-right{display:flex;flex-direction:column;background:#fff}
+.post-head{
+  padding:12px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+.post-head button{
+  background:none;
+  border:none;
+  font-size:26px;
+  cursor:pointer;
+  line-height:1
+}
+.caption{
+  padding:16px;
+  border-bottom:1px solid var(--line);
+  line-height:1.5
+}
+.caption-meta{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:6px
+}
+.details,.tags{
+  padding:16px;
+  border-bottom:1px solid var(--line)
+}
+.detail-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  font-size:13px;
+  margin-bottom:8px
+}
+.detail-row span{
+  text-align:right;
+  color:var(--muted)
+}
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap
+}
+.tag{
+  background:#eee;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px
+}
 
 /* Mobile */
 @media(max-width:640px){
   .grid{gap:2px}
   .page{padding:12px 0}
   .profile-bar{padding:0 12px}
-  .modal{grid-template-columns:1fr;height:100%;border-radius:0}
+  .topbar-inner{padding:12px}
+  .brand{font-size:20px}
+  .nav-links{gap:8px}
+  .modal{
+    grid-template-columns:1fr;
+    height:100%;
+    border-radius:0
+  }
+  .modal-left{min-height:48vh}
   .slide-frame img{width:100%;height:auto}
 }
 
 /* Footer */
-.site-footer{text-align:center;font-size:12px;color:var(--muted);padding:20px}
+.site-footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  padding:20px
+}
 </style>
 </head>
 
@@ -81,7 +203,7 @@ body.modal-open{overflow:hidden}
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <img src="images/icon-phustagram.png">
+      <img src="images/icon-phustagram.png" alt="Phustagram Icon">
       Phustagram
     </div>
     <div class="nav-links">
@@ -109,16 +231,18 @@ body.modal-open{overflow:hidden}
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
     <div class="modal-left">
-      <button class="nav-btn prev" id="prevBtn">‹</button>
-      <div class="slide-frame"><img id="slideImage"></div>
-      <button class="nav-btn next" id="nextBtn">›</button>
+      <button class="nav-btn prev" id="prevBtn" aria-label="Previous image">‹</button>
+      <div class="slide-frame">
+        <img id="slideImage" alt="Project image">
+      </div>
+      <button class="nav-btn next" id="nextBtn" aria-label="Next image">›</button>
       <div class="slide-count" id="slideCount"></div>
     </div>
 
     <div class="modal-right">
       <div class="post-head">
         <b>phustagram</b>
-        <button id="closeBtn">×</button>
+        <button id="closeBtn" aria-label="Close modal">×</button>
       </div>
 
       <div class="caption">
@@ -133,11 +257,16 @@ body.modal-open{overflow:hidden}
 </div>
 
 <script>
+const graphicWorksImages = Array.from({ length: 33 }, (_, index) => `images/ov${index + 1}.jpg`);
+
 const PROJECTS = [
   {
     title:"Mascot Design",
     cover:"images/PIG_CV-01.jpg",
-    images:["images/oaew1.jpg","images/oaew2.jpg","images/oaew3.jpg","images/oaew4.jpg","images/oaew5.jpg","images/oaew6.jpg","images/oaew7.jpg"],
+    images:[
+      "images/oaew1.jpg","images/oaew2.jpg","images/oaew3.jpg",
+      "images/oaew4.jpg","images/oaew5.jpg","images/oaew6.jpg","images/oaew7.jpg"
+    ],
     caption:"A mascot design project created for Veranda Resort Phuket, bringing the brand to life through a playful and distinctive character.",
     likes:"48 likes",
     date:"Brand Project",
@@ -153,7 +282,11 @@ const PROJECTS = [
   {
     title:"Autograph Moment",
     cover:"images/PIG_CV-02.jpg",
-    images:["images/AK-01.jpg","images/AK-02.jpg","images/AK-03.jpg","images/AK-04.jpg","images/AK-05.jpg","images/AK-06.jpg","images/AK-07.jpg","images/AK-08.jpg","images/AK-09.jpg","images/AK-10.jpg","images/AK-11.jpg"],
+    images:[
+      "images/AK-01.jpg","images/AK-02.jpg","images/AK-03.jpg","images/AK-04.jpg",
+      "images/AK-05.jpg","images/AK-06.jpg","images/AK-07.jpg","images/AK-08.jpg",
+      "images/AK-09.jpg","images/AK-10.jpg","images/AK-11.jpg"
+    ],
     caption:"An Autograph Moment is a signature, immersive experience designed to express each hotel's unique story.",
     likes:"56 likes",
     date:"Marketing Concept",
@@ -169,7 +302,10 @@ const PROJECTS = [
   {
     title:"UX/UI App",
     cover:"images/PIG_CV-03.jpg",
-    images:["images/LM1.webp","images/LM2.webp","images/LM3.webp","images/LM4.webp","images/LM5.webp","images/LM6.webp","images/LM7.webp","images/LM8.webp","images/LM9.webp","images/LM10.webp"],
+    images:[
+      "images/LM1.webp","images/LM2.webp","images/LM3.webp","images/LM4.webp","images/LM5.webp",
+      "images/LM6.webp","images/LM7.webp","images/LM8.webp","images/LM9.webp","images/LM10.webp"
+    ],
     caption:"An application UX/UI design project for in-room service, enhancing guest convenience through a clear and user-friendly interface.",
     likes:"52 likes",
     date:"UX/UI Design",
@@ -185,7 +321,10 @@ const PROJECTS = [
   {
     title:"Wedding CI",
     cover:"images/PIG_CV-00.jpg",
-    images:["images/wd1.jpg","images/wd2.jpg","images/wd3.jpg","images/wd4.jpg","images/wd5.jpg","images/wd6.jpg","images/wd7.jpg","images/wd8.jpg"],
+    images:[
+      "images/wd1.jpg","images/wd2.jpg","images/wd3.jpg","images/wd4.jpg",
+      "images/wd5.jpg","images/wd6.jpg","images/wd7.jpg","images/wd8.jpg"
+    ],
     caption:"A key visual, concept, and collateral guideline design created for my own wedding.",
     likes:"40 likes",
     date:"11 November 2023",
@@ -201,7 +340,10 @@ const PROJECTS = [
   {
     title:"Nonthaburi United",
     cover:"images/PIG_CV-04.jpg",
-    images:["images/nu1.jpg","images/nu2.jpg","images/nu3.jpg","images/nu4.jpg","images/nu5.jpg","images/nu6.jpg","images/nu7.jpg","images/nu8.jpg","images/nu9.jpg"],
+    images:[
+      "images/nu1.jpg","images/nu2.jpg","images/nu3.jpg","images/nu4.jpg","images/nu5.jpg",
+      "images/nu6.jpg","images/nu7.jpg","images/nu8.jpg","images/nu9.jpg"
+    ],
     caption:"A key visual, concept, and collateral guideline design created for Nonthaburi United's rebranding.",
     likes:"44 likes",
     date:"2020 - 2024",
@@ -217,7 +359,7 @@ const PROJECTS = [
   {
     title:"Graphic Works",
     cover:"images/PIG_CV-05.jpg",
-    images:["images/ov1.jpg","images/ov2.jpg","images/ov3.jpg","images/ov4.jpg","images/ov5.jpg"],
+    images: graphicWorksImages,
     caption:"Graphic design works across multiple hospitality brands including marketing collaterals and brand assets developed between 2017 and 2023.",
     likes:"72 likes",
     date:"2017 - 2023",
@@ -231,51 +373,95 @@ const PROJECTS = [
   }
 ];
 
-const grid=document.getElementById("grid");
-const modal=document.getElementById("modalBackdrop");
-const img=document.getElementById("slideImage");
-const caption=document.getElementById("captionText");
-const meta=document.getElementById("metaText");
-const details=document.getElementById("detailsBox");
-const tags=document.getElementById("tagsBox");
-const count=document.getElementById("slideCount");
+const grid = document.getElementById("grid");
+const modal = document.getElementById("modalBackdrop");
+const img = document.getElementById("slideImage");
+const caption = document.getElementById("captionText");
+const meta = document.getElementById("metaText");
+const details = document.getElementById("detailsBox");
+const tags = document.getElementById("tagsBox");
+const count = document.getElementById("slideCount");
 
-let p=0,i=0;
+let p = 0;
+let i = 0;
 
 function render(){
-  grid.innerHTML=PROJECTS.map((x,idx)=>`
+  grid.innerHTML = PROJECTS.map((x, idx) => `
     <div class="grid-item" data-i="${idx}">
-      <img src="${x.cover}">
+      <img src="${x.cover}" alt="${x.title}">
       <div class="multi-badge">${x.images.length}</div>
-    </div>`).join("");
-  document.querySelectorAll(".grid-item").forEach(el=>{
-    el.onclick=()=>open(Number(el.dataset.i));
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".grid-item").forEach(el => {
+    el.onclick = () => openProject(Number(el.dataset.i));
   });
 }
 
-function open(idx){p=idx;i=0;update();modal.classList.add("show");document.body.classList.add("modal-open")}
-function close(){modal.classList.remove("show");document.body.classList.remove("modal-open")}
-function next(){i=(i+1)%PROJECTS[p].images.length;update()}
-function prev(){i=(i-1+PROJECTS[p].images.length)%PROJECTS[p].images.length;update()}
-
-function update(){
-  const x=PROJECTS[p];
-  img.style.opacity=0;
-  setTimeout(()=>{
-    img.src=x.images[i];
-    img.onload=()=>img.style.opacity=1;
-  },120);
-
-  caption.innerHTML="<b>phustagram</b> "+x.caption;
-  meta.innerText=x.likes+" • "+x.date;
-  tags.innerHTML=x.tags.map(t=>`<span class="tag">${t}</span>`).join("");
-  details.innerHTML=Object.entries(x.details).map(([k,v])=>`<div class="detail-row"><b>${k}</b><span>${v}</span></div>`).join("");
-  count.innerText=`${i+1} / ${x.images.length}`;
+function openProject(idx){
+  p = idx;
+  i = 0;
+  update();
+  modal.classList.add("show");
+  document.body.classList.add("modal-open");
 }
 
-document.getElementById("prevBtn").onclick=prev;
-document.getElementById("nextBtn").onclick=next;
-document.getElementById("closeBtn").onclick=close;
+function closeProject(){
+  modal.classList.remove("show");
+  document.body.classList.remove("modal-open");
+}
+
+function nextSlide(){
+  i = (i + 1) % PROJECTS[p].images.length;
+  update();
+}
+
+function prevSlide(){
+  i = (i - 1 + PROJECTS[p].images.length) % PROJECTS[p].images.length;
+  update();
+}
+
+function update(){
+  const x = PROJECTS[p];
+
+  img.style.opacity = 0;
+  const newSrc = x.images[i];
+
+  setTimeout(() => {
+    img.onload = () => {
+      img.style.opacity = 1;
+    };
+    img.src = newSrc;
+    img.alt = `${x.title} ${i + 1}`;
+  }, 120);
+
+  caption.innerHTML = "<b>phustagram</b> " + x.caption;
+  meta.innerText = x.likes + " • " + x.date;
+
+  tags.innerHTML = x.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+  details.innerHTML = Object.entries(x.details)
+    .map(([k, v]) => `<div class="detail-row"><b>${k}</b><span>${v}</span></div>`)
+    .join("");
+
+  count.innerText = `${i + 1} / ${x.images.length}`;
+}
+
+document.getElementById("prevBtn").onclick = prevSlide;
+document.getElementById("nextBtn").onclick = nextSlide;
+document.getElementById("closeBtn").onclick = closeProject;
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeProject();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (!modal.classList.contains("show")) return;
+
+  if (e.key === "Escape") closeProject();
+  if (e.key === "ArrowRight") nextSlide();
+  if (e.key === "ArrowLeft") prevSlide();
+});
 
 render();
 </script>
