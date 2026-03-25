@@ -182,6 +182,7 @@ body.modal-open{overflow:hidden}
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:18px;
 }
 .slide-frame img{
   max-width:100%;
@@ -194,6 +195,13 @@ body.modal-open{overflow:hidden}
   height:100%;
   border:0;
   background:#000;
+}
+.slide-frame iframe.video-square{
+  aspect-ratio:1/1;
+  width:auto;
+  height:auto;
+  max-width:min(100%, 900px);
+  max-height:90%;
 }
 .nav-btn{
   position:absolute;
@@ -315,10 +323,18 @@ body.modal-open{overflow:hidden}
 }
 .mobile-images iframe{
   width:100%;
-  aspect-ratio:16/9;
   display:block;
   border:0;
   background:#000;
+}
+.mobile-images iframe.video-square{
+  aspect-ratio:1/1;
+}
+.mobile-images iframe.video-landscape{
+  aspect-ratio:16/9;
+}
+.mobile-images iframe.video-portrait{
+  aspect-ratio:9/16;
 }
 .mobile-caption{
   padding:16px;
@@ -374,8 +390,11 @@ body.modal-open{overflow:hidden}
     border-radius:0;
   }
   .modal-left{min-height:48vh}
-  .slide-frame img,
-  .slide-frame iframe{width:100%;height:auto}
+  .slide-frame img{
+    width:100%;
+    height:auto;
+    max-height:100%;
+  }
 }
 </style>
 </head>
@@ -580,12 +599,12 @@ const PROJECTS = [
     title:"Illustration - NFT Card",
     cover:"images/PIG_CV-06.jpg",
     videos:[
-      "https://drive.google.com/file/d/1x0NxXkJY99uIAo7PRMn0icJD2mC-zwLz/preview",
-      "https://drive.google.com/file/d/1ezgNYq0PJtqe8QHfPLplDn48ct1y3Hs3/preview",
-      "https://drive.google.com/file/d/1l6OCvblR1bYjntgDODe3DewvAoNBUX1P/preview",
-      "https://drive.google.com/file/d/1JG7BhfKkOidBRGVbfJmrjlJlOmcCkaWy/preview",
-      "https://drive.google.com/file/d/1ZNfYPRlBEmPw1R02s2QDUg04V9EH4Gps/preview",
-      "https://drive.google.com/file/d/1NjTEDqphRBesFKSKDLOFrNDaUY7Aqjz3/preview"
+      { src:"https://drive.google.com/file/d/1x0NxXkJY99uIAo7PRMn0icJD2mC-zwLz/preview", ratio:"square" },
+      { src:"https://drive.google.com/file/d/1ezgNYq0PJtqe8QHfPLplDn48ct1y3Hs3/preview", ratio:"square" },
+      { src:"https://drive.google.com/file/d/1l6OCvblR1bYjntgDODe3DewvAoNBUX1P/preview", ratio:"square" },
+      { src:"https://drive.google.com/file/d/1JG7BhfKkOidBRGVbfJmrjlJlOmcCkaWy/preview", ratio:"square" },
+      { src:"https://drive.google.com/file/d/1ZNfYPRlBEmPw1R02s2QDUg04V9EH4Gps/preview", ratio:"square" },
+      { src:"https://drive.google.com/file/d/1NjTEDqphRBesFKSKDLOFrNDaUY7Aqjz3/preview", ratio:"square" }
     ],
     caption:"My illustration works created for an NFT project.",
     likes:"36 likes",
@@ -626,8 +645,18 @@ function isMobileView(){
 
 function getProjectItems(project){
   const imageItems = (project.images || []).map(src => ({ type:"image", src }));
-  const videoItems = (project.videos || []).map(src => ({ type:"video", src }));
+  const videoItems = (project.videos || []).map(video =>
+    typeof video === "string"
+      ? { type:"video", src:video, ratio:"landscape" }
+      : { type:"video", src:video.src, ratio:video.ratio || "landscape" }
+  );
   return [...imageItems, ...videoItems];
+}
+
+function getVideoRatioClass(ratio){
+  if(ratio === "square") return "video-square";
+  if(ratio === "portrait") return "video-portrait";
+  return "video-landscape";
 }
 
 function render(){
@@ -666,6 +695,7 @@ function closeProject(){
   slideImage.src = "";
   slideVideo.style.display = "none";
   slideVideo.src = "";
+  slideVideo.className = "";
 }
 
 function nextSlide(){
@@ -688,6 +718,7 @@ function update(){
   slideImage.style.display = "none";
   slideVideo.style.display = "none";
   slideVideo.src = "";
+  slideVideo.className = "";
 
   if(item.type === "image"){
     slideImage.style.opacity = 0;
@@ -701,6 +732,7 @@ function update(){
       slideImage.alt = `${project.title} ${i + 1}`;
     }, 120);
   } else {
+    slideVideo.className = getVideoRatioClass(item.ratio);
     slideVideo.style.display = "block";
     slideVideo.src = item.src;
     slideImage.src = "";
@@ -726,7 +758,7 @@ function openMobileProject(idx){
     if(item.type === "image"){
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }
-    return `<iframe src="${item.src}" title="${project.title}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+    return `<iframe class="${getVideoRatioClass(item.ratio)}" src="${item.src}" title="${project.title}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
   }).join("");
 
   mobileCaptionText.innerHTML = "<b>phustagram</b> " + project.caption;
@@ -777,6 +809,6 @@ render();
 <script>
 document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
-  
+
 </body>
 </html>
