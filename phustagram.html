@@ -189,6 +189,12 @@ body.modal-open{overflow:hidden}
   object-fit:contain;
   transition:opacity .3s ease;
 }
+.slide-frame iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  background:#000;
+}
 .nav-btn{
   position:absolute;
   top:50%;
@@ -307,6 +313,13 @@ body.modal-open{overflow:hidden}
   display:block;
   background:#f2f2f2;
 }
+.mobile-images iframe{
+  width:100%;
+  aspect-ratio:16/9;
+  display:block;
+  border:0;
+  background:#000;
+}
 .mobile-caption{
   padding:16px;
   border-bottom:1px solid var(--line);
@@ -361,7 +374,8 @@ body.modal-open{overflow:hidden}
     border-radius:0;
   }
   .modal-left{min-height:48vh}
-  .slide-frame img{width:100%;height:auto}
+  .slide-frame img,
+  .slide-frame iframe{width:100%;height:auto}
 }
 </style>
 </head>
@@ -402,11 +416,12 @@ body.modal-open{overflow:hidden}
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
     <div class="modal-left">
-      <button class="nav-btn prev" id="prevBtn" aria-label="Previous image">‹</button>
-      <div class="slide-frame">
-        <img id="slideImage" alt="Project image">
+      <button class="nav-btn prev" id="prevBtn" aria-label="Previous item">‹</button>
+      <div class="slide-frame" id="slideFrame">
+        <img id="slideImage" alt="Project item" style="display:none;">
+        <iframe id="slideVideo" title="Project video" allow="autoplay; fullscreen" allowfullscreen style="display:none;"></iframe>
       </div>
-      <button class="nav-btn next" id="nextBtn" aria-label="Next image">›</button>
+      <button class="nav-btn next" id="nextBtn" aria-label="Next item">›</button>
       <div class="slide-count" id="slideCount"></div>
     </div>
 
@@ -559,12 +574,36 @@ const PROJECTS = [
       Role:"Concept + Design",
       Tools:"Illustrator, Photoshop"
     }
+  },
+
+  {
+    title:"Illustration - NFT Card",
+    cover:"images/PIG_CV-06.jpg",
+    videos:[
+      "https://drive.google.com/file/d/1x0NxXkJY99uIAo7PRMn0icJD2mC-zwLz/preview",
+      "https://drive.google.com/file/d/1ezgNYq0PJtqe8QHfPLplDn48ct1y3Hs3/preview",
+      "https://drive.google.com/file/d/1l6OCvblR1bYjntgDODe3DewvAoNBUX1P/preview",
+      "https://drive.google.com/file/d/1JG7BhfKkOidBRGVbfJmrjlJlOmcCkaWy/preview",
+      "https://drive.google.com/file/d/1ZNfYPRlBEmPw1R02s2QDUg04V9EH4Gps/preview",
+      "https://drive.google.com/file/d/1NjTEDqphRBesFKSKDLOFrNDaUY7Aqjz3/preview"
+    ],
+    caption:"My illustration works created for an NFT project.",
+    likes:"36 likes",
+    date:"2021",
+    tags:["Graphic Design","Illustration","Character Design"],
+    details:{
+      Client:"OpenSea",
+      Category:"Graphic Design, Illustration, Character Design",
+      Role:"Concept + Design",
+      Tools:"Photoshop, After Effects, Premiere Pro"
+    }
   }
 ];
 
 const grid = document.getElementById("grid");
 const modal = document.getElementById("modalBackdrop");
-const img = document.getElementById("slideImage");
+const slideImage = document.getElementById("slideImage");
+const slideVideo = document.getElementById("slideVideo");
 const caption = document.getElementById("captionText");
 const meta = document.getElementById("metaText");
 const details = document.getElementById("detailsBox");
@@ -585,13 +624,22 @@ function isMobileView(){
   return window.innerWidth <= 640;
 }
 
+function getProjectItems(project){
+  const imageItems = (project.images || []).map(src => ({ type:"image", src }));
+  const videoItems = (project.videos || []).map(src => ({ type:"video", src }));
+  return [...imageItems, ...videoItems];
+}
+
 function render(){
-  grid.innerHTML = PROJECTS.map((x, idx) => `
-    <div class="grid-item" data-i="${idx}">
-      <img src="${x.cover}" alt="${x.title}">
-      <div class="multi-badge">${x.images.length}</div>
-    </div>
-  `).join("");
+  grid.innerHTML = PROJECTS.map((x, idx) => {
+    const totalItems = getProjectItems(x).length;
+    return `
+      <div class="grid-item" data-i="${idx}">
+        <img src="${x.cover}" alt="${x.title}">
+        <div class="multi-badge">${totalItems}</div>
+      </div>
+    `;
+  }).join("");
 
   document.querySelectorAll(".grid-item").forEach(el => {
     el.onclick = () => openProject(Number(el.dataset.i));
@@ -614,57 +662,79 @@ function openProject(idx){
 function closeProject(){
   modal.classList.remove("show");
   document.body.classList.remove("modal-open");
+  slideImage.style.display = "none";
+  slideImage.src = "";
+  slideVideo.style.display = "none";
+  slideVideo.src = "";
 }
 
 function nextSlide(){
-  i = (i + 1) % PROJECTS[p].images.length;
+  const items = getProjectItems(PROJECTS[p]);
+  i = (i + 1) % items.length;
   update();
 }
 
 function prevSlide(){
-  i = (i - 1 + PROJECTS[p].images.length) % PROJECTS[p].images.length;
+  const items = getProjectItems(PROJECTS[p]);
+  i = (i - 1 + items.length) % items.length;
   update();
 }
 
 function update(){
-  const x = PROJECTS[p];
+  const project = PROJECTS[p];
+  const items = getProjectItems(project);
+  const item = items[i];
 
-  img.style.opacity = 0;
-  const newSrc = x.images[i];
+  slideImage.style.display = "none";
+  slideVideo.style.display = "none";
+  slideVideo.src = "";
 
-  setTimeout(() => {
-    img.onload = () => {
-      img.style.opacity = 1;
-    };
-    img.src = newSrc;
-    img.alt = `${x.title} ${i + 1}`;
-  }, 120);
+  if(item.type === "image"){
+    slideImage.style.opacity = 0;
+    slideImage.style.display = "block";
 
-  caption.innerHTML = "<b>phustagram</b> " + x.caption;
-  meta.innerText = x.likes + " • " + x.date;
+    setTimeout(() => {
+      slideImage.onload = () => {
+        slideImage.style.opacity = 1;
+      };
+      slideImage.src = item.src;
+      slideImage.alt = `${project.title} ${i + 1}`;
+    }, 120);
+  } else {
+    slideVideo.style.display = "block";
+    slideVideo.src = item.src;
+    slideImage.src = "";
+  }
 
-  tags.innerHTML = x.tags.map(t => `<span class="tag">${t}</span>`).join("");
+  caption.innerHTML = "<b>phustagram</b> " + project.caption;
+  meta.innerText = project.likes + " • " + project.date;
 
-  details.innerHTML = Object.entries(x.details)
+  tags.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+  details.innerHTML = Object.entries(project.details)
     .map(([k, v]) => `<div class="detail-row"><b>${k}</b><span>${v}</span></div>`)
     .join("");
 
-  count.innerText = `${i + 1} / ${x.images.length}`;
+  count.innerText = `${i + 1} / ${items.length}`;
 }
 
 function openMobileProject(idx){
-  const x = PROJECTS[idx];
+  const project = PROJECTS[idx];
+  const items = getProjectItems(project);
 
-  mobileImages.innerHTML = x.images
-    .map(src => `<img src="${src}" alt="${x.title}" loading="lazy">`)
-    .join("");
+  mobileImages.innerHTML = items.map(item => {
+    if(item.type === "image"){
+      return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
+    }
+    return `<iframe src="${item.src}" title="${project.title}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+  }).join("");
 
-  mobileCaptionText.innerHTML = "<b>phustagram</b> " + x.caption;
-  mobileMetaText.innerText = x.likes + " • " + x.date;
+  mobileCaptionText.innerHTML = "<b>phustagram</b> " + project.caption;
+  mobileMetaText.innerText = project.likes + " • " + project.date;
 
-  mobileTagsBox.innerHTML = x.tags.map(t => `<span class="tag">${t}</span>`).join("");
+  mobileTagsBox.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join("");
 
-  mobileDetailsBox.innerHTML = Object.entries(x.details)
+  mobileDetailsBox.innerHTML = Object.entries(project.details)
     .map(([k, v]) => `<div class="mobile-detail-row"><b>${k}</b><span>${v}</span></div>`)
     .join("");
 
@@ -676,6 +746,7 @@ function openMobileProject(idx){
 function closeMobileProject(){
   mobileView.classList.remove("show");
   document.body.classList.remove("modal-open");
+  mobileImages.innerHTML = "";
 }
 
 document.getElementById("prevBtn").onclick = prevSlide;
