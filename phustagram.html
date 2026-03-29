@@ -78,6 +78,7 @@ body.modal-open{overflow:hidden}
   display:flex;
   gap:16px;
   margin-bottom:26px;
+  align-items:flex-start;
 }
 .profile-pic{
   width:80px;
@@ -95,12 +96,39 @@ body.modal-open{overflow:hidden}
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:800;
-  font-size:18px;
+  overflow:hidden;
+}
+.profile-pic-inner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.profile-copy{
+  flex:1;
+}
+.profile-top-row{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
 }
 .profile-copy h1{
   margin:0;
   font-size:22px;
+}
+.profile-stats{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.profile-stat{
+  font-size:14px;
+  color:var(--text);
+}
+.profile-stat b{
+  margin-right:4px;
 }
 .profile-copy p{
   margin:6px 0 0;
@@ -191,7 +219,7 @@ body.modal-open{overflow:hidden}
   transition:opacity .3s ease;
 }
 
-/* New media wrap for safer display */
+/* safer video display */
 .slide-media-wrap{
   width:100%;
   height:100%;
@@ -200,7 +228,6 @@ body.modal-open{overflow:hidden}
   justify-content:center;
   overflow:hidden;
 }
-
 .slide-frame iframe{
   border:0;
   background:#000;
@@ -208,7 +235,6 @@ body.modal-open{overflow:hidden}
   -webkit-transform:translateZ(0);
   transform:translateZ(0);
 }
-
 .slide-frame iframe.video-square{
   width:min(100%, 420px);
   aspect-ratio:1/1;
@@ -217,7 +243,6 @@ body.modal-open{overflow:hidden}
   display:block;
   margin:auto;
 }
-
 .slide-frame iframe.video-landscape{
   width:min(100%, 960px);
   aspect-ratio:16/9;
@@ -226,7 +251,6 @@ body.modal-open{overflow:hidden}
   display:block;
   margin:auto;
 }
-
 .slide-frame iframe.video-portrait{
   width:min(100%, 420px);
   aspect-ratio:9/16;
@@ -354,8 +378,6 @@ body.modal-open{overflow:hidden}
   display:block;
   background:#f2f2f2;
 }
-
-/* New safer mobile video wrap */
 .mobile-media-item{
   width:100%;
   display:flex;
@@ -364,7 +386,6 @@ body.modal-open{overflow:hidden}
   background:#000;
   padding:0;
 }
-
 .mobile-media-item iframe{
   display:block;
   border:0;
@@ -372,19 +393,16 @@ body.modal-open{overflow:hidden}
   -webkit-transform:translateZ(0);
   transform:translateZ(0);
 }
-
 .mobile-media-item iframe.video-square{
   width:min(100%, 420px);
   aspect-ratio:1/1;
   height:auto;
 }
-
 .mobile-media-item iframe.video-landscape{
   width:100%;
   aspect-ratio:16/9;
   height:auto;
 }
-
 .mobile-media-item iframe.video-portrait{
   width:min(100%, 420px);
   aspect-ratio:9/16;
@@ -435,10 +453,21 @@ body.modal-open{overflow:hidden}
 @media(max-width:640px){
   .grid{gap:2px}
   .page{padding:12px 0}
-  .profile-bar{padding:0 12px}
+  .profile-bar{
+    padding:0 12px;
+    align-items:center;
+  }
   .topbar-inner{padding:12px}
   .brand{font-size:20px}
   .nav-links{gap:8px}
+  .profile-top-row{
+    display:block;
+    margin-bottom:6px;
+  }
+  .profile-stats{
+    gap:14px;
+    margin-top:8px;
+  }
   .modal{
     grid-template-columns:1fr;
     height:100%;
@@ -485,10 +514,19 @@ body.modal-open{overflow:hidden}
 <main class="page">
   <section class="profile-bar">
     <div class="profile-pic">
-      <div class="profile-pic-inner">P</div>
+      <div class="profile-pic-inner">
+        <img src="images/igprofile.jpg" alt="Phustagram Profile">
+      </div>
     </div>
     <div class="profile-copy">
-      <h1>phustagram</h1>
+      <div class="profile-top-row">
+        <h1>phustagram</h1>
+        <div class="profile-stats">
+          <div class="profile-stat"><b id="postsCount">0</b> posts</div>
+          <div class="profile-stat"><b id="followersCount">12.8K</b> followers</div>
+          <div class="profile-stat"><b id="followingCount">186</b> following</div>
+        </div>
+      </div>
       <p>Visual stories and creative works</p>
     </div>
   </section>
@@ -549,6 +587,11 @@ body.modal-open{overflow:hidden}
 </div>
 
 <script>
+const PROFILE_STATS = {
+  followers: "12.8K",
+  following: "186"
+};
+
 const graphicWorksImages = Array.from({ length: 33 }, (_, index) => `images/ov${index + 1}.jpg`);
 
 const PROJECTS = [
@@ -729,6 +772,12 @@ function getVideoRatioClass(ratio){
   return "video-landscape";
 }
 
+function updateProfileStats(){
+  document.getElementById("postsCount").textContent = PROJECTS.length;
+  document.getElementById("followersCount").textContent = PROFILE_STATS.followers;
+  document.getElementById("followingCount").textContent = PROFILE_STATS.following;
+}
+
 function render(){
   grid.innerHTML = PROJECTS.map((x, idx) => {
     const totalItems = getProjectItems(x).length;
@@ -884,6 +933,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") prevSlide();
 });
 
+updateProfileStats();
 render();
 </script>
 
