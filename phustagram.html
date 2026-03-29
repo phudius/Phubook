@@ -190,19 +190,52 @@ body.modal-open{overflow:hidden}
   object-fit:contain;
   transition:opacity .3s ease;
 }
-.slide-frame iframe{
+
+/* New media wrap for safer display */
+.slide-media-wrap{
   width:100%;
   height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.slide-frame iframe{
   border:0;
   background:#000;
+  display:block;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
+
 .slide-frame iframe.video-square{
+  width:min(100%, 420px);
   aspect-ratio:1/1;
-  width:auto;
   height:auto;
-  max-width:min(100%, 900px);
-  max-height:90%;
+  max-height:88%;
+  display:block;
+  margin:auto;
 }
+
+.slide-frame iframe.video-landscape{
+  width:min(100%, 960px);
+  aspect-ratio:16/9;
+  height:auto;
+  max-height:88%;
+  display:block;
+  margin:auto;
+}
+
+.slide-frame iframe.video-portrait{
+  width:min(100%, 420px);
+  aspect-ratio:9/16;
+  height:auto;
+  max-height:88%;
+  display:block;
+  margin:auto;
+}
+
 .nav-btn{
   position:absolute;
   top:50%;
@@ -321,21 +354,43 @@ body.modal-open{overflow:hidden}
   display:block;
   background:#f2f2f2;
 }
-.mobile-images iframe{
+
+/* New safer mobile video wrap */
+.mobile-media-item{
   width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+  padding:0;
+}
+
+.mobile-media-item iframe{
   display:block;
   border:0;
   background:#000;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
-.mobile-images iframe.video-square{
+
+.mobile-media-item iframe.video-square{
+  width:min(100%, 420px);
   aspect-ratio:1/1;
+  height:auto;
 }
-.mobile-images iframe.video-landscape{
+
+.mobile-media-item iframe.video-landscape{
+  width:100%;
   aspect-ratio:16/9;
+  height:auto;
 }
-.mobile-images iframe.video-portrait{
+
+.mobile-media-item iframe.video-portrait{
+  width:min(100%, 420px);
   aspect-ratio:9/16;
+  height:auto;
 }
+
 .mobile-caption{
   padding:16px;
   border-bottom:1px solid var(--line);
@@ -395,6 +450,18 @@ body.modal-open{overflow:hidden}
     height:auto;
     max-height:100%;
   }
+  .slide-frame iframe.video-square{
+    width:min(100%, 360px);
+  }
+  .slide-frame iframe.video-portrait{
+    width:min(100%, 360px);
+  }
+  .mobile-media-item iframe.video-square{
+    width:min(100%, 360px);
+  }
+  .mobile-media-item iframe.video-portrait{
+    width:min(100%, 360px);
+  }
 }
 </style>
 </head>
@@ -438,7 +505,9 @@ body.modal-open{overflow:hidden}
       <button class="nav-btn prev" id="prevBtn" aria-label="Previous item">‹</button>
       <div class="slide-frame" id="slideFrame">
         <img id="slideImage" alt="Project item" style="display:none;">
-        <iframe id="slideVideo" title="Project video" allow="autoplay; fullscreen" allowfullscreen style="display:none;"></iframe>
+        <div class="slide-media-wrap" id="slideVideoWrap" style="display:none;">
+          <iframe id="slideVideo" title="Project video" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
       </div>
       <button class="nav-btn next" id="nextBtn" aria-label="Next item">›</button>
       <div class="slide-count" id="slideCount"></div>
@@ -623,6 +692,7 @@ const grid = document.getElementById("grid");
 const modal = document.getElementById("modalBackdrop");
 const slideImage = document.getElementById("slideImage");
 const slideVideo = document.getElementById("slideVideo");
+const slideVideoWrap = document.getElementById("slideVideoWrap");
 const caption = document.getElementById("captionText");
 const meta = document.getElementById("metaText");
 const details = document.getElementById("detailsBox");
@@ -693,7 +763,7 @@ function closeProject(){
   document.body.classList.remove("modal-open");
   slideImage.style.display = "none";
   slideImage.src = "";
-  slideVideo.style.display = "none";
+  slideVideoWrap.style.display = "none";
   slideVideo.src = "";
   slideVideo.className = "";
 }
@@ -716,7 +786,7 @@ function update(){
   const item = items[i];
 
   slideImage.style.display = "none";
-  slideVideo.style.display = "none";
+  slideVideoWrap.style.display = "none";
   slideVideo.src = "";
   slideVideo.className = "";
 
@@ -733,7 +803,7 @@ function update(){
     }, 120);
   } else {
     slideVideo.className = getVideoRatioClass(item.ratio);
-    slideVideo.style.display = "block";
+    slideVideoWrap.style.display = "flex";
     slideVideo.src = item.src;
     slideImage.src = "";
   }
@@ -758,7 +828,18 @@ function openMobileProject(idx){
     if(item.type === "image"){
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }
-    return `<iframe class="${getVideoRatioClass(item.ratio)}" src="${item.src}" title="${project.title}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+    return `
+      <div class="mobile-media-item">
+        <iframe
+          class="${getVideoRatioClass(item.ratio)}"
+          src="${item.src}"
+          title="${project.title}"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    `;
   }).join("");
 
   mobileCaptionText.innerHTML = "<b>phustagram</b> " + project.caption;
