@@ -604,7 +604,7 @@ const PROJECTS = [
     ],
     caption:"A mascot design project created for Veranda Resort Phuket, bringing the brand to life through a playful and distinctive character.",
     likes:"48 likes",
-    date:"2025",
+    date:"Brand Project",
     tags:["Mascot Design","Brand Character"],
     details:{
       Client:"Veranda Resort Phuket",
@@ -624,7 +624,7 @@ const PROJECTS = [
     ],
     caption:"An Autograph Moment is a signature, immersive experience designed to express each hotel's unique story.",
     likes:"56 likes",
-    date:"2025",
+    date:"Marketing Concept",
     tags:["Marketing Initiative","Experience Design"],
     details:{
       Client:"Veranda Resort Phuket",
@@ -643,7 +643,7 @@ const PROJECTS = [
     ],
     caption:"An application UX/UI design project for in-room service, enhancing guest convenience through a clear and user-friendly interface.",
     likes:"52 likes",
-    date:"2022",
+    date:"UX/UI Design",
     tags:["UX/UI","Guest Experience"],
     details:{
       Client:"Le Meridien Phuket Beach Resort",
@@ -831,27 +831,89 @@ function render(){
   });
 }
 
+function pushProjectHistory(idx){
+  const url = `${window.location.pathname}#project-${idx}`;
+  history.pushState({ projectOpen: true, projectIndex: idx }, "", url);
+}
+
+function hasProjectState(){
+  return !!history.state?.projectOpen || window.location.hash.startsWith("#project-");
+}
+
 function openProject(idx){
+  p = idx;
+  i = 0;
+
+  pushProjectHistory(idx);
+
   if(isMobileView()){
-    openMobileProject(idx);
+    openMobileProjectView();
     return;
   }
 
-  p = idx;
-  i = 0;
   update();
   modal.classList.add("show");
   document.body.classList.add("modal-open");
 }
 
-function closeProject(){
+function openMobileProjectView(){
+  const project = PROJECTS[p];
+  const items = getProjectItems(project);
+
+  mobileImages.innerHTML = items.map(item => {
+    if(item.type === "image"){
+      return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
+    }
+    return `
+      <div class="mobile-media-item">
+        <iframe
+          class="${getVideoRatioClass(item.ratio)}"
+          src="${item.src}"
+          title="${project.title}"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    `;
+  }).join("");
+
+  mobileCaptionText.innerHTML = "<b>phustagram</b> " + project.caption;
+  mobileMetaText.innerText = project.likes + " • " + project.date;
+
+  mobileTagsBox.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+  mobileDetailsBox.innerHTML = Object.entries(project.details)
+    .map(([k, v]) => `<div class="mobile-detail-row"><b>${k}</b><span>${v}</span></div>`)
+    .join("");
+
+  mobileView.classList.add("show");
+  document.body.classList.add("modal-open");
+  mobileView.scrollTop = 0;
+}
+
+function closeProjectViewOnly(){
   modal.classList.remove("show");
+  mobileView.classList.remove("show");
   document.body.classList.remove("modal-open");
+
   slideImage.style.display = "none";
   slideImage.src = "";
   slideVideoWrap.style.display = "none";
   slideVideo.src = "";
   slideVideo.className = "";
+
+  mobileImages.innerHTML = "";
+}
+
+function requestCloseProject(){
+  if(modal.classList.contains("show") || mobileView.classList.contains("show")){
+    if(hasProjectState()){
+      history.back();
+    } else {
+      closeProjectViewOnly();
+    }
+  }
 }
 
 function nextSlide(){
@@ -906,66 +968,30 @@ function update(){
   count.innerText = `${i + 1} / ${items.length}`;
 }
 
-function openMobileProject(idx){
-  const project = PROJECTS[idx];
-  const items = getProjectItems(project);
-
-  mobileImages.innerHTML = items.map(item => {
-    if(item.type === "image"){
-      return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
-    }
-    return `
-      <div class="mobile-media-item">
-        <iframe
-          class="${getVideoRatioClass(item.ratio)}"
-          src="${item.src}"
-          title="${project.title}"
-          allow="autoplay; fullscreen"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
-      </div>
-    `;
-  }).join("");
-
-  mobileCaptionText.innerHTML = "<b>phustagram</b> " + project.caption;
-  mobileMetaText.innerText = project.likes + " • " + project.date;
-
-  mobileTagsBox.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join("");
-
-  mobileDetailsBox.innerHTML = Object.entries(project.details)
-    .map(([k, v]) => `<div class="mobile-detail-row"><b>${k}</b><span>${v}</span></div>`)
-    .join("");
-
-  mobileView.classList.add("show");
-  document.body.classList.add("modal-open");
-  mobileView.scrollTop = 0;
-}
-
-function closeMobileProject(){
-  mobileView.classList.remove("show");
-  document.body.classList.remove("modal-open");
-  mobileImages.innerHTML = "";
-}
-
 document.getElementById("prevBtn").onclick = prevSlide;
 document.getElementById("nextBtn").onclick = nextSlide;
-document.getElementById("closeBtn").onclick = closeProject;
-document.getElementById("mobileCloseBtn").onclick = closeMobileProject;
+document.getElementById("closeBtn").onclick = requestCloseProject;
+document.getElementById("mobileCloseBtn").onclick = requestCloseProject;
 
 modal.addEventListener("click", (e) => {
-  if (e.target === modal) closeProject();
+  if (e.target === modal) requestCloseProject();
+});
+
+window.addEventListener("popstate", () => {
+  if (modal.classList.contains("show") || mobileView.classList.contains("show")) {
+    closeProjectViewOnly();
+  }
 });
 
 document.addEventListener("keydown", (e) => {
   if (mobileView.classList.contains("show")) {
-    if (e.key === "Escape") closeMobileProject();
+    if (e.key === "Escape") requestCloseProject();
     return;
   }
 
   if (!modal.classList.contains("show")) return;
 
-  if (e.key === "Escape") closeProject();
+  if (e.key === "Escape") requestCloseProject();
   if (e.key === "ArrowRight") nextSlide();
   if (e.key === "ArrowLeft") prevSlide();
 });
