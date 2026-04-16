@@ -435,13 +435,40 @@ color:#1c1e21;
 }
 
 .timeline-item{
-margin-bottom:16px;
+display:flex;
+gap:14px;
+align-items:flex-start;
+margin-bottom:18px;
+}
+
+.timeline-logo{
+width:52px;
+height:52px;
+border-radius:12px;
+border:1px solid var(--line);
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+flex:0 0 52px;
+}
+
+.timeline-logo img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.timeline-content{
+flex:1;
+min-width:0;
 }
 
 .timeline-year{
 font-size:12px;
 color:#65676b;
-margin-top:2px;
+margin-top:4px;
 }
 
 .timeline-company{
@@ -537,11 +564,25 @@ line-height:1.4;
 
 }
 
-  .site-footer{
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  padding:24px 16px 30px;
+@media(max-width:600px){
+
+.timeline-item{
+gap:12px;
+}
+
+.timeline-logo{
+width:44px;
+height:44px;
+flex:0 0 44px;
+}
+
+}
+
+.site-footer{
+text-align:center;
+color:var(--muted);
+font-size:12px;
+padding:24px 16px 30px;
 }
 
 </style>
@@ -693,7 +734,7 @@ Contact Me
 </a>
 
 <a class="platform-card" href="phugleads.html">
-<img src="images/icon-phugleads.png" alt="Phugle Ads">
+<img src="images/icon-phugleads.png" alt="PhuGle Ads">
 <div>
 <strong>Phugle Ads</strong><br>
 <span>Digital marketing projects</span>
@@ -810,30 +851,54 @@ From graphic design to digital marketing and hospitality branding, this highligh
 <h3 class="timeline-title">Work Experience</h3>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/HKTVK.jpg" alt="Veranda Resort Phuket">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Veranda Resort Phuket, Autograph Collection</div>
 <div class="timeline-role">Digital Marketing &amp; Communications Manager, Pre-Opening Team</div>
 <div class="timeline-year">2025 – Present</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/HKTMD.jpg" alt="Le Méridien Phuket Beach Resort">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Le Méridien Phuket Beach Resort</div>
 <div class="timeline-role">Assistant Digital Marketing Manager</div>
 <div class="timeline-year">2023-2025</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/HKTMD.jpg" alt="Le Méridien Phuket Beach Resort">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Le Méridien Phuket Beach Resort</div>
 <div class="timeline-role">Marketing Graphic Designer</div>
 <div class="timeline-year">2021-2023</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/TURE.jpg" alt="dtac &amp; True">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">dtac &amp; True Corporation, Goods Marketing Bangkok, Etc.</div>
 <div class="timeline-role">Freelance Graphic Designer</div>
 <div class="timeline-year">2020-2021</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/ACCOR.jpg" alt="Accor Group">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Swissôtel Resort Phuket Patong Beach</div>
 <div class="timeline-company">Swissôtel Suites Phuket Kamala Beach</div>
 <div class="timeline-company">Novotel Phuket Surin Beach Resort</div>
@@ -842,23 +907,39 @@ From graphic design to digital marketing and hospitality branding, this highligh
 <div class="timeline-role">Cluster Graphic Designer</div>
 <div class="timeline-year">2018-2020</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/ANGTH.jpg" alt="Angsana Laguna Phuket">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Angsana Laguna Phuket</div>
 <div class="timeline-role">Graphic Designer</div>
 <div class="timeline-year">2017-2018</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/LGNP.jpg" alt="Lucknganpim">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Lucknganpim (Worldlennium Graphic Design &amp; Printing)</div>
 <div class="timeline-role">Graphic Designer</div>
 <div class="timeline-year">2012-2017</div>
 </div>
+</div>
 
 <div class="timeline-item">
+<div class="timeline-logo">
+<img src="images/BCCC.jpg" alt="Blue Canyon Country Club">
+</div>
+<div class="timeline-content">
 <div class="timeline-company">Blue Canyon Country Club</div>
 <div class="timeline-role">Graphics &amp; Web Executive</div>
 <div class="timeline-year">2011-2012</div>
+</div>
 </div>
 
 </div>
@@ -891,9 +972,9 @@ Share
   © 2026 Phuwadech Klinklay
 </footer>
 
-  <script>
+<script>
 document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
-  
+
 </body>
 </html>
