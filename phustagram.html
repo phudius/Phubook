@@ -213,10 +213,23 @@ body.modal-open{overflow:hidden}
   padding:18px;
 }
 .slide-frame img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transition:opacity .3s ease;
+  display:block;
+}
+.slide-frame.square-project{
+  padding:18px;
+}
+.slide-frame.square-project img{
+  width:min(calc(100% - 36px), calc(90vh - 72px));
+  height:min(calc(100% - 36px), calc(90vh - 72px));
   max-width:100%;
   max-height:100%;
   object-fit:contain;
-  transition:opacity .3s ease;
+  display:block;
+  margin:auto;
 }
 
 /* safer video display */
@@ -479,6 +492,11 @@ body.modal-open{overflow:hidden}
     height:auto;
     max-height:100%;
   }
+  .slide-frame.square-project img{
+    width:100%;
+    height:auto;
+    max-height:100%;
+  }
   .slide-frame iframe.video-square{
     width:min(100%, 360px);
   }
@@ -641,6 +659,7 @@ const PROJECTS = [
       "images/LM1.webp","images/LM2.webp","images/LM3.webp","images/LM4.webp","images/LM5.webp",
       "images/LM6.webp","images/LM7.webp","images/LM8.webp","images/LM9.webp","images/LM10.webp"
     ],
+    desktopSquareMode:true,
     caption:"An application UX/UI design project for in-room service, enhancing guest convenience through a clear and user-friendly interface.",
     likes:"52 likes",
     date:"UX/UI Design",
@@ -770,6 +789,7 @@ const PROJECTS = [
 
 const grid = document.getElementById("grid");
 const modal = document.getElementById("modalBackdrop");
+const slideFrame = document.getElementById("slideFrame");
 const slideImage = document.getElementById("slideImage");
 const slideVideo = document.getElementById("slideVideo");
 const slideVideoWrap = document.getElementById("slideVideoWrap");
@@ -897,6 +917,7 @@ function closeProjectViewOnly(){
   mobileView.classList.remove("show");
   document.body.classList.remove("modal-open");
 
+  slideFrame.classList.remove("square-project");
   slideImage.style.display = "none";
   slideImage.src = "";
   slideVideoWrap.style.display = "none";
@@ -932,6 +953,8 @@ function update(){
   const project = PROJECTS[p];
   const items = getProjectItems(project);
   const item = items[i];
+
+  slideFrame.classList.toggle("square-project", !!project.desktopSquareMode && item.type === "image");
 
   slideImage.style.display = "none";
   slideVideoWrap.style.display = "none";
