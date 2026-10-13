@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -10,974 +9,975 @@
 <link rel="icon" type="image/png" href="images/icon-phubook.png">
 
 <style>
-
 :root{
---bg:#f0f2f5;
---card:#ffffff;
---text:#1c1e21;
---muted:#65676b;
---line:#dcdfe3;
---blue:#1877f2;
---shadow:0 1px 2px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
---max:1180px;
+  --bg:#f0f2f5;
+  --card:#ffffff;
+  --text:#1c1e21;
+  --muted:#65676b;
+  --line:#dcdfe3;
+  --blue:#1877f2;
+  --shadow:0 1px 2px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
+  --max:1180px;
 }
 
 *{box-sizing:border-box}
 
 body{
-margin:0;
-background:var(--bg);
-color:var(--text);
-font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 
 img{display:block;max-width:100%}
-
 a{text-decoration:none;color:inherit}
 
 .topbar{
-position:sticky;
-top:0;
-background:white;
-border-bottom:1px solid var(--line);
-z-index:50;
+  position:sticky;
+  top:0;
+  background:white;
+  border-bottom:1px solid var(--line);
+  z-index:50;
 }
 
 .topbar-inner{
-max-width:var(--max);
-margin:auto;
-padding:10px 14px;
-display:flex;
-align-items:center;
-gap:10px;
+  max-width:var(--max);
+  margin:auto;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .brand{
-display:flex;
-align-items:center;
-gap:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .brand img{
-width:36px;
-height:36px;
-border-radius:50%;
+  width:36px;
+  height:36px;
+  border-radius:50%;
 }
 
 .brand span{
-font-weight:700;
-font-size:18px;
+  font-weight:700;
+  font-size:18px;
 }
 
 .page{
-max-width:var(--max);
-margin:auto;
-padding:16px;
+  max-width:var(--max);
+  margin:auto;
+  padding:16px;
 }
 
 .hero{
-background:white;
-border:1px solid var(--line);
-border-radius:18px;
-overflow:hidden;
-box-shadow:var(--shadow);
-margin-bottom:20px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  margin-bottom:20px;
 }
 
 .cover{
-height:300px;
-background:url(images/cover-phubook.jpg) center/cover no-repeat;
+  height:300px;
+  background:url(images/cover-phubook.jpg) center/cover no-repeat;
 }
 
 .hero-bottom{
-padding:20px;
+  padding:20px;
 }
 
 .profile-row{
-display:flex;
-gap:20px;
-align-items:flex-end;
-margin-top:-60px;
+  display:flex;
+  gap:20px;
+  align-items:flex-end;
+  margin-top:-60px;
 }
 
 .avatar{
-width:160px;
-height:160px;
-border-radius:50%;
-border:5px solid white;
-overflow:hidden;
-background:#ddd;
-box-shadow:var(--shadow);
-flex:0 0 160px;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  border:5px solid white;
+  overflow:hidden;
+  background:#ddd;
+  box-shadow:var(--shadow);
+  flex:0 0 160px;
 }
 
 .avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .profile-copy{
-padding-top:60px;
-min-width:0;
+  padding-top:60px;
+  min-width:0;
 }
 
 .profile-name{
-font-size:32px;
-font-weight:600;
-margin:0;
+  font-size:32px;
+  font-weight:600;
+  margin:0;
 }
 
 .name-with-badge{
-display:inline-flex;
-align-items:center;
-gap:6px;
-white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
 }
 
 .badges{
-display:inline-flex;
-gap:4px;
-margin-left:6px;
+  display:inline-flex;
+  gap:4px;
+  margin-left:6px;
 }
 
 .badges img{
-width:16px;
-height:16px;
+  width:16px;
+  height:16px;
 }
 
 .profile-meta{
-margin-top:6px;
-color:var(--muted);
-font-size:14px;
-line-height:1.4;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.4;
 }
 
 .friends-row{
-margin-top:10px;
-display:flex;
-align-items:center;
-gap:10px;
-color:var(--muted);
-font-size:13px;
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--muted);
+  font-size:13px;
 }
 
 .friend-avatars{
-display:flex;
+  display:flex;
 }
 
 .friend-avatars span{
-width:28px;
-height:28px;
-border-radius:50%;
-border:2px solid white;
-margin-left:-6px;
-background-size:cover;
-background-position:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:2px solid white;
+  margin-left:-6px;
+  background-size:cover;
+  background-position:center;
 }
 
 .friend-avatars span:first-child{
-margin-left:0;
+  margin-left:0;
 }
 
 .friend-avatars span:nth-child(1){
-background-image:url("images/mark.jpg");
+  background-image:url("images/mark.jpg");
 }
 
 .friend-avatars span:nth-child(2){
-background-image:url("images/jobs.jpg");
+  background-image:url("images/jobs.jpg");
 }
 
 .friend-avatars span:nth-child(3){
-background-image:url("images/dali.jpg");
+  background-image:url("images/dali.jpg");
 }
 
 .profile-actions{
-margin-top:12px;
+  margin-top:12px;
 }
 
 .contact-btn{
-display:inline-flex;
-align-items:center;
-gap:8px;
-padding:8px 14px;
-border-radius:8px;
-background:#1877F2;
-color:#ffffff;
-font-weight:600;
-font-size:14px;
-transition:background 0.2s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:8px;
+  background:#1877F2;
+  color:#ffffff;
+  font-weight:600;
+  font-size:14px;
+  transition:background 0.2s ease;
 }
 
 .contact-btn:hover{
-background:#166FE5;
+  background:#166FE5;
 }
 
 .contact-btn img{
-width:16px;
-height:16px;
+  width:16px;
+  height:16px;
 }
 
 .layout{
-display:grid;
-grid-template-columns:340px 1fr;
-gap:18px;
-margin-top:16px;
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:18px;
+  margin-top:16px;
 }
 
 .card{
-background:white;
-border:1px solid var(--line);
-border-radius:16px;
-box-shadow:var(--shadow);
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
 }
 
 .section{
-padding:18px;
+  padding:18px;
 }
 
 .section h2{
-margin:0 0 12px;
-font-size:20px;
+  margin:0 0 12px;
+  font-size:20px;
 }
 
 .intro-card{
-margin-bottom:32px;
+  margin-bottom:32px;
 }
 
 .detail-list{
-display:grid;
-gap:16px;
+  display:grid;
+  gap:16px;
 }
 
 .detail-item{
-display:flex;
-gap:12px;
-align-items:center;
+  display:flex;
+  gap:12px;
+  align-items:center;
 }
 
 .detail-icon-wrap{
-width:34px;
-height:34px;
-border-radius:50%;
-background:#f0f2f5;
-display:flex;
-align-items:center;
-justify-content:center;
-flex:0 0 34px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#f0f2f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 34px;
 }
 
 .detail-icon{
-width:18px;
-height:18px;
-object-fit:contain;
+  width:18px;
+  height:18px;
+  object-fit:contain;
 }
 
 .detail-text{
-line-height:1.35;
+  line-height:1.35;
 }
 
 .detail-text strong{
-display:block;
-font-size:15px;
-font-weight:600;
-color:var(--text);
+  display:block;
+  font-size:15px;
+  font-weight:600;
+  color:var(--text);
 }
 
 .detail-text span{
-display:block;
-font-size:14px;
-color:var(--muted);
+  display:block;
+  font-size:14px;
+  color:var(--muted);
 }
 
 .subsection{
-margin-top:28px;
-padding-top:4px;
+  margin-top:28px;
+  padding-top:4px;
 }
 
 .subsection h3{
-margin:0 0 14px;
-font-size:18px;
-font-weight:700;
+  margin:0 0 14px;
+  font-size:18px;
+  font-weight:700;
 }
 
 .logo-badge{
-width:34px;
-height:34px;
-border-radius:50%;
-background:#fff;
-border:1px solid var(--line);
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-flex:0 0 34px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex:0 0 34px;
 }
 
 .logo-badge img{
-width:100%;
-height:100%;
-object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .platform-grid{
-display:grid;
-gap:12px;
+  display:grid;
+  gap:12px;
 }
 
 .platform-card{
-display:flex;
-gap:12px;
-padding:12px;
-border:1px solid var(--line);
-border-radius:12px;
-background:#fafafa;
+  display:flex;
+  gap:12px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafafa;
 }
 
 .platform-card img{
-width:40px;
-height:40px;
-border-radius:50%;
+  width:40px;
+  height:40px;
+  border-radius:50%;
 }
 
 .cert-list{
-display:grid;
-gap:14px;
+  display:grid;
+  gap:14px;
 }
 
 .cert-item{
-display:flex;
-gap:12px;
-align-items:flex-start;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
 }
 
 .cert-logo{
-width:40px;
-height:40px;
-border-radius:8px;
-border:1px solid var(--line);
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-flex:0 0 40px;
+  width:40px;
+  height:40px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex:0 0 40px;
 }
 
 .cert-logo img{
-width:100%;
-height:100%;
-object-fit:contain;
+  width:100%;
+  height:100%;
+  object-fit:contain;
 }
 
 .cert-text strong{
-display:block;
-font-size:14px;
-font-weight:600;
-color:#1c1e21;
-line-height:1.35;
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  color:#1c1e21;
+  line-height:1.35;
 }
 
 .cert-meta{
-font-size:13px;
-color:#65676b;
-margin-top:2px;
+  font-size:13px;
+  color:#65676b;
+  margin-top:2px;
 }
 
 .post{
-margin-bottom:20px;
+  margin-bottom:20px;
 }
 
 .post-head{
-display:flex;
-align-items:flex-start;
-justify-content:space-between;
-padding:16px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  padding:16px;
 }
 
 .post-author{
-display:flex;
-gap:12px;
+  display:flex;
+  gap:12px;
 }
 
 .post-author-avatar{
-width:44px;
-height:44px;
-border-radius:50%;
-overflow:hidden;
-flex:0 0 44px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  overflow:hidden;
+  flex:0 0 44px;
 }
 
 .post-author-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .post-body{
-padding:0 16px 16px;
-line-height:1.7;
+  padding:0 16px 16px;
+  line-height:1.7;
 }
 
 .timeline-card{
-margin:0 16px 16px;
-padding:18px 16px 6px;
-border-radius:12px;
-background:#ffffff;
-border:1px solid var(--line);
+  margin:0 16px 16px;
+  padding:18px 16px 6px;
+  border-radius:12px;
+  background:#ffffff;
+  border:1px solid var(--line);
 }
 
 .timeline-title{
-font-size:18px;
-font-weight:600;
-margin:0 0 16px;
-color:#1c1e21;
+  font-size:18px;
+  font-weight:600;
+  margin:0 0 16px;
+  color:#1c1e21;
 }
 
 .timeline-item{
-display:flex;
-gap:14px;
-align-items:flex-start;
-margin-bottom:18px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  margin-bottom:18px;
 }
 
 .timeline-logo{
-width:52px;
-height:52px;
-border-radius:12px;
-border:1px solid var(--line);
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-flex:0 0 52px;
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex:0 0 52px;
 }
 
 .timeline-logo img{
-width:100%;
-height:100%;
-object-fit:contain;
+  width:100%;
+  height:100%;
+  object-fit:contain;
 }
 
 .timeline-content{
-flex:1;
-min-width:0;
+  flex:1;
+  min-width:0;
 }
 
 .timeline-year{
-font-size:12px;
-color:#65676b;
-margin-top:4px;
+  font-size:12px;
+  color:#65676b;
+  margin-top:4px;
 }
 
 .timeline-company{
-font-size:15px;
-font-weight:600;
-color:#050505;
-line-height:1.35;
+  font-size:15px;
+  font-weight:600;
+  color:#050505;
+  line-height:1.35;
 }
 
 .timeline-role{
-font-size:14px;
-color:#65676b;
-line-height:1.4;
-margin-top:2px;
+  font-size:14px;
+  color:#65676b;
+  line-height:1.4;
+  margin-top:2px;
 }
 
 .post-actions{
-display:flex;
-border-top:1px solid var(--line);
+  display:flex;
+  border-top:1px solid var(--line);
 }
 
 .post-actions button{
-flex:1;
-padding:10px 12px;
-border:none;
-background:none;
-cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:6px;
-font-size:14px;
-font-weight:500;
-color:#65676b;
+  flex:1;
+  padding:10px 12px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:14px;
+  font-weight:500;
+  color:#65676b;
 }
 
 .post-actions button:hover{
-background:#f2f2f2;
+  background:#f2f2f2;
 }
 
 .post-actions button img{
-width:18px;
-height:18px;
-object-fit:contain;
+  width:18px;
+  height:18px;
+  object-fit:contain;
 }
 
 @media(max-width:900px){
+  .layout{
+    grid-template-columns:1fr;
+  }
 
-.layout{
-grid-template-columns:1fr;
-}
+  .profile-row{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-top:-40px;
+  }
 
-.profile-row{
-flex-direction:column;
-align-items:center;
-text-align:center;
-margin-top:-40px;
-}
+  .avatar{
+    width:120px;
+    height:120px;
+    flex-basis:120px;
+  }
 
-.avatar{
-width:120px;
-height:120px;
-flex-basis:120px;
-}
+  .profile-copy{
+    padding-top:8px;
+  }
 
-.profile-copy{
-padding-top:8px;
-}
+  .profile-name{
+    font-size:26px;
+  }
 
-.profile-name{
-font-size:26px;
-}
+  .profile-actions{
+    display:flex;
+    justify-content:center;
+  }
 
-.profile-actions{
-display:flex;
-justify-content:center;
-}
+  .friends-row{
+    justify-content:center;
+    flex-direction:column;
+    gap:6px;
+  }
 
-.friends-row{
-justify-content:center;
-flex-direction:column;
-gap:6px;
-}
+  .friend-avatars{
+    justify-content:center;
+  }
 
-.friend-avatars{
-justify-content:center;
-}
-
-.friends-row div:last-child{
-text-align:center;
-line-height:1.4;
-}
-
+  .friends-row div:last-child{
+    text-align:center;
+    line-height:1.4;
+  }
 }
 
 @media(max-width:600px){
+  .timeline-item{
+    gap:12px;
+  }
 
-.timeline-item{
-gap:12px;
-}
-
-.timeline-logo{
-width:44px;
-height:44px;
-flex:0 0 44px;
-}
-
+  .timeline-logo{
+    width:44px;
+    height:44px;
+    flex:0 0 44px;
+  }
 }
 
 .site-footer{
-text-align:center;
-color:var(--muted);
-font-size:12px;
-padding:24px 16px 30px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:24px 16px 30px;
 }
-
 </style>
 </head>
 
 <body>
 
 <header class="topbar">
-<div class="topbar-inner">
-<div class="brand">
-<img src="images/icon-phubook.png" alt="Phubook">
-<span>Phubook</span>
-</div>
-</div>
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="images/icon-phubook.png" alt="Phubook">
+      <span>Phubook</span>
+    </div>
+  </div>
 </header>
 
 <main class="page">
 
-<section class="hero">
-
-<div class="cover"></div>
-
-<div class="hero-bottom">
-
-<div class="profile-row">
-
-<div class="avatar">
-<img src="images/profile-phu.jpg" alt="Phu profile photo">
-</div>
-
-<div class="profile-copy">
-
-<h1 class="profile-name">
-<span class="name-with-badge">
-Phuwadech Klinklay
-<span class="badges">
-<img src="images/vrf.png" alt="">
-<img src="images/vrf.png" alt="">
-</span>
-</span>
-</h1>
-
-<div class="profile-meta">
-Digital Marketing • Graphic Designer • Hospitality Marketer<br>
-Phuket, Thailand
-</div>
-
-<div class="friends-row">
-<div class="friend-avatars">
-<span></span>
-<span></span>
-<span></span>
-</div>
-<div>Friends who don’t know me, but are inspiring</div>
-</div>
-
-<div class="profile-actions">
-<a class="contact-btn" href="mailto:refractory.liveid@gmail.com">
-<img src="images/mail.svg" alt="">
-Contact Me
-</a>
-</div>
-
-</div>
-</div>
-
-</div>
-</section>
-
-<div class="layout">
-
-<aside>
-
-<section class="card section">
-
-<h2>Personal details</h2>
-
-<div class="detail-list">
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/location.svg" alt="">
-</div>
-<div class="detail-text">
-<strong>Lives in Phuket, Thailand</strong>
-</div>
-</div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/BD.svg" alt="">
-</div>
-<div class="detail-text">
-<strong>Born in February 1988</strong>
-</div>
-</div>
-
-<div class="detail-item">
-<div class="detail-icon-wrap">
-<img class="detail-icon" src="images/relationship.svg" alt="">
-</div>
-<div class="detail-text">
-<strong>Married</strong>
-</div>
-</div>
-
-</div>
-
-<div class="subsection">
-<h3>Education</h3>
-
-<div class="detail-list">
-
-<div class="detail-item">
-<div class="logo-badge">
-<img src="images/psu-logo.png" alt="Prince of Songkla University">
-</div>
-<div class="detail-text">
-<strong>Prince of Songkla University</strong>
-<span>Computer Science</span>
-</div>
-</div>
-
-</div>
-</div>
-
-</section>
-
-<section class="card section" style="margin-top:16px">
-
-<h2>My Projects</h2>
-
-<div class="platform-grid">
-
-<a class="platform-card" href="phustagram.html">
-<img src="images/icon-phustagram.png" alt="Phustagram">
-<div>
-<strong>Phustagram</strong><br>
-<span>Visual design showcase</span>
-</div>
-</a>
-
-<a class="platform-card" href="phutube.html">
-<img src="images/icon-phutube.png" alt="PhuTube">
-<div>
-<strong>PhuTube</strong><br>
-<span>Video works</span>
-</div>
-</a>
-
-<a class="platform-card" href="phugleads.html">
-<img src="images/icon-phugleads.png" alt="PhuGle Ads">
-<div>
-<strong>Phugle Ads</strong><br>
-<span>Digital marketing projects</span>
-</div>
-</a>
-
-</div>
-
-</section>
-
-<section class="card section" style="margin-top:16px">
-
-<h2>Certifications &amp; Training</h2>
-
-<div class="cert-list">
-  
-<div class="cert-item">
-<div class="cert-logo">
-<img src="images/adobe_logo.jpg" alt="Adobe">
-</div>
-<div class="cert-text">
-<strong>Graphic Designer: Design that Demands Attention</strong>
-<div class="cert-meta">2026</div>
-</div>
-</div>
-
-<div class="cert-item">
-<div class="cert-logo">
-<img src="images/udemy_logo.jpg" alt="Udemy">
-</div>
-<div class="cert-text">
-<strong>AI-Powered Digital Advertising: Google Ads, Meta Ads, &amp; GA4</strong>
-<div class="cert-meta">2025</div>
-</div>
-</div>
-
-<div class="cert-item">
-<div class="cert-logo">
-<img src="images/adobe_logo.jpg" alt="Adobe">
-</div>
-<div class="cert-text">
-<strong>Adobe Analytics Foundations</strong>
-<div class="cert-meta">2025</div>
-</div>
-</div>
-
-<div class="cert-item">
-<div class="cert-logo">
-<img src="images/marriott_logo.jpg" alt="Marriott">
-</div>
-<div class="cert-text">
-<strong>Marriott Digital &amp; Marketing Workshop</strong>
-<div class="cert-meta">2024, 2025</div>
-</div>
-</div>
-
-<div class="cert-item">
-<div class="cert-logo">
-<img src="images/google_logo.jpg" alt="Google">
-</div>
-<div class="cert-text">
-<strong>Fundamentals of Digital Marketing by Google</strong>
-<div class="cert-meta">2022</div>
-</div>
-</div>
-
-<div class="cert-item">
-<div class="cert-logo">
-<img src="images/udemy_logo.jpg" alt="Udemy">
-</div>
-<div class="cert-text">
-<strong>Master Digital Product Design: UX Research &amp; UI Design by Rob Sutcliffe</strong>
-<div class="cert-meta">2020</div>
-</div>
-</div>
-
-</div>
-
-</section>
-
-</aside>
-
-<section>
-
-<section class="card section intro-card">
-
-<h2>"Hello, World!"</h2>
-
-<p>
-I'm Phu! A digital marketer with expertise in graphic design and over ten years of creative experience. Currently serving as Digital Marketing &amp; Communications Manager at a five-star resort, part of a global hospitality brand, I blend strategic thinking with visual creativity to craft engaging and effective marketing experiences.
-</p>
-
-</section>
-
-<article class="card post">
-
-<div class="post-head">
-
-<div class="post-author">
-
-<div class="post-author-avatar">
-<img src="images/profile-phu.jpg" alt="Phu profile photo">
-</div>
-
-<div>
-<strong>Phuwadech Klinklay</strong>
-<div style="font-size:13px;color:#666">
-Pinned post • Career journey
-</div>
-</div>
-
-</div>
-
-<div style="color:#666">•••</div>
-
-</div>
-
-<div class="post-body">
-From graphic design to digital marketing and hospitality branding, this highlights the journey that shaped my creative and strategic experience.
-</div>
-
-<div class="timeline-card">
-
-<h3 class="timeline-title">Work Experience</h3>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/HKTVK.jpg" alt="Veranda Resort Phuket">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Veranda Resort Phuket, Autograph Collection</div>
-<div class="timeline-role">Digital Marketing &amp; Communications Manager, Pre-Opening Team</div>
-<div class="timeline-year">2025 – Present</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/HKTMD.jpg" alt="Le Méridien Phuket Beach Resort">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Le Méridien Phuket Beach Resort</div>
-<div class="timeline-role">Assistant Digital Marketing Manager</div>
-<div class="timeline-year">2023-2025</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/HKTMD.jpg" alt="Le Méridien Phuket Beach Resort">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Le Méridien Phuket Beach Resort</div>
-<div class="timeline-role">Marketing Graphic Designer</div>
-<div class="timeline-year">2021-2023</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/TURE.jpg" alt="dtac &amp; True">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">dtac &amp; True Corporation, Goods Marketing Bangkok, Etc.</div>
-<div class="timeline-role">Freelance Graphic Designer</div>
-<div class="timeline-year">2020-2021</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/ACCOR.jpg" alt="Accor Group">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Swissôtel Resort Phuket Patong Beach</div>
-<div class="timeline-company">Swissôtel Suites Phuket Kamala Beach</div>
-<div class="timeline-company">Novotel Phuket Surin Beach Resort</div>
-<div class="timeline-company">Novotel Phuket Karon Beach Resort &amp; Spa</div>
-<div class="timeline-company">Novotel Hua Hin Cha Am Beach Resort &amp; Spa</div>
-<div class="timeline-role">Cluster Graphic Designer</div>
-<div class="timeline-year">2018-2020</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/ANGTH.jpg" alt="Angsana Laguna Phuket">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Angsana Laguna Phuket</div>
-<div class="timeline-role">Graphic Designer</div>
-<div class="timeline-year">2017-2018</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/LGNP.jpg" alt="Lucknganpim">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Lucknganpim (Worldlennium Graphic Design &amp; Printing)</div>
-<div class="timeline-role">Graphic Designer</div>
-<div class="timeline-year">2012-2017</div>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-logo">
-<img src="images/BCCC.jpg" alt="Blue Canyon Country Club">
-</div>
-<div class="timeline-content">
-<div class="timeline-company">Blue Canyon Country Club</div>
-<div class="timeline-role">Graphics &amp; Web Executive</div>
-<div class="timeline-year">2011-2012</div>
-</div>
-</div>
-
-</div>
-
-<div class="post-actions">
-<button>
-<img src="images/like.svg" alt="">
-Like
-</button>
-
-<button>
-<img src="images/comment.svg" alt="">
-Comment
-</button>
-
-<button>
-<img src="images/share.svg" alt="">
-Share
-</button>
-</div>
-
-</article>
-
-</section>
-
-</div>
+  <section class="hero">
+    <div class="cover"></div>
+
+    <div class="hero-bottom">
+      <div class="profile-row">
+
+        <div class="avatar">
+          <img src="images/profile-phu.jpg" alt="Phu profile photo">
+        </div>
+
+        <div class="profile-copy">
+          <h1 class="profile-name">
+            <span class="name-with-badge">
+              Phuwadech Klinklay
+              <span class="badges">
+                <img src="images/vrf.png" alt="">
+                <img src="images/vrf.png" alt="">
+              </span>
+            </span>
+          </h1>
+
+          <div class="profile-meta">
+            Digital Marketing • Graphic Designer • Hospitality Marketer<br>
+            Phuket, Thailand
+          </div>
+
+          <div class="friends-row">
+            <div class="friend-avatars">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div>Friends who don’t know me, but are inspiring</div>
+          </div>
+
+          <div class="profile-actions">
+            <a class="contact-btn" href="mailto:refractory.liveid@gmail.com">
+              <img src="images/mail.svg" alt="">
+              Contact Me
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <aside>
+
+      <section class="card section">
+        <h2>Personal details</h2>
+
+        <div class="detail-list">
+
+          <div class="detail-item">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/location.svg" alt="">
+            </div>
+            <div class="detail-text">
+              <strong>Lives in Phuket, Thailand</strong>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/BD.svg" alt="">
+            </div>
+            <div class="detail-text">
+              <strong>Born in February 1988</strong>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon-wrap">
+              <img class="detail-icon" src="images/relationship.svg" alt="">
+            </div>
+            <div class="detail-text">
+              <strong>Married</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="subsection">
+          <h3>Education</h3>
+
+          <div class="detail-list">
+            <div class="detail-item">
+              <div class="logo-badge">
+                <img src="images/psu-logo.png" alt="Prince of Songkla University">
+              </div>
+              <div class="detail-text">
+                <strong>Prince of Songkla University</strong>
+                <span>Computer Science</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card section" style="margin-top:16px">
+        <h2>My Projects</h2>
+
+        <div class="platform-grid">
+
+          <a class="platform-card" href="phustagram.html">
+            <img src="images/icon-phustagram.png" alt="Phustagram">
+            <div>
+              <strong>Phustagram</strong><br>
+              <span>Visual design showcase</span>
+            </div>
+          </a>
+
+          <a class="platform-card" href="phutube.html">
+            <img src="images/icon-phutube.png" alt="PhuTube">
+            <div>
+              <strong>PhuTube</strong><br>
+              <span>Video works</span>
+            </div>
+          </a>
+
+          <a class="platform-card" href="phugleads.html">
+            <img src="images/icon-phugleads.png" alt="PhuGle Ads">
+            <div>
+              <strong>Phugle Ads</strong><br>
+              <span>Digital marketing projects</span>
+            </div>
+          </a>
+
+          <a class="platform-card" href="phuterest.html">
+            <img
+              src="images/phuterest.jpg"
+              alt="Phuterest"
+              style="object-fit:contain;flex-shrink:0"
+            >
+            <div>
+              <strong>Phuterest</strong><br>
+              <span>Photography showcase</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <section class="card section" style="margin-top:16px">
+        <h2>Certifications &amp; Training</h2>
+
+        <div class="cert-list">
+
+          <div class="cert-item">
+            <div class="cert-logo">
+              <img src="images/adobe_logo.jpg" alt="Adobe">
+            </div>
+            <div class="cert-text">
+              <strong>Graphic Designer: Design that Demands Attention</strong>
+              <div class="cert-meta">2026</div>
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-logo">
+              <img src="images/udemy_logo.jpg" alt="Udemy">
+            </div>
+            <div class="cert-text">
+              <strong>AI-Powered Digital Advertising: Google Ads, Meta Ads, &amp; GA4</strong>
+              <div class="cert-meta">2025</div>
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-logo">
+              <img src="images/adobe_logo.jpg" alt="Adobe">
+            </div>
+            <div class="cert-text">
+              <strong>Adobe Analytics Foundations</strong>
+              <div class="cert-meta">2025</div>
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-logo">
+              <img src="images/marriott_logo.jpg" alt="Marriott">
+            </div>
+            <div class="cert-text">
+              <strong>Marriott Digital &amp; Marketing Workshop</strong>
+              <div class="cert-meta">2024, 2025</div>
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-logo">
+              <img src="images/google_logo.jpg" alt="Google">
+            </div>
+            <div class="cert-text">
+              <strong>Fundamentals of Digital Marketing by Google</strong>
+              <div class="cert-meta">2022</div>
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-logo">
+              <img src="images/udemy_logo.jpg" alt="Udemy">
+            </div>
+            <div class="cert-text">
+              <strong>Master Digital Product Design: UX Research &amp; UI Design by Rob Sutcliffe</strong>
+              <div class="cert-meta">2020</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </aside>
+
+    <section>
+
+      <section class="card section intro-card">
+        <h2>"Hello, World!"</h2>
+
+        <p>
+          I'm Phu! A digital marketer with expertise in graphic design and over ten years of creative experience. Currently serving as a Visual Communications Designer, I blend strategic thinking with visual creativity to craft engaging and effective marketing experiences.
+        </p>
+      </section>
+
+      <article class="card post">
+
+        <div class="post-head">
+          <div class="post-author">
+
+            <div class="post-author-avatar">
+              <img src="images/profile-phu.jpg" alt="Phu profile photo">
+            </div>
+
+            <div>
+              <strong>Phuwadech Klinklay</strong>
+              <div style="font-size:13px;color:#666">
+                Pinned post • Career journey
+              </div>
+            </div>
+
+          </div>
+
+          <div style="color:#666">•••</div>
+        </div>
+
+        <div class="post-body">
+          From graphic design to digital marketing and hospitality branding, this highlights the journey that shaped my creative and strategic experience.
+        </div>
+
+        <div class="timeline-card">
+
+          <h3 class="timeline-title">Work Experience</h3>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/icpk.jpg" alt="InterContinental Phuket Resort">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">InterContinental Phuket Resort</div>
+              <div class="timeline-role">Visual Communications Designer</div>
+              <div class="timeline-year">2026 – Present</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/HKTVK.jpg" alt="Veranda Resort Phuket">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Veranda Resort Phuket, Autograph Collection</div>
+              <div class="timeline-role">Digital Marketing &amp; Communications Manager, Pre-Opening Team</div>
+              <div class="timeline-year">2025 – 2026</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/HKTMD.jpg" alt="Le Méridien Phuket Beach Resort">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Le Méridien Phuket Beach Resort</div>
+              <div class="timeline-role">Assistant Digital Marketing Manager</div>
+              <div class="timeline-year">2023-2025</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/HKTMD.jpg" alt="Le Méridien Phuket Beach Resort">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Le Méridien Phuket Beach Resort</div>
+              <div class="timeline-role">Marketing Graphic Designer</div>
+              <div class="timeline-year">2021-2023</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/TURE.jpg" alt="dtac &amp; True">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">dtac &amp; True Corporation, Goods Marketing Bangkok, Etc.</div>
+              <div class="timeline-role">Freelance Graphic Designer</div>
+              <div class="timeline-year">2020-2021</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/ACCOR.jpg" alt="Accor Group">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Swissôtel Resort Phuket Patong Beach</div>
+              <div class="timeline-company">Swissôtel Suites Phuket Kamala Beach</div>
+              <div class="timeline-company">Novotel Phuket Surin Beach Resort</div>
+              <div class="timeline-company">Novotel Phuket Karon Beach Resort &amp; Spa</div>
+              <div class="timeline-company">Novotel Hua Hin Cha Am Beach Resort &amp; Spa</div>
+              <div class="timeline-role">Cluster Graphic Designer</div>
+              <div class="timeline-year">2018-2020</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/ANGTH.jpg" alt="Angsana Laguna Phuket">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Angsana Laguna Phuket</div>
+              <div class="timeline-role">Graphic Designer</div>
+              <div class="timeline-year">2017-2018</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/LGNP.jpg" alt="Lucknganpim">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Lucknganpim (Worldlennium Graphic Design &amp; Printing)</div>
+              <div class="timeline-role">Graphic Designer</div>
+              <div class="timeline-year">2012-2017</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-logo">
+              <img src="images/BCCC.jpg" alt="Blue Canyon Country Club">
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-company">Blue Canyon Country Club</div>
+              <div class="timeline-role">Graphics &amp; Web Executive</div>
+              <div class="timeline-year">2011-2012</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="post-actions">
+          <button>
+            <img src="images/like.svg" alt="">
+            Like
+          </button>
+
+          <button>
+            <img src="images/comment.svg" alt="">
+            Comment
+          </button>
+
+          <button>
+            <img src="images/share.svg" alt="">
+            Share
+          </button>
+        </div>
+
+      </article>
+
+    </section>
+
+  </div>
 
 </main>
+
 <footer class="site-footer">
   © 2026 Phuwadech Klinklay
 </footer>
