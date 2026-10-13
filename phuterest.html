@@ -15,6 +15,7 @@
       --text: #202020;
       --muted: #737373;
       --border: #e9e9e9;
+      --accent: #bd142a;
       --sidebar-width: 100px;
     }
 
@@ -52,7 +53,7 @@
     button:focus-visible,
     a:focus-visible,
     input:focus-visible {
-      outline: 3px solid var(--text);
+      outline: 3px solid var(--accent);
       outline-offset: 4px;
     }
 
@@ -73,7 +74,7 @@
       top: 12px;
     }
 
-    /* Desktop sidebar */
+    /* Sidebar */
 
     .sidebar {
       position: fixed;
@@ -97,8 +98,8 @@
       width: 48px;
       height: 48px;
       margin-bottom: 14px;
-      overflow: hidden;
       border-radius: 50%;
+      overflow: hidden;
     }
 
     .sidebar-logo img {
@@ -109,7 +110,7 @@
     }
 
     .logo-fallback {
-      color: var(--text);
+      color: var(--accent);
       font-size: 28px;
       font-weight: 700;
     }
@@ -126,27 +127,24 @@
       padding: 4px 0;
     }
 
-    /* Original project logos displayed in black and white */
-
     .nav-icon {
       display: grid;
       place-items: center;
-      flex-shrink: 0;
       width: 47px;
       height: 47px;
-      padding: 7px;
       border-radius: 50%;
       background: #f4f4f2;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
-    .nav-icon img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%;
-      filter: grayscale(100%);
+    .nav-icon svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .nav-label {
@@ -160,9 +158,8 @@
     }
 
     .nav-link.active .nav-icon {
-      background: #f4f4f2;
-      outline: 2px solid var(--text);
-      outline-offset: 3px;
+      background: var(--text);
+      color: #ffffff;
     }
 
     /* Main page */
@@ -215,7 +212,7 @@
     }
 
     .search-box:focus-within {
-      box-shadow: 0 0 0 3px #d5d5d5;
+      box-shadow: 0 0 0 3px #e1b4bb;
     }
 
     .search-box input:focus-visible {
@@ -229,10 +226,10 @@
     }
 
     .back-link:hover {
-      text-decoration: underline;
+      color: var(--accent);
     }
 
-    /* Page heading */
+    /* Heading */
 
     .intro {
       display: flex;
@@ -373,7 +370,7 @@
       text-align: center;
     }
 
-    /* Centred footer */
+    /* Footer */
 
     footer {
       display: flex;
@@ -420,9 +417,9 @@
     .viewer-button {
       display: grid;
       place-items: center;
-      flex-shrink: 0;
       width: 44px;
       height: 44px;
+      flex-shrink: 0;
       padding: 0;
       border: 0;
       border-radius: 50%;
@@ -502,7 +499,7 @@
     }
 
     @media (max-width: 700px) {
-      /* Sidebar becomes bottom navigation */
+      /* Bottom navigation on mobile */
 
       .sidebar {
         inset: auto 0 0;
@@ -531,7 +528,11 @@
       .nav-icon {
         width: 36px;
         height: 36px;
-        padding: 5px;
+      }
+
+      .nav-icon svg {
+        width: 20px;
+        height: 20px;
       }
 
       .nav-label {
@@ -667,28 +668,39 @@
 
     <a class="nav-link" href="index.html">
       <span class="nav-icon">
-        <img src="images/icon-phubook.png" alt="">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m3 10 9-7 9 7v10H3Z M9 20v-7h6v7"/>
+        </svg>
       </span>
       <span class="nav-label">Phubook</span>
     </a>
 
     <a class="nav-link" href="phustagram.html">
       <span class="nav-icon">
-        <img src="images/icon-phustagram.png" alt="">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M17 7h.01"/>
+        </svg>
       </span>
       <span class="nav-label">Phustagram</span>
     </a>
 
     <a class="nav-link" href="phutube.html">
       <span class="nav-icon">
-        <img src="images/icon-phutube.png" alt="">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="5" width="20" height="14" rx="4"/>
+          <path d="m10 9 5 3-5 3Z"/>
+        </svg>
       </span>
       <span class="nav-label">PhuTube</span>
     </a>
 
     <a class="nav-link" href="phugleads.html">
       <span class="nav-icon">
-        <img src="images/icon-phugleads.png" alt="">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 20V12M12 20V4M20 20V8"/>
+        </svg>
       </span>
       <span class="nav-label">Phugle Ads</span>
     </a>
@@ -699,7 +711,10 @@
       aria-current="page"
     >
       <span class="nav-icon">
-        <img src="images/phuterest.jpg" alt="">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <path d="M10 3v18M10 12h11"/>
+        </svg>
       </span>
       <span class="nav-label">Phuterest</span>
     </a>
@@ -812,12 +827,16 @@
     "use strict";
 
     /*
+      PHOTO SETTINGS
+
       Logo: images/phuterest.jpg
-      Photographs: images/ptr1.jpg through images/ptr11.jpg
+
+      Photographs:
+      images/ptr1.jpg through images/ptr11.jpg
 
       Edit titles below whenever needed.
-      Add an alt property for a more detailed image description.
-      Photographs retain their original proportions and colours.
+      Add a descriptive alt property to any entry if desired.
+      Original image proportions are preserved.
     */
 
     const photos = [
@@ -1065,10 +1084,10 @@
       }
     });
 
-    /* Hide missing logos; navigation labels remain visible. */
+    /* Logo fallback */
 
     document
-      .querySelectorAll(".sidebar img, .intro-logo")
+      .querySelectorAll('img[src="images/phuterest.jpg"]')
       .forEach(image => {
         const showFallback = () => {
           image.hidden = true;
